@@ -1,0 +1,2106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="国内外主流 AI 通用大模型网址导航，聚合 OpenAI、Claude、Gemini、Llama、DeepSeek、Qwen、文心、混元、GLM 等模型入口。"
+    />
+    <title>AI 大模型导航 | Global LLM Hub</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #05070d;
+        --panel: rgba(15, 23, 42, 0.72);
+        --panel-strong: rgba(10, 18, 32, 0.94);
+        --line: rgba(148, 163, 184, 0.2);
+        --line-bright: rgba(103, 232, 249, 0.38);
+        --text: #eef6ff;
+        --muted: #9fb0c4;
+        --cyan: #67e8f9;
+        --green: #86efac;
+        --amber: #fcd34d;
+        --rose: #fda4af;
+        --violet: #c4b5fd;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.36);
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+          sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background:
+          radial-gradient(circle at 18% 10%, rgba(103, 232, 249, 0.2), transparent 26rem),
+          radial-gradient(circle at 86% 18%, rgba(253, 164, 175, 0.14), transparent 24rem),
+          radial-gradient(circle at 66% 84%, rgba(134, 239, 172, 0.12), transparent 27rem),
+          linear-gradient(135deg, #05070d 0%, #08101c 48%, #060711 100%);
+        color: var(--text);
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        content: "";
+        background-image:
+          linear-gradient(rgba(103, 232, 249, 0.07) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(103, 232, 249, 0.07) 1px, transparent 1px);
+        background-size: 54px 54px;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent 82%);
+      }
+
+      body::after {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        content: "";
+        background:
+          linear-gradient(120deg, transparent 0 42%, rgba(103, 232, 249, 0.09) 44%, transparent 46% 100%),
+          repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 4px);
+        opacity: 0.72;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 36px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        background: rgba(5, 7, 13, 0.78);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 18px;
+      }
+
+      .top-search {
+        width: min(420px, 42vw);
+      }
+
+      .nav-tools {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .share-button {
+        position: relative;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        flex: 0 0 auto;
+        cursor: pointer;
+        place-items: center;
+        border: 1px solid rgba(103, 232, 249, 0.3);
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.68);
+        color: var(--cyan);
+        transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+      }
+
+      .share-button:hover {
+        border-color: rgba(103, 232, 249, 0.55);
+        background: rgba(103, 232, 249, 0.12);
+        transform: translateY(-1px);
+      }
+
+      .share-button svg {
+        width: 19px;
+        height: 19px;
+      }
+
+      .share-toast {
+        position: fixed;
+        right: 22px;
+        bottom: 78px;
+        z-index: 40;
+        border: 1px solid rgba(103, 232, 249, 0.28);
+        border-radius: 8px;
+        padding: 10px 13px;
+        background: rgba(10, 18, 32, 0.9);
+        box-shadow: var(--shadow);
+        color: #c8f7ff;
+        font-size: 13px;
+        font-weight: 800;
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(8px);
+        transition: opacity 180ms ease, transform 180ms ease;
+        backdrop-filter: blur(14px);
+      }
+
+      .share-toast.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        min-width: 0;
+        gap: 12px;
+        font-weight: 800;
+        letter-spacing: 0;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 1px solid rgba(103, 232, 249, 0.35);
+        border-radius: 8px;
+        background:
+          linear-gradient(135deg, rgba(103, 232, 249, 0.26), rgba(134, 239, 172, 0.14)),
+          rgba(15, 23, 42, 0.86);
+        box-shadow: 0 0 24px rgba(103, 232, 249, 0.18);
+        color: var(--cyan);
+      }
+
+      .brand small {
+        display: block;
+        margin-top: 2px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .nav-links a,
+      .chip {
+        border: 1px solid rgba(148, 163, 184, 0.16);
+        border-radius: 8px;
+        background: rgba(15, 23, 42, 0.5);
+        color: #c8d4e4;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .nav-links a {
+        padding: 10px 13px;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.15fr 0.85fr;
+        align-items: center;
+        min-height: calc(100vh - 72px);
+        padding: 78px 0 58px;
+        gap: 46px;
+      }
+
+      .kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 18px;
+        color: var(--cyan);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .pulse {
+        width: 8px;
+        height: 8px;
+        border-radius: 99px;
+        background: var(--green);
+        box-shadow: 0 0 0 6px rgba(134, 239, 172, 0.12), 0 0 22px rgba(134, 239, 172, 0.7);
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 0;
+        font-size: clamp(44px, 7vw, 88px);
+        line-height: 0.98;
+        letter-spacing: 0;
+      }
+
+      .hero p {
+        max-width: 660px;
+        margin: 22px 0 0;
+        color: #bdd0e6;
+        font-size: 18px;
+        line-height: 1.8;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        margin-top: 32px;
+        gap: 12px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 8px;
+        padding: 0 16px;
+        background: rgba(15, 23, 42, 0.78);
+        color: var(--text);
+        font-weight: 800;
+      }
+
+      .button.primary {
+        border-color: rgba(103, 232, 249, 0.5);
+        background: linear-gradient(135deg, rgba(103, 232, 249, 0.95), rgba(134, 239, 172, 0.9));
+        color: #041017;
+        box-shadow: 0 16px 40px rgba(103, 232, 249, 0.18);
+      }
+
+      .orbital {
+        position: relative;
+        min-height: 330px;
+      }
+
+      .radar {
+        position: absolute;
+        inset: 10px 0 0 auto;
+        width: min(310px, 100%);
+        aspect-ratio: 1;
+        border: 1px solid rgba(103, 232, 249, 0.22);
+        border-radius: 50%;
+        background:
+          linear-gradient(90deg, transparent 49.8%, rgba(103, 232, 249, 0.2) 50%, transparent 50.2%),
+          linear-gradient(0deg, transparent 49.8%, rgba(103, 232, 249, 0.2) 50%, transparent 50.2%),
+          radial-gradient(circle, rgba(103, 232, 249, 0.1) 0 2px, transparent 3px),
+          radial-gradient(circle, transparent 0 32%, rgba(103, 232, 249, 0.16) 32.2% 32.8%, transparent 33% 100%),
+          radial-gradient(circle, transparent 0 62%, rgba(253, 164, 175, 0.13) 62.2% 62.8%, transparent 63% 100%),
+          rgba(5, 7, 13, 0.18);
+        box-shadow: inset 0 0 60px rgba(103, 232, 249, 0.08), var(--shadow);
+      }
+
+      .radar::after {
+        position: absolute;
+        inset: 50% auto auto 50%;
+        width: 48%;
+        height: 2px;
+        content: "";
+        transform-origin: left center;
+        animation: scan 7s linear infinite;
+        background: linear-gradient(90deg, rgba(103, 232, 249, 0.95), transparent);
+        box-shadow: 0 0 18px rgba(103, 232, 249, 0.6);
+      }
+
+      @keyframes scan {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .float-card {
+        position: absolute;
+        width: min(210px, 72vw);
+        border: 1px solid rgba(148, 163, 184, 0.22);
+        border-radius: 8px;
+        padding: 13px;
+        background: rgba(10, 18, 32, 0.78);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(16px);
+      }
+
+      .float-card strong {
+        display: block;
+        font-size: 13px;
+      }
+
+      .float-card span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .float-card.one {
+        top: 16px;
+        right: 0;
+      }
+
+      .float-card.two {
+        top: 132px;
+        left: 0;
+      }
+
+      .float-card.three {
+        right: 20px;
+        bottom: 12px;
+      }
+
+      main {
+        padding-bottom: 72px;
+      }
+
+      .toolbar {
+        display: none;
+      }
+
+      .search {
+        position: relative;
+      }
+
+      .search input {
+        width: 100%;
+        min-height: 54px;
+        border: 1px solid rgba(148, 163, 184, 0.2);
+        border-radius: 8px;
+        padding: 0 18px 0 48px;
+        outline: none;
+        background: rgba(15, 23, 42, 0.76);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+        color: var(--text);
+        font: inherit;
+      }
+
+      .search svg {
+        position: absolute;
+        top: 50%;
+        left: 17px;
+        width: 18px;
+        height: 18px;
+        transform: translateY(-50%);
+        color: var(--cyan);
+      }
+
+      .chip {
+        min-height: 40px;
+        cursor: pointer;
+        padding: 0 12px;
+      }
+
+      .chip.active {
+        border-color: rgba(103, 232, 249, 0.55);
+        background: rgba(103, 232, 249, 0.14);
+        color: var(--text);
+      }
+
+      .section {
+        margin-top: 46px;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        margin-bottom: 18px;
+        gap: 18px;
+      }
+
+      .section h2 {
+        margin: 0;
+        font-size: clamp(28px, 4vw, 42px);
+        letter-spacing: 0;
+      }
+
+      .section-head p {
+        max-width: 530px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .model-card {
+        position: relative;
+        min-height: 230px;
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 8px;
+        padding: 20px;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(103, 232, 249, 0.09), transparent 32%),
+          rgba(15, 23, 42, 0.68);
+        box-shadow: 0 14px 46px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+      }
+
+      .model-card:hover {
+        border-color: var(--line-bright);
+        background:
+          linear-gradient(135deg, rgba(103, 232, 249, 0.16), transparent 36%),
+          rgba(15, 23, 42, 0.88);
+        transform: translateY(-3px);
+      }
+
+      .card-top {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .logo {
+        display: grid;
+        width: 46px;
+        height: 46px;
+        place-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--accent);
+        font-weight: 900;
+      }
+
+      .logo img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+      }
+
+      .tag {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 999px;
+        padding: 6px 9px;
+        color: #d4e0ef;
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .meta-badges {
+        display: flex;
+        flex-wrap: wrap;
+        min-height: 25px;
+        margin-top: 14px;
+        gap: 6px;
+      }
+
+      .badge {
+        border: 1px solid rgba(103, 232, 249, 0.2);
+        border-radius: 999px;
+        padding: 4px 8px;
+        background: rgba(103, 232, 249, 0.08);
+        color: #c8f7ff;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .model-card h3 {
+        margin: 18px 0 8px;
+        font-size: 22px;
+        letter-spacing: 0;
+      }
+
+      .model-card p {
+        margin: 0;
+        color: #b8c7da;
+        font-size: 14px;
+        line-height: 1.75;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        margin-top: 18px;
+        color: var(--accent);
+        font-weight: 900;
+        gap: 8px;
+      }
+
+      .card-link svg {
+        width: 16px;
+        height: 16px;
+        transition: transform 180ms ease;
+      }
+
+      .model-card:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 3px;
+      }
+
+      .model-card:hover .card-link svg {
+        transform: translateX(4px);
+      }
+
+      .more-link {
+        display: inline-flex;
+        flex: 0 0 auto;
+        align-items: center;
+        gap: 8px;
+        color: var(--cyan);
+        font-size: 14px;
+        font-weight: 900;
+        white-space: nowrap;
+      }
+
+      .more-link svg {
+        width: 16px;
+        height: 16px;
+        transition: transform 180ms ease;
+      }
+
+      .more-link:hover svg {
+        transform: translateX(4px);
+      }
+
+      .empty {
+        display: none;
+        border: 1px dashed rgba(148, 163, 184, 0.26);
+        border-radius: 8px;
+        padding: 34px;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      .back-top {
+        position: fixed;
+        right: 22px;
+        bottom: 22px;
+        z-index: 30;
+        display: grid;
+        width: 44px;
+        height: 44px;
+        cursor: pointer;
+        place-items: center;
+        border: 1px solid rgba(103, 232, 249, 0.34);
+        border-radius: 8px;
+        background: rgba(10, 18, 32, 0.82);
+        box-shadow: var(--shadow);
+        color: var(--cyan);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease, transform 180ms ease;
+        backdrop-filter: blur(14px);
+      }
+
+      .back-top.visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .back-top:hover {
+        transform: translateY(-2px);
+      }
+
+      .footer {
+        border-top: 1px solid rgba(148, 163, 184, 0.14);
+        padding: 28px 0;
+        color: var(--muted);
+        font-size: 13px;
+        text-align: center;
+      }
+
+      @media (max-width: 960px) {
+        .hero {
+          grid-template-columns: 1fr;
+          min-height: auto;
+          padding-top: 54px;
+        }
+
+        .orbital {
+          min-height: 320px;
+        }
+
+        .radar {
+          left: 50%;
+          transform: translateX(-50%);
+        }
+
+        .grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .toolbar {
+          grid-template-columns: 1fr;
+        }
+
+      }
+
+      @media (max-width: 680px) {
+        .shell {
+          width: min(100% - 24px, 1180px);
+        }
+
+        .nav {
+          align-items: flex-start;
+          flex-direction: column;
+          padding: 14px 0;
+        }
+
+        .top-search {
+          width: 100%;
+        }
+
+        .nav-tools {
+          width: 100%;
+        }
+
+        .nav-tools .search {
+          min-width: 0;
+          flex: 1 1 auto;
+        }
+
+        .nav-links {
+          width: 100%;
+          overflow-x: auto;
+          padding-bottom: 2px;
+        }
+
+        .nav-links a {
+          flex: 0 0 auto;
+        }
+
+        .hero {
+          padding: 44px 0 36px;
+        }
+
+        .hero p {
+          font-size: 16px;
+        }
+
+        .orbital {
+          min-height: 270px;
+        }
+
+        .float-card {
+          width: 180px;
+          padding: 11px;
+        }
+
+        .float-card span {
+          font-size: 11px;
+        }
+
+        .float-card.one {
+          top: 8px;
+          right: 0;
+        }
+
+        .float-card.two {
+          top: 104px;
+          left: 0;
+        }
+
+        .float-card.three {
+          right: 0;
+          bottom: 8px;
+        }
+
+        .section-head {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <nav class="shell nav" aria-label="主导航">
+        <a class="brand" href="#top" aria-label="AI 大模型导航首页">
+          <span class="brand-mark" aria-hidden="true">AI</span>
+          <span>
+            AI 大模型导航
+            <small>Global LLM Hub</small>
+          </span>
+        </a>
+        <div class="nav-tools">
+          <form class="search top-search" action="search.html" method="get" role="search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input id="search" name="q" type="search" placeholder="搜索 AI 入口" />
+          </form>
+          <button class="share-button" type="button" aria-label="分享本站" title="分享本站">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <path d="m8.6 10.5 6.8-4"></path>
+              <path d="m8.6 13.5 6.8 4"></path>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="shell hero" aria-labelledby="hero-title">
+        <div>
+          <div class="kicker"><span class="pulse" aria-hidden="true"></span> Live AI Directory</div>
+          <h1 id="hero-title">汇聚全球主流 AI 大模型入口</h1>
+          <p>
+            一页收纳国内外高频使用的大模型产品入口，按地区和能力快速浏览。
+            从基础模型、Agent、研究搜索到编程开发和多模态创作，打开即用。
+          </p>
+        </div>
+        <div class="orbital" aria-hidden="true">
+          <div class="radar"></div>
+          <div class="float-card one">
+            <strong>Multimodal Intelligence</strong>
+            <span>文本、图像、语音、文件理解逐渐成为主流模型标配。</span>
+          </div>
+          <div class="float-card two">
+            <strong>Agentic Workflow</strong>
+            <span>从问答走向搜索、写作、编程和复杂任务自动化。</span>
+          </div>
+          <div class="float-card three">
+            <strong>Open + Proprietary</strong>
+            <span>开源模型生态与闭源旗舰产品并行演进。</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="directory" class="shell" aria-label="模型导航目录">
+        <div id="global" class="section">
+          <div class="section-head">
+            <h2>国外主流大模型</h2>
+            <p>覆盖全球主流基础模型、模型家族、开发者平台和开源模型生态，而不是单一应用入口。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="global" data-tags="chat code office multimodal" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="openai.com">GPT</span><span class="tag">OpenAI</span></div>
+              <h3>OpenAI Models</h3>
+              <p>OpenAI 的模型入口，覆盖 GPT、推理、多模态、图像、音频等通用基础模型与开发者能力。</p>
+              <a class="card-link" href="https://openai.com/models/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="chat code office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="anthropic.com">CL</span><span class="tag">Anthropic</span></div>
+              <h3>Claude Models</h3>
+              <p>Anthropic 的 Claude 模型家族入口，包含面向复杂推理、代码、长上下文和企业应用的模型系列。</p>
+              <a class="card-link" href="https://docs.anthropic.com/en/docs/about-claude/models/overview" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="chat office multimodal search" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="deepmind.google">GE</span><span class="tag">Google</span></div>
+              <h3>Gemini</h3>
+              <p>Google DeepMind 的 Gemini 模型家族，面向文本、代码、图像、音频、视频和长上下文多模态任务。</p>
+              <a class="card-link" href="https://deepmind.google/models/gemini/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="chat code open multimodal" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="ai.meta.com">LL</span><span class="tag">Meta</span></div>
+              <h3>Llama</h3>
+              <p>Meta 的开放权重大模型家族，覆盖文本、代码、多模态和端侧部署，是开源生态的重要基座。</p>
+              <a class="card-link" href="https://ai.meta.com/llama/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="office chat code multimodal" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="amazon.science">NV</span><span class="tag">Amazon</span></div>
+              <h3>Amazon Nova</h3>
+              <p>Amazon 的基础模型家族，面向文本、多模态理解、内容生成和企业级云上 AI 应用。</p>
+              <a class="card-link" href="https://aws.amazon.com/ai/generative-ai/nova/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="chat search" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="grok.com">GX</span><span class="tag">xAI</span></div>
+              <h3>Grok</h3>
+              <p>xAI 的通用大模型系列，面向推理、代码、实时信息理解和多模态任务。</p>
+              <a class="card-link" href="https://x.ai/grok" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="chat code open" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="mistral.ai">MS</span><span class="tag">Mistral AI</span></div>
+              <h3>Mistral Models</h3>
+              <p>Mistral AI 的模型平台，覆盖开源权重模型、商用 API、推理模型和多语言开发者场景。</p>
+              <a class="card-link" href="https://mistral.ai/technology/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="chat code office" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="cohere.com">CO</span><span class="tag">Cohere</span></div>
+              <h3>Command</h3>
+              <p>Cohere 的企业级通用模型系列，侧重检索增强、工具调用、多语言和生产环境部署。</p>
+              <a class="card-link" href="https://cohere.com/models" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="open code chat multimodal" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="ai21.com">J</span><span class="tag">AI21 Labs</span></div>
+              <h3>Jamba</h3>
+              <p>AI21 Labs 的通用模型系列，结合长上下文、企业文本处理和生成式应用开发能力。</p>
+              <a class="card-link" href="https://www.ai21.com/jamba" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="open code chat multimodal" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="huggingface.co">HF</span><span class="tag">Hugging Face</span></div>
+              <h3>Hugging Face Models</h3>
+              <p>全球模型、数据集和 Space 应用社区，可检索开源大模型、多模态模型和推理端点。</p>
+              <a class="card-link" href="https://huggingface.co/models" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code open chat multimodal" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="together.ai">TG</span><span class="tag">Together AI</span></div>
+              <h3>Together AI</h3>
+              <p>开放模型云平台，提供 Llama、Qwen、DeepSeek 等模型的训练、微调和推理服务。</p>
+              <a class="card-link" href="https://www.together.ai/models" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code open chat multimodal" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="fireworks.ai">FW</span><span class="tag">Fireworks AI</span></div>
+              <h3>Fireworks AI</h3>
+              <p>高性能模型推理平台，面向开源大模型、Serverless 推理、微调和生产级 API 部署。</p>
+              <a class="card-link" href="https://fireworks.ai/models" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code open multimodal" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="replicate.com">RP</span><span class="tag">Replicate</span></div>
+              <h3>Replicate</h3>
+              <p>云端模型运行平台，可调用图像、视频、语音、LLM 和开源模型 API。</p>
+              <a class="card-link" href="https://replicate.com/explore" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code chat open" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="groq.com">GQ</span><span class="tag">Groq</span></div>
+              <h3>GroqCloud</h3>
+              <p>以低延迟推理闻名的模型 API 平台，支持多种开放权重模型的高速调用。</p>
+              <a class="card-link" href="https://console.groq.com/docs/models" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code chat open" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="cerebras.ai">CB</span><span class="tag">Cerebras</span></div>
+              <h3>Cerebras Inference</h3>
+              <p>面向大模型高速推理的云平台，提供开放模型 API 和企业级部署能力。</p>
+              <a class="card-link" href="https://www.cerebras.ai/inference" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code office multimodal" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="microsoft.com">AZ</span><span class="tag">Microsoft</span></div>
+              <h3>Azure AI Foundry</h3>
+              <p>微软 AI 模型与应用平台，聚合 OpenAI、开源模型和企业级 Agent 开发能力。</p>
+              <a class="card-link" href="https://ai.azure.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="office code chat" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="ibm.com">IB</span><span class="tag">IBM</span></div>
+              <h3>IBM Granite</h3>
+              <p>IBM 的企业级基础模型家族，覆盖语言、代码、时间序列和可信 AI 场景。</p>
+              <a class="card-link" href="https://www.ibm.com/granite" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code office chat" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="databricks.com">DB</span><span class="tag">Databricks</span></div>
+              <h3>Mosaic AI</h3>
+              <p>Databricks 的模型训练、部署和治理平台，面向企业数据与生成式 AI 应用。</p>
+              <a class="card-link" href="https://www.databricks.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="global" data-tags="code office chat" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="snowflake.com">SF</span><span class="tag">Snowflake</span></div>
+              <h3>Snowflake Cortex AI</h3>
+              <p>Snowflake 的企业 AI 与模型服务入口，面向数据云中的文本、搜索和应用智能。</p>
+              <a class="card-link" href="https://www.snowflake.com/en/data-cloud/cortex/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="china" class="section">
+          <div class="section-head">
+            <h2>国内主流大模型</h2>
+            <p>聚合国内主流基础模型家族、模型开放平台和开发者入口，覆盖中文、代码、多模态和行业应用。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="china" data-tags="chat code open" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="deepseek.com">DS</span><span class="tag">DeepSeek</span></div>
+              <h3>DeepSeek</h3>
+              <p>深度求索的大模型与 API 平台，覆盖推理、代码、通用文本和开放权重模型生态。</p>
+              <a class="card-link" href="https://api-docs.deepseek.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="qwen.ai">QW</span><span class="tag">阿里云</span></div>
+              <h3>通义千问 / Qwen</h3>
+              <p>阿里通义千问模型家族，覆盖开源权重、代码、多模态、长上下文和企业级模型服务。</p>
+              <a class="card-link" href="https://qwenlm.github.io/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat search office" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="baidu.com">WY</span><span class="tag">百度</span></div>
+              <h3>文心大模型 / ERNIE</h3>
+              <p>百度文心大模型家族与千帆平台入口，面向中文理解、生成、多模态和企业应用开发。</p>
+              <a class="card-link" href="https://cloud.baidu.com/product/wenxinworkshop" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat search office multimodal" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="doubao.com">DB</span><span class="tag">字节跳动</span></div>
+              <h3>豆包大模型 / Seed</h3>
+              <p>字节跳动 Seed/豆包模型家族，覆盖文本、语音、视觉、视频生成和火山引擎企业服务。</p>
+              <a class="card-link" href="https://www.volcengine.com/product/doubao" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat search office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="moonshot.cn">KM</span><span class="tag">Moonshot AI</span></div>
+              <h3>Moonshot / Kimi Models</h3>
+              <p>月之暗面的大模型开放平台，主打长上下文、文件理解、复杂推理和中文应用开发。</p>
+              <a class="card-link" href="https://platform.moonshot.cn/docs" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat search office multimodal" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="tencent.com">YB</span><span class="tag">腾讯</span></div>
+              <h3>腾讯混元</h3>
+              <p>腾讯混元大模型开放平台，覆盖文本生成、图像、多模态、企业知识库和行业应用。</p>
+              <a class="card-link" href="https://hunyuan.tencent.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="chatglm.cn">ZP</span><span class="tag">智谱</span></div>
+              <h3>智谱 GLM</h3>
+              <p>智谱 AI 的 GLM 模型开放平台，覆盖通用对话、代码、多模态、智能体和企业级调用。</p>
+              <a class="card-link" href="https://open.bigmodel.cn/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat office multimodal" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="sensetime.com">SP</span><span class="tag">商汤</span></div>
+              <h3>日日新 / SenseNova</h3>
+              <p>商汤日日新大模型体系，面向语言、视觉、多模态生成和行业智能化应用。</p>
+              <a class="card-link" href="https://www.sensetime.com/cn" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat search office" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="tiangong.cn">TG</span><span class="tag">昆仑万维</span></div>
+              <h3>天工大模型</h3>
+              <p>昆仑万维天工大模型体系，覆盖中文生成、搜索增强、多模态创作和开放平台能力。</p>
+              <a class="card-link" href="https://model-platform.tiangong.cn/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat multimodal office" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="hailuoai.com">HX</span><span class="tag">MiniMax</span></div>
+              <h3>MiniMax Models</h3>
+              <p>MiniMax 大模型开放平台，覆盖文本、语音、多模态、角色智能和长上下文应用开发。</p>
+              <a class="card-link" href="https://www.minimaxi.com/platform" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat office multimodal" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="xfyun.cn">XF</span><span class="tag">科大讯飞</span></div>
+              <h3>讯飞星火</h3>
+              <p>科大讯飞的大模型体系，覆盖中文对话、教育办公、语音、多模态和行业应用。</p>
+              <a class="card-link" href="https://xinghuo.xfyun.cn/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="baichuan-ai.com">BC</span><span class="tag">百川智能</span></div>
+              <h3>百川大模型</h3>
+              <p>百川智能的通用大模型与开放平台，面向中文知识、医疗、企业和开发者应用。</p>
+              <a class="card-link" href="https://www.baichuan-ai.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open multimodal" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="01.ai">YI</span><span class="tag">零一万物</span></div>
+              <h3>Yi Models</h3>
+              <p>零一万物 Yi 模型家族入口，覆盖开源模型、长上下文、多模态和开发者生态。</p>
+              <a class="card-link" href="https://www.01.ai/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code multimodal office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="stepfun.com">ST</span><span class="tag">阶跃星辰</span></div>
+              <h3>StepFun</h3>
+              <p>阶跃星辰的大模型与开放平台，面向通用智能、多模态理解和应用开发。</p>
+              <a class="card-link" href="https://platform.stepfun.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat office multimodal" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="360.cn">360</span><span class="tag">360</span></div>
+              <h3>360 智脑</h3>
+              <p>360 的大模型与 AI 产品体系，面向搜索、办公、安全和中文智能助手场景。</p>
+              <a class="card-link" href="https://ai.360.com/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open multimodal" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="modelscope.cn">MS</span><span class="tag">魔搭</span></div>
+              <h3>ModelScope</h3>
+              <p>国内模型开源社区和模型托管平台，覆盖 LLM、语音、视觉、多模态和数据集。</p>
+              <a class="card-link" href="https://www.modelscope.cn/models" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="openxlab.org.cn">IL</span><span class="tag">上海 AI Lab</span></div>
+              <h3>书生浦语 InternLM</h3>
+              <p>上海人工智能实验室的开源大模型体系，覆盖语言、代码、智能体和工具链生态。</p>
+              <a class="card-link" href="https://internlm.intern-ai.org.cn/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat code open multimodal" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="openbmb.cn">BM</span><span class="tag">OpenBMB</span></div>
+              <h3>OpenBMB / MiniCPM</h3>
+              <p>面向端侧和开源生态的模型项目，覆盖 MiniCPM、Agent、工具调用和轻量化部署。</p>
+              <a class="card-link" href="https://www.openbmb.cn/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="code chat open" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="siliconflow.cn">SF</span><span class="tag">硅基流动</span></div>
+              <h3>SiliconFlow</h3>
+              <p>国内高性能模型云平台，提供开源模型推理、部署、模型广场和 API 服务。</p>
+              <a class="card-link" href="https://siliconflow.cn/" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="china" data-tags="chat office multimodal" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="huawei.com">PG</span><span class="tag">华为云</span></div>
+              <h3>盘古大模型</h3>
+              <p>华为云盘古大模型体系，面向行业智能、科学计算、视觉、语音和企业应用。</p>
+              <a class="card-link" href="https://www.huaweicloud.com/product/pangu.html" target="_blank" rel="noopener">访问模型页 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="agents" class="section">
+          <div class="section-head">
+            <h2>对话式 Agent 与综合助手</h2>
+            <p>面向日常问答、复杂任务拆解、网页操作、资料分析和跨工具协作的 AI 产品入口。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="product" data-tags="chat agent office multimodal" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="chatgpt.com">CG</span><span class="tag">OpenAI</span></div>
+              <h3>ChatGPT</h3>
+              <p>通用对话式 AI 产品，覆盖写作、分析、图片理解、语音、文件处理、GPTs 和 Agent 任务。</p>
+              <a class="card-link" href="https://chatgpt.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent code office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="claude.ai">CL</span><span class="tag">Anthropic</span></div>
+              <h3>Claude</h3>
+              <p>擅长长文档、代码协作、严谨写作和工作流任务的 AI 助手，可结合项目、连接器和技能使用。</p>
+              <a class="card-link" href="https://claude.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent search multimodal" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="gemini.google.com">GM</span><span class="tag">Google</span></div>
+              <h3>Gemini App</h3>
+              <p>Google 的 AI 助手产品，适合搜索增强、移动端协作、文档理解和多模态内容处理。</p>
+              <a class="card-link" href="https://gemini.google.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent search office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="poe.com">PO</span><span class="tag">Quora</span></div>
+              <h3>Poe</h3>
+              <p>聚合多家模型的聊天与 Bot 平台，可快速切换模型、创建机器人并分享给其他用户。</p>
+              <a class="card-link" href="https://poe.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent office search" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="monica.im">MO</span><span class="tag">Monica</span></div>
+              <h3>Monica</h3>
+              <p>跨网页、桌面和移动端的 AI 助手，适合浏览器侧边栏、翻译、总结、写作和多模型调用。</p>
+              <a class="card-link" href="https://monica.im/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent search office code" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="manus.im">MA</span><span class="tag">Manus</span></div>
+              <h3>Manus</h3>
+              <p>面向复杂在线任务的通用 AI Agent，可执行研究、数据整理、报告、网页和自动化工作流。</p>
+              <a class="card-link" href="https://manus.im/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent search office" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="copilot.microsoft.com">CP</span><span class="tag">Microsoft</span></div>
+              <h3>Microsoft Copilot</h3>
+              <p>微软面向个人和办公场景的 AI 助手，连接 Windows、Edge、Microsoft 365 和网页搜索。</p>
+              <a class="card-link" href="https://copilot.microsoft.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent search" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="grok.com">GX</span><span class="tag">xAI</span></div>
+              <h3>Grok</h3>
+              <p>xAI 的对话式 AI 产品，适合实时信息、推理问答、代码辅助和社交内容理解。</p>
+              <a class="card-link" href="https://grok.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent office multimodal" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="meta.ai">ME</span><span class="tag">Meta</span></div>
+              <h3>Meta AI</h3>
+              <p>Meta 的 AI 助手入口，覆盖聊天、图片生成、社交生态和 Llama 模型能力。</p>
+              <a class="card-link" href="https://www.meta.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent office" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="you.com">YOU</span><span class="tag">You.com</span></div>
+              <h3>You.com</h3>
+              <p>融合搜索、聊天、研究和生产力 Agent 的 AI 工作台，适合资料查询和任务执行。</p>
+              <a class="card-link" href="https://you.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent office multimodal" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="doubao.com">DB</span><span class="tag">字节跳动</span></div>
+              <h3>豆包</h3>
+              <p>中文 AI 助手产品，覆盖聊天、搜索、写作、图片、语音和移动端日常效率场景。</p>
+              <a class="card-link" href="https://www.doubao.com/chat/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent search office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="kimi.moonshot.cn">KM</span><span class="tag">Moonshot</span></div>
+              <h3>Kimi</h3>
+              <p>适合长文档阅读、文件总结、联网搜索和中文资料整理的 AI 助手。</p>
+              <a class="card-link" href="https://kimi.moonshot.cn/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="yuanbao.tencent.com">YB</span><span class="tag">腾讯</span></div>
+              <h3>腾讯元宝</h3>
+              <p>腾讯 AI 助手，适合微信生态内容处理、文档阅读、搜索问答和中文办公任务。</p>
+              <a class="card-link" href="https://yuanbao.tencent.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent office multimodal" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="chatglm.cn">ZP</span><span class="tag">智谱</span></div>
+              <h3>智谱清言</h3>
+              <p>智谱 AI 面向个人和办公的 AI 助手，覆盖对话、写作、代码、多模态和智能体。</p>
+              <a class="card-link" href="https://chatglm.cn/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="chat agent search office" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="yiyan.baidu.com">YY</span><span class="tag">百度</span></div>
+              <h3>文心一言</h3>
+              <p>百度文心大模型的 AI 助手产品，适合中文问答、创作、搜索增强和办公写作。</p>
+              <a class="card-link" href="https://yiyan.baidu.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="skills" class="section">
+          <div class="section-head">
+            <h2>Skills、智能体与自动化平台</h2>
+            <p>用于构建可复用技能、Bot、Agent、工作流和企业自动化的产品入口。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="product" data-tags="agent chat office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="chatgpt.com">GS</span><span class="tag">OpenAI</span></div>
+              <h3>GPT Store</h3>
+              <p>ChatGPT 的自定义 GPT 生态，可创建、发现和使用面向具体任务的专用 AI 应用。</p>
+              <a class="card-link" href="https://chatgpt.com/gpts" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office code" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="anthropic.com">SK</span><span class="tag">Anthropic</span></div>
+              <h3>Claude Skills</h3>
+              <p>Claude 的可复用技能机制，用于把专业流程、知识和工具操作封装成可调用能力。</p>
+              <a class="card-link" href="https://claude.com/blog/skills" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="dify.ai">DF</span><span class="tag">Dify</span></div>
+              <h3>Dify</h3>
+              <p>开源 LLM 应用开发平台，支持 Agent、RAG、工作流、模型路由和企业 AI 应用部署。</p>
+              <a class="card-link" href="https://dify.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="coze.com">CZ</span><span class="tag">Coze</span></div>
+              <h3>Coze</h3>
+              <p>低代码 AI Bot 与 Agent 开发平台，可搭建知识库、插件、工作流和多渠道发布。</p>
+              <a class="card-link" href="https://www.coze.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="zapier.com">ZA</span><span class="tag">Zapier</span></div>
+              <h3>Zapier Agents</h3>
+              <p>面向业务自动化的 AI Agent 平台，连接大量 SaaS 工具并执行跨应用工作流。</p>
+              <a class="card-link" href="https://zapier.com/agents" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="lindy.ai">LD</span><span class="tag">Lindy</span></div>
+              <h3>Lindy</h3>
+              <p>面向团队工作的 AI 员工与自动化平台，常用于邮件、会议、销售、客服和运营流程。</p>
+              <a class="card-link" href="https://www.lindy.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="langchain.com">LG</span><span class="tag">LangChain</span></div>
+              <h3>LangGraph</h3>
+              <p>面向有状态 Agent 和多步骤工作流的开发框架，适合构建可控、可观测、可恢复的智能体系统。</p>
+              <a class="card-link" href="https://www.langchain.com/langgraph" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open office" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="crewai.com">CR</span><span class="tag">CrewAI</span></div>
+              <h3>CrewAI</h3>
+              <p>多 Agent 协作框架和平台，可定义角色、任务、工具、知识源和企业自动化流程。</p>
+              <a class="card-link" href="https://www.crewai.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="microsoft.github.io">AG</span><span class="tag">Microsoft</span></div>
+              <h3>AutoGen</h3>
+              <p>微软开源的多 Agent 应用框架，适合研究、原型开发和复杂 Agent 对话协作流程。</p>
+              <a class="card-link" href="https://microsoft.github.io/autogen/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="agpt.co">AT</span><span class="tag">AutoGPT</span></div>
+              <h3>AutoGPT</h3>
+              <p>早期代表性的自主 Agent 项目与平台，围绕目标拆解、工具调用和自动化任务执行展开。</p>
+              <a class="card-link" href="https://agpt.co/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="n8n.io">N8</span><span class="tag">n8n</span></div>
+              <h3>n8n</h3>
+              <p>可自托管的工作流自动化平台，支持 AI 节点、工具编排、API 集成和企业流程自动化。</p>
+              <a class="card-link" href="https://n8n.io/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="make.com">MK</span><span class="tag">Make</span></div>
+              <h3>Make</h3>
+              <p>可视化自动化平台，可把 AI、表格、CRM、邮件和各类 SaaS 串成跨应用工作流。</p>
+              <a class="card-link" href="https://www.make.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office code" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="gumloop.com">GL</span><span class="tag">Gumloop</span></div>
+              <h3>Gumloop</h3>
+              <p>AI 原生自动化构建器，适合把网页、表格、邮件、文件处理和模型调用组合成业务流程。</p>
+              <a class="card-link" href="https://www.gumloop.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="relay.app">RY</span><span class="tag">Relay</span></div>
+              <h3>Relay.app</h3>
+              <p>面向运营和团队协作的自动化平台，支持人工审批、AI 步骤和多工具流程编排。</p>
+              <a class="card-link" href="https://www.relay.app/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office code" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="stack-ai.com">SA</span><span class="tag">Stack AI</span></div>
+              <h3>Stack AI</h3>
+              <p>企业 AI Agent 与工作流平台，可搭建文档问答、数据处理、内部工具和业务自动化应用。</p>
+              <a class="card-link" href="https://www.stack-ai.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="flowiseai.com">FL</span><span class="tag">Flowise</span></div>
+              <h3>Flowise</h3>
+              <p>开源低代码 LLM 应用构建器，用拖拽方式搭建 Chatflow、Agentflow、RAG 和工具调用链。</p>
+              <a class="card-link" href="https://flowiseai.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="langflow.org">LF</span><span class="tag">Langflow</span></div>
+              <h3>Langflow</h3>
+              <p>可视化构建 AI 应用和 Agent 的开源平台，适合快速拼装 RAG、工具调用和多模型流程。</p>
+              <a class="card-link" href="https://www.langflow.org/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent chat office" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="botpress.com">BP</span><span class="tag">Botpress</span></div>
+              <h3>Botpress</h3>
+              <p>AI Bot 与 Agent 构建平台，适合客服、销售、知识库问答和多渠道聊天机器人部署。</p>
+              <a class="card-link" href="https://botpress.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent chat office" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="voiceflow.com">VF</span><span class="tag">Voiceflow</span></div>
+              <h3>Voiceflow</h3>
+              <p>面向对话式 AI Agent 的设计和部署平台，适合客服 Bot、语音交互和知识库自动化。</p>
+              <a class="card-link" href="https://www.voiceflow.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office code" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="relevanceai.com">RA</span><span class="tag">Relevance AI</span></div>
+              <h3>Relevance AI</h3>
+              <p>AI workforce 平台，可构建销售、运营、研究和客户支持等可部署的 AI Agent 团队。</p>
+              <a class="card-link" href="https://relevanceai.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="adept.ai">AD</span><span class="tag">Adept</span></div>
+              <h3>Adept</h3>
+              <p>面向软件操作和企业流程的 Agent 产品方向，关注让 AI 理解并操作现有工具界面。</p>
+              <a class="card-link" href="https://www.adept.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="mindstudio.ai">MS</span><span class="tag">MindStudio</span></div>
+              <h3>MindStudio</h3>
+              <p>无代码 AI 应用和自动化构建平台，可把提示词、模型、数据和工作流封装为可分享工具。</p>
+              <a class="card-link" href="https://www.mindstudio.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office code" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="wordware.ai">WW</span><span class="tag">Wordware</span></div>
+              <h3>Wordware</h3>
+              <p>用自然语言构建 AI Agent 和 LLM 应用的平台，适合快速设计、测试和部署业务逻辑。</p>
+              <a class="card-link" href="https://www.wordware.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="microsoft.com">CS</span><span class="tag">Microsoft</span></div>
+              <h3>Copilot Studio</h3>
+              <p>微软低代码 Agent 构建平台，可连接企业数据、插件、流程和 Microsoft 365 生态。</p>
+              <a class="card-link" href="https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="salesforce.com">AF</span><span class="tag">Salesforce</span></div>
+              <h3>Agentforce</h3>
+              <p>Salesforce 的企业 AI Agent 平台，面向销售、服务、市场和 CRM 自动化。</p>
+              <a class="card-link" href="https://www.salesforce.com/agentforce/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="servicenow.com">SN</span><span class="tag">ServiceNow</span></div>
+              <h3>ServiceNow AI Agents</h3>
+              <p>面向 IT、客服、人力和企业服务流程的 AI Agent 与工作流自动化平台。</p>
+              <a class="card-link" href="https://www.servicenow.com/products/ai-agents.html" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="uipath.com">UI</span><span class="tag">UiPath</span></div>
+              <h3>UiPath Agentic Automation</h3>
+              <p>RPA 与 AI Agent 结合的企业自动化平台，适合流程机器人、文档处理和任务编排。</p>
+              <a class="card-link" href="https://www.uipath.com/platform/agentic-automation" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="automationanywhere.com">AA</span><span class="tag">Automation Anywhere</span></div>
+              <h3>Automation Anywhere</h3>
+              <p>企业自动化和 AI Agent 平台，覆盖 RPA、文档自动化、流程编排和业务系统集成。</p>
+              <a class="card-link" href="https://www.automationanywhere.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent office code" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="workato.com">WK</span><span class="tag">Workato</span></div>
+              <h3>Workato</h3>
+              <p>企业集成和自动化平台，可把 AI、业务应用、数据和审批流程连接成生产级工作流。</p>
+              <a class="card-link" href="https://www.workato.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code office" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="pipedream.com">PD</span><span class="tag">Pipedream</span></div>
+              <h3>Pipedream</h3>
+              <p>开发者友好的集成自动化平台，可用代码、API、触发器和 AI 步骤构建工作流。</p>
+              <a class="card-link" href="https://pipedream.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="vellum.ai">VL</span><span class="tag">Vellum</span></div>
+              <h3>Vellum</h3>
+              <p>LLM 应用和 Agent 工作流平台，支持提示词管理、评测、部署和生产监控。</p>
+              <a class="card-link" href="https://www.vellum.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="llamaindex.ai">LI</span><span class="tag">LlamaIndex</span></div>
+              <h3>LlamaIndex</h3>
+              <p>面向 RAG、数据 Agent 和知识应用的开源框架与云平台，适合连接企业私有数据。</p>
+              <a class="card-link" href="https://www.llamaindex.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="agent code open" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="haystack.deepset.ai">HS</span><span class="tag">deepset</span></div>
+              <h3>Haystack</h3>
+              <p>开源 LLM 应用框架，适合构建 RAG、问答、搜索、Agent 和生产级 NLP 管道。</p>
+              <a class="card-link" href="https://haystack.deepset.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="research" class="section">
+          <div class="section-head">
+            <h2>AI 搜索、研究与知识整理</h2>
+            <p>适合查资料、读论文、做选题、整理来源和把碎片信息沉淀为结构化知识。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="product" data-tags="search chat agent office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="perplexity.ai">PX</span><span class="tag">Perplexity</span></div>
+              <h3>Perplexity</h3>
+              <p>AI 搜索问答产品，强调来源引用、主题研究、网页总结和快速事实核对。</p>
+              <a class="card-link" href="https://www.perplexity.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search agent office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="notebooklm.google.com">NL</span><span class="tag">Google</span></div>
+              <h3>NotebookLM</h3>
+              <p>围绕个人资料源构建的 AI 笔记和研究工具，可总结文档、生成问答和整理学习材料。</p>
+              <a class="card-link" href="https://notebooklm.google.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="consensus.app">CS</span><span class="tag">Consensus</span></div>
+              <h3>Consensus</h3>
+              <p>面向学术论文的 AI 搜索工具，适合科研问题检索、证据总结和文献方向判断。</p>
+              <a class="card-link" href="https://consensus.app/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="elicit.com">EL</span><span class="tag">Elicit</span></div>
+              <h3>Elicit</h3>
+              <p>研究工作流助手，可查找论文、提取关键信息、对比研究结论并辅助综述写作。</p>
+              <a class="card-link" href="https://elicit.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search agent chat" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="felo.ai">FE</span><span class="tag">Felo</span></div>
+              <h3>Felo Search</h3>
+              <p>AI 搜索与知识发现工具，适合跨语言检索、主题总结、脑图和演示内容生成。</p>
+              <a class="card-link" href="https://felo.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search chat office" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="metaso.cn">MT</span><span class="tag">秘塔</span></div>
+              <h3>秘塔 AI 搜索</h3>
+              <p>中文 AI 搜索产品，适合资料检索、网页总结、学术搜索和结构化答案生成。</p>
+              <a class="card-link" href="https://metaso.cn/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search chat agent" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="you.com">YO</span><span class="tag">You.com</span></div>
+              <h3>You.com Search</h3>
+              <p>AI 搜索和研究工作台，可按用途切换搜索、写作、研究和多模型问答模式。</p>
+              <a class="card-link" href="https://you.com/search" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search code chat" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="phind.com">PH</span><span class="tag">Phind</span></div>
+              <h3>Phind</h3>
+              <p>面向开发者和技术问题的 AI 搜索问答工具，适合代码、文档和工程资料检索。</p>
+              <a class="card-link" href="https://www.phind.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search chat" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="genspark.ai">GS</span><span class="tag">Genspark</span></div>
+              <h3>Genspark</h3>
+              <p>AI 搜索与 Agent 产品，适合聚合资料、生成专题页面、执行研究和信息整理任务。</p>
+              <a class="card-link" href="https://www.genspark.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="semanticscholar.org">SS</span><span class="tag">AI2</span></div>
+              <h3>Semantic Scholar</h3>
+              <p>AI 驱动的学术搜索引擎，适合论文检索、引用关系、摘要理解和研究脉络追踪。</p>
+              <a class="card-link" href="https://www.semanticscholar.org/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="scite.ai">SC</span><span class="tag">Scite</span></div>
+              <h3>Scite</h3>
+              <p>学术引用和论文分析工具，可查看支持、反驳或提及某篇论文的证据关系。</p>
+              <a class="card-link" href="https://scite.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="scispace.com">SP</span><span class="tag">SciSpace</span></div>
+              <h3>SciSpace</h3>
+              <p>论文阅读和学术写作助手，可解释论文、生成综述、管理引用和辅助研究流程。</p>
+              <a class="card-link" href="https://typeset.io/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="researchrabbit.ai">RR</span><span class="tag">ResearchRabbit</span></div>
+              <h3>ResearchRabbit</h3>
+              <p>论文发现和文献网络工具，可探索作者、主题、引用关系和相近研究方向。</p>
+              <a class="card-link" href="https://www.researchrabbit.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="connectedpapers.com">CP</span><span class="tag">Connected Papers</span></div>
+              <h3>Connected Papers</h3>
+              <p>论文关系图谱工具，适合从一篇核心论文扩展到相关研究、先驱工作和后续工作。</p>
+              <a class="card-link" href="https://www.connectedpapers.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office chat" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="chatpdf.com">PDF</span><span class="tag">ChatPDF</span></div>
+              <h3>ChatPDF</h3>
+              <p>面向 PDF 文档的问答和总结工具，适合论文、合同、报告和长文档快速理解。</p>
+              <a class="card-link" href="https://www.chatpdf.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="search office chat" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="humata.ai">HU</span><span class="tag">Humata</span></div>
+              <h3>Humata</h3>
+              <p>文档和知识库 AI 问答工具，适合团队资料、PDF、合规文件和企业内部知识检索。</p>
+              <a class="card-link" href="https://www.humata.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="coding" class="section">
+          <div class="section-head">
+            <h2>AI 编程与应用生成</h2>
+            <p>覆盖代码补全、Agentic Coding、原型生成、网页应用构建和开发者生产力工具。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="github.com">GH</span><span class="tag">GitHub</span></div>
+              <h3>GitHub Copilot</h3>
+              <p>面向 IDE 和 GitHub 工作流的 AI 编程助手，支持代码补全、解释、重构、测试和任务协作。</p>
+              <a class="card-link" href="https://github.com/features/copilot" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="cursor.com">CU</span><span class="tag">Cursor</span></div>
+              <h3>Cursor</h3>
+              <p>AI 原生代码编辑器，适合代码库问答、批量修改、重构和与模型协作完成开发任务。</p>
+              <a class="card-link" href="https://cursor.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="windsurf.com">WS</span><span class="tag">Windsurf</span></div>
+              <h3>Windsurf</h3>
+              <p>面向 Agentic Coding 的开发环境，可让 AI 理解项目上下文并执行多步开发任务。</p>
+              <a class="card-link" href="https://windsurf.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="replit.com">RP</span><span class="tag">Replit</span></div>
+              <h3>Replit Agent</h3>
+              <p>浏览器中的 AI 应用开发平台，可从需求生成项目、运行环境、迭代代码并发布应用。</p>
+              <a class="card-link" href="https://replit.com/ai" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent multimodal" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="lovable.dev">LV</span><span class="tag">Lovable</span></div>
+              <h3>Lovable</h3>
+              <p>通过自然语言生成 Web 应用和前端原型，适合快速搭建产品 demo 与迭代界面。</p>
+              <a class="card-link" href="https://lovable.dev/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent multimodal" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="v0.dev">V0</span><span class="tag">Vercel</span></div>
+              <h3>v0</h3>
+              <p>Vercel 的 AI 界面生成工具，可通过提示词生成 React、Tailwind 和可迭代的前端组件。</p>
+              <a class="card-link" href="https://v0.dev/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="devin.ai">DV</span><span class="tag">Cognition</span></div>
+              <h3>Devin</h3>
+              <p>面向软件工程任务的 AI 编程 Agent，可规划、修改代码、运行测试并协作处理开发任务。</p>
+              <a class="card-link" href="https://devin.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="anthropic.com">CC</span><span class="tag">Anthropic</span></div>
+              <h3>Claude Code</h3>
+              <p>Anthropic 的命令行和 IDE 编程 Agent，适合理解代码库、修改文件、运行命令和提交变更。</p>
+              <a class="card-link" href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="openai.com">CX</span><span class="tag">OpenAI</span></div>
+              <h3>Codex</h3>
+              <p>OpenAI 面向软件工程的编程 Agent，用于代码修改、项目理解、测试和开发任务自动化。</p>
+              <a class="card-link" href="https://openai.com/codex/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent open" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="cline.bot">CL</span><span class="tag">Cline</span></div>
+              <h3>Cline</h3>
+              <p>开源 VS Code 编程 Agent，可读取项目、编辑文件、执行命令并与多种模型协作。</p>
+              <a class="card-link" href="https://cline.bot/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent open" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="continue.dev">CT</span><span class="tag">Continue</span></div>
+              <h3>Continue</h3>
+              <p>开源 AI 代码助手平台，可在 VS Code 和 JetBrains 中接入自选模型、上下文和工作流。</p>
+              <a class="card-link" href="https://www.continue.dev/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code office" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="tabnine.com">TN</span><span class="tag">Tabnine</span></div>
+              <h3>Tabnine</h3>
+              <p>企业级 AI 代码补全和开发助手，强调隐私、团队知识、代码生成和 IDE 集成。</p>
+              <a class="card-link" href="https://www.tabnine.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="sourcegraph.com">SG</span><span class="tag">Sourcegraph</span></div>
+              <h3>Sourcegraph Amp</h3>
+              <p>Sourcegraph 的 AI 编程 Agent，适合大型代码库理解、修改、测试和工程任务处理。</p>
+              <a class="card-link" href="https://ampcode.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="qodo.ai">QD</span><span class="tag">Qodo</span></div>
+              <h3>Qodo</h3>
+              <p>面向代码质量的 AI 开发工具，覆盖测试生成、代码审查、变更理解和团队协作。</p>
+              <a class="card-link" href="https://www.qodo.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="coderabbit.ai">CR</span><span class="tag">CodeRabbit</span></div>
+              <h3>CodeRabbit</h3>
+              <p>AI 代码审查工具，可在 Pull Request 中给出上下文评论、风险提示和改进建议。</p>
+              <a class="card-link" href="https://www.coderabbit.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="bolt.new">BT</span><span class="tag">StackBlitz</span></div>
+              <h3>Bolt.new</h3>
+              <p>浏览器中的 AI 全栈应用生成工具，可用自然语言创建、运行和迭代 Web 项目。</p>
+              <a class="card-link" href="https://bolt.new/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="base44.com">B44</span><span class="tag">Base44</span></div>
+              <h3>Base44</h3>
+              <p>AI 无代码应用构建平台，可通过对话生成数据库、界面、业务逻辑和可发布应用。</p>
+              <a class="card-link" href="https://base44.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="trae.ai">TR</span><span class="tag">Trae</span></div>
+              <h3>Trae</h3>
+              <p>AI 原生 IDE 和编程助手，面向项目理解、代码生成、调试和多文件开发协作。</p>
+              <a class="card-link" href="https://www.trae.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="code agent office" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="amazon.com">Q</span><span class="tag">Amazon</span></div>
+              <h3>Amazon Q Developer</h3>
+              <p>AWS 的 AI 开发助手，适合云开发、代码解释、迁移、生成和运维问题排查。</p>
+              <a class="card-link" href="https://aws.amazon.com/q/developer/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="creative" class="section">
+          <div class="section-head">
+            <h2>多模态创作与办公效率</h2>
+            <p>覆盖图像、视频、语音、音乐、演示文稿、文档和团队知识管理等高频生产力场景。</p>
+          </div>
+          <div class="grid">
+            <article class="model-card" data-region="product" data-tags="multimodal office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="midjourney.com">MJ</span><span class="tag">Midjourney</span></div>
+              <h3>Midjourney</h3>
+              <p>主流 AI 图像生成产品，适合概念设计、视觉探索、海报插画和创意风格实验。</p>
+              <a class="card-link" href="https://www.midjourney.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal agent" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="runwayml.com">RW</span><span class="tag">Runway</span></div>
+              <h3>Runway</h3>
+              <p>AI 视频与创意工具平台，支持视频生成、编辑、视觉特效和多模态内容工作流。</p>
+              <a class="card-link" href="https://runwayml.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="klingai.com">KL</span><span class="tag">快手</span></div>
+              <h3>可灵 AI</h3>
+              <p>面向图像和视频生成的 AI 创作平台，适合短视频、分镜、动效和视觉内容制作。</p>
+              <a class="card-link" href="https://klingai.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="suno.com">SN</span><span class="tag">Suno</span></div>
+              <h3>Suno</h3>
+              <p>AI 音乐生成产品，可根据文字提示生成歌曲、旋律和人声，适合音乐创意草稿。</p>
+              <a class="card-link" href="https://suno.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal office" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="elevenlabs.io">EL</span><span class="tag">ElevenLabs</span></div>
+              <h3>ElevenLabs</h3>
+              <p>AI 语音生成与配音平台，适合旁白、播客、本地化、声音克隆和语音交互内容。</p>
+              <a class="card-link" href="https://elevenlabs.io/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="office agent multimodal" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="gamma.app">GA</span><span class="tag">Gamma</span></div>
+              <h3>Gamma</h3>
+              <p>AI 演示文稿和网页文档生成工具，适合快速生成汇报、方案、课程和营销材料。</p>
+              <a class="card-link" href="https://gamma.app/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="office agent" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="notion.so">NT</span><span class="tag">Notion</span></div>
+              <h3>Notion AI</h3>
+              <p>嵌入 Notion 工作区的 AI 能力，适合文档总结、知识库问答、写作改写和项目协作。</p>
+              <a class="card-link" href="https://www.notion.com/product/ai" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="office agent multimodal" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="canva.com">CV</span><span class="tag">Canva</span></div>
+              <h3>Canva AI</h3>
+              <p>集成在 Canva 设计套件中的 AI 创作能力，覆盖文案、图片、演示、海报和品牌素材。</p>
+              <a class="card-link" href="https://www.canva.com/ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="pika.art">PK</span><span class="tag">Pika</span></div>
+              <h3>Pika</h3>
+              <p>AI 视频生成和编辑平台，可通过提示词、图片或视频素材生成创意短片和特效。</p>
+              <a class="card-link" href="https://pika.art/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="lumalabs.ai">LM</span><span class="tag">Luma</span></div>
+              <h3>Luma Dream Machine</h3>
+              <p>Luma 的 AI 视频生成产品，适合文本/图像到视频、镜头运动和创意影像制作。</p>
+              <a class="card-link" href="https://lumalabs.ai/dream-machine" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="ideogram.ai">ID</span><span class="tag">Ideogram</span></div>
+              <h3>Ideogram</h3>
+              <p>AI 图像生成工具，尤其适合海报、字体、Logo、产品图和包含文字的视觉设计。</p>
+              <a class="card-link" href="https://ideogram.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="leonardo.ai">LA</span><span class="tag">Leonardo</span></div>
+              <h3>Leonardo AI</h3>
+              <p>面向设计师和游戏资产的 AI 图像平台，支持风格训练、素材生成和创意工作流。</p>
+              <a class="card-link" href="https://leonardo.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal office" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="adobe.com">AF</span><span class="tag">Adobe</span></div>
+              <h3>Adobe Firefly</h3>
+              <p>Adobe 的生成式创意工具，覆盖图片生成、编辑、设计素材和 Creative Cloud 工作流。</p>
+              <a class="card-link" href="https://www.adobe.com/products/firefly.html" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="freepik.com">FP</span><span class="tag">Freepik</span></div>
+              <h3>Freepik AI</h3>
+              <p>面向图像、设计素材、矢量和营销视觉的 AI 创作平台，适合快速生成商业素材。</p>
+              <a class="card-link" href="https://www.freepik.com/ai" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #93c5fd">
+              <div class="card-top"><span class="logo" data-domain="stability.ai">SD</span><span class="tag">Stability AI</span></div>
+              <h3>Stable Assistant</h3>
+              <p>Stability AI 的创意产品入口，面向图像生成、编辑、视频和开放生成模型生态。</p>
+              <a class="card-link" href="https://stability.ai/stable-image" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #fda4af">
+              <div class="card-top"><span class="logo" data-domain="hailuoai.com">HL</span><span class="tag">MiniMax</span></div>
+              <h3>海螺 AI</h3>
+              <p>MiniMax 的多模态创作产品，覆盖视频生成、图像、语音和创意内容生产。</p>
+              <a class="card-link" href="https://hailuoai.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #38bdf8">
+              <div class="card-top"><span class="logo" data-domain="pixverse.ai">PV</span><span class="tag">PixVerse</span></div>
+              <h3>PixVerse</h3>
+              <p>AI 视频生成平台，支持文本到视频、图像到视频、角色动画和短视频创作。</p>
+              <a class="card-link" href="https://pixverse.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal" style="--accent: #34d399">
+              <div class="card-top"><span class="logo" data-domain="udio.com">UD</span><span class="tag">Udio</span></div>
+              <h3>Udio</h3>
+              <p>AI 音乐生成产品，可通过提示词生成歌曲片段、旋律、人声和不同风格音乐。</p>
+              <a class="card-link" href="https://www.udio.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal office" style="--accent: #fb7185">
+              <div class="card-top"><span class="logo" data-domain="heygen.com">HG</span><span class="tag">HeyGen</span></div>
+              <h3>HeyGen</h3>
+              <p>AI 数字人和视频生成平台，适合营销视频、口播、翻译、本地化和虚拟人内容。</p>
+              <a class="card-link" href="https://www.heygen.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal office" style="--accent: #a7f3d0">
+              <div class="card-top"><span class="logo" data-domain="synthesia.io">SY</span><span class="tag">Synthesia</span></div>
+              <h3>Synthesia</h3>
+              <p>企业 AI 视频平台，可生成数字人培训、销售、客服和内部沟通视频。</p>
+              <a class="card-link" href="https://www.synthesia.io/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="multimodal office" style="--accent: #67e8f9">
+              <div class="card-top"><span class="logo" data-domain="descript.com">DS</span><span class="tag">Descript</span></div>
+              <h3>Descript</h3>
+              <p>AI 音视频编辑工具，支持转写、剪辑、降噪、配音和播客/短视频生产流程。</p>
+              <a class="card-link" href="https://www.descript.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="office agent" style="--accent: #fcd34d">
+              <div class="card-top"><span class="logo" data-domain="pitch.com">PT</span><span class="tag">Pitch</span></div>
+              <h3>Pitch</h3>
+              <p>团队演示文稿和视觉叙事工具，适合商业方案、销售材料、报告和协作式演示制作。</p>
+              <a class="card-link" href="https://pitch.com/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="office agent multimodal" style="--accent: #86efac">
+              <div class="card-top"><span class="logo" data-domain="beautiful.ai">BA</span><span class="tag">Beautiful.ai</span></div>
+              <h3>Beautiful.ai</h3>
+              <p>智能演示文稿设计工具，帮助快速生成布局统一、视觉专业的商业幻灯片。</p>
+              <a class="card-link" href="https://www.beautiful.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+
+            <article class="model-card" data-region="product" data-tags="office agent" style="--accent: #c4b5fd">
+              <div class="card-top"><span class="logo" data-domain="otter.ai">OT</span><span class="tag">Otter</span></div>
+              <h3>Otter.ai</h3>
+              <p>AI 会议记录和转写工具，适合会议摘要、行动项、访谈记录和团队知识沉淀。</p>
+              <a class="card-link" href="https://otter.ai/" target="_blank" rel="noopener">访问产品 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg></a>
+            </article>
+          </div>
+        </div>
+
+        <div id="empty" class="empty">暂无可展示的 AI 入口。</div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="shell">© 2026 AI 大模型导航 · 由 倚栏听雨 整理维护。本站仅作为 AI 产品与模型入口导航，所有商标、名称和链接归原网站或权利方所有。</div>
+    </footer>
+
+    <button class="back-top" type="button" aria-label="返回顶部">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="m6 15 6-6 6 6"></path>
+      </svg>
+    </button>
+
+    <script>
+      const empty = document.querySelector("#empty");
+      const homePreviewLimit = 6;
+
+      function normalize(value) {
+        return value.toLowerCase().trim();
+      }
+
+      const sectionRankings = {
+        global: [
+          "OpenAI Models", "Claude Models", "Gemini", "Llama", "Mistral Models", "Hugging Face Models",
+          "Grok", "Azure AI Foundry", "Amazon Nova", "Command", "Together AI", "Fireworks AI",
+          "Replicate", "GroqCloud", "Cerebras Inference", "Jamba", "IBM Granite", "Mosaic AI", "Snowflake Cortex AI",
+        ],
+        china: [
+          "DeepSeek", "通义千问 / Qwen", "文心大模型 / ERNIE", "豆包大模型 / Seed", "Moonshot / Kimi Models", "腾讯混元",
+          "智谱 GLM", "讯飞星火", "MiniMax Models", "日日新 / SenseNova", "盘古大模型", "ModelScope",
+          "百川大模型", "Yi Models", "StepFun", "天工大模型", "360 智脑", "书生浦语 InternLM", "OpenBMB / MiniCPM", "SiliconFlow",
+        ],
+        agents: [
+          "ChatGPT", "Claude", "Gemini App", "Microsoft Copilot", "Grok", "豆包",
+          "Kimi", "腾讯元宝", "文心一言", "智谱清言", "Poe", "Manus",
+          "Meta AI", "You.com", "Monica",
+        ],
+        skills: [
+          "GPT Store", "Claude Skills", "Dify", "Coze", "LangGraph", "n8n",
+          "Copilot Studio", "Agentforce", "Zapier Agents", "LlamaIndex", "CrewAI", "Make",
+          "UiPath Agentic Automation", "AutoGen", "Flowise", "Langflow", "Botpress", "Voiceflow",
+          "Lindy", "Gumloop", "Stack AI", "Relevance AI", "Workato", "Pipedream",
+          "Vellum", "ServiceNow AI Agents", "Automation Anywhere", "AutoGPT", "Adept", "MindStudio",
+          "Wordware", "Relay.app", "Haystack",
+        ],
+        research: [
+          "Perplexity", "NotebookLM", "You.com Search", "Phind", "秘塔 AI 搜索", "Felo Search",
+          "Consensus", "Elicit", "Semantic Scholar", "Scite", "SciSpace", "Genspark",
+          "ChatPDF", "ResearchRabbit", "Connected Papers", "Humata",
+        ],
+        coding: [
+          "GitHub Copilot", "Cursor", "Claude Code", "Codex", "Devin", "Windsurf",
+          "Replit Agent", "Lovable", "v0", "Cline", "Continue", "Tabnine",
+          "Sourcegraph Amp", "Amazon Q Developer", "Bolt.new", "Trae", "CodeRabbit", "Qodo", "Base44",
+        ],
+        creative: [
+          "Midjourney", "Runway", "Suno", "ElevenLabs", "可灵 AI", "Pika",
+          "Luma Dream Machine", "Adobe Firefly", "Ideogram", "Leonardo AI", "Canva AI", "Gamma",
+          "Notion AI", "HeyGen", "Synthesia", "Udio", "Descript", "海螺 AI",
+          "PixVerse", "Stable Assistant", "Freepik AI", "Beautiful.ai", "Pitch", "Otter.ai",
+        ],
+      };
+
+      function sortSections(scope) {
+        Object.entries(sectionRankings).forEach(([sectionId, names]) => {
+          const section = scope.querySelector(`#${sectionId}`);
+          const grid = section?.querySelector(".grid");
+          if (!grid) return;
+          const rank = new Map(names.map((name, index) => [name, index]));
+          [...grid.querySelectorAll(".model-card")]
+            .sort((a, b) => {
+              const aName = a.querySelector("h3")?.textContent || "";
+              const bName = b.querySelector("h3")?.textContent || "";
+              return (rank.get(aName) ?? 999) - (rank.get(bName) ?? 999);
+            })
+            .forEach((card) => grid.append(card));
+        });
+      }
+
+      function badgesFor(card) {
+        const name = card.querySelector("h3")?.textContent || "";
+        const sectionId = card.closest(".section")?.id || "";
+        const badges = [];
+        if (["OpenAI Models", "Claude Models", "Gemini", "DeepSeek", "通义千问 / Qwen", "ChatGPT", "Claude", "GitHub Copilot", "Cursor", "Midjourney", "Perplexity"].includes(name)) badges.push("热门");
+        if (["Llama", "Hugging Face Models", "Dify", "LangGraph", "n8n", "Cline", "Continue", "ModelScope"].includes(name)) badges.push("开源");
+        if (["global", "china"].includes(sectionId)) badges.push("模型平台");
+        if (sectionId === "coding") badges.push("开发者");
+        if (sectionId === "creative") badges.push("创作");
+        if (sectionId === "research") badges.push("研究");
+        if (sectionId === "skills") badges.push("Agent");
+        return badges.slice(0, 3);
+      }
+
+      function enhanceCards(scope) {
+        scope.querySelectorAll(".model-card").forEach((card) => {
+          if (!card.querySelector(".meta-badges")) {
+            const badges = document.createElement("div");
+            badges.className = "meta-badges";
+            badgesFor(card).forEach((label) => {
+              const badge = document.createElement("span");
+              badge.className = "badge";
+              badge.textContent = label;
+              badges.append(badge);
+            });
+            card.querySelector("p")?.before(badges);
+          }
+        });
+      }
+
+      function initBackTop() {
+        const button = document.querySelector(".back-top");
+        if (!button) return;
+        const sync = () => button.classList.toggle("visible", window.scrollY > 520);
+        button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        window.addEventListener("scroll", sync, { passive: true });
+        sync();
+      }
+
+      function showShareToast(message) {
+        let toast = document.querySelector(".share-toast");
+        if (!toast) {
+          toast = document.createElement("div");
+          toast.className = "share-toast";
+          document.body.append(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add("visible");
+        clearTimeout(showShareToast.timer);
+        showShareToast.timer = setTimeout(() => toast.classList.remove("visible"), 1800);
+      }
+
+      function initShare() {
+        const button = document.querySelector(".share-button");
+        if (!button) return;
+        const url = new URL("index.html", location.href).href;
+        const data = {
+          title: "AI 大模型导航",
+          text: "国内外 AI 大模型、Agent、搜索、编程与多模态工具导航。",
+          url,
+        };
+        button.addEventListener("click", async () => {
+          try {
+            if (navigator.share) {
+              await navigator.share(data);
+              return;
+            }
+            await navigator.clipboard.writeText(url);
+            showShareToast("链接已复制");
+          } catch (error) {
+            if (error.name === "AbortError") return;
+            showShareToast("分享失败，请手动复制链接");
+          }
+        });
+      }
+
+      sortSections(document);
+      enhanceCards(document);
+      const cards = [...document.querySelectorAll(".model-card")];
+
+      function applyFilters() {
+        let visibleCount = 0;
+
+        const visibleBySection = new Map();
+
+        cards.forEach((card) => {
+          const section = card.closest(".section");
+          const sectionId = section?.id || "";
+          const sectionVisible = visibleBySection.get(sectionId) || 0;
+          const withinHomeLimit = sectionVisible < homePreviewLimit;
+          const visible = withinHomeLimit;
+          card.style.display = visible ? "" : "none";
+          visibleBySection.set(sectionId, sectionVisible + 1);
+          if (visible) visibleCount += 1;
+        });
+
+        document.querySelectorAll(".more-link").forEach((link) => {
+          const section = link.closest(".section");
+          const matchedInSection = visibleBySection.get(section?.id || "") || 0;
+          link.style.display = matchedInSection > homePreviewLimit ? "" : "none";
+        });
+
+        empty.style.display = visibleCount ? "none" : "block";
+      }
+
+      document.querySelectorAll(".section").forEach((section) => {
+        const sectionCards = [...section.querySelectorAll(".model-card")];
+        const head = section.querySelector(".section-head");
+        const title = section.querySelector("h2")?.textContent || "完整列表";
+        if (!head || !section.id || sectionCards.length <= homePreviewLimit) return;
+
+        const more = document.createElement("a");
+        more.className = "more-link";
+        more.href = `section.html?section=${encodeURIComponent(section.id)}`;
+        more.setAttribute("aria-label", `查看${title}完整列表`);
+        more.innerHTML = `查看更多 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"></path><path d="m13 6 6 6-6 6"></path></svg>`;
+        head.append(more);
+      });
+
+      applyFilters();
+
+      document.querySelectorAll(".logo[data-domain]").forEach((logo) => {
+        const fallback = logo.textContent;
+        const image = new Image();
+        image.alt = "";
+        image.loading = "lazy";
+        image.src = `https://www.google.com/s2/favicons?domain=${logo.dataset.domain}&sz=64`;
+        image.addEventListener("load", () => {
+          logo.textContent = "";
+          logo.append(image);
+        });
+        image.addEventListener("error", () => {
+          logo.textContent = fallback;
+        });
+      });
+
+      cards.forEach((card) => {
+        const link = card.querySelector(".card-link");
+        card.tabIndex = 0;
+        card.setAttribute("role", "link");
+        card.setAttribute("aria-label", `${card.querySelector("h3").textContent} AI 入口`);
+
+        card.addEventListener("click", (event) => {
+          if (event.target.closest("a, button")) return;
+          window.open(link.href, "_blank", "noopener");
+        });
+
+        card.addEventListener("keydown", (event) => {
+          if (event.key !== "Enter" && event.key !== " ") return;
+          event.preventDefault();
+          window.open(link.href, "_blank", "noopener");
+        });
+      });
+      initBackTop();
+      initShare();
+    </script>
+  </body>
+</html>

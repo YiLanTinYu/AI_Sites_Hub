@@ -1,0 +1,6 @@
+{
+  "scripts": {
+    "check:links": "node tools/check-links.mjs",
+    "discover:ai": "node tools/discover-ai.mjs"
+  }
+}

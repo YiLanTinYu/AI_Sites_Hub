@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="AI 网址导航版块详情页，展示指定分类的完整入口列表。" />
+    <title>AI 入口完整列表 | Global LLM Hub</title>
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: #05070d;
+        color: #eef6ff;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei",
+          sans-serif;
+      }
+
+      .loading {
+        display: grid;
+        min-height: 100vh;
+        place-items: center;
+        color: #9fb0c4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="loading">正在加载完整列表...</div>
+
+    <script>
+      const sectionLabels = {
+        global: "国外主流大模型",
+        china: "国内主流大模型",
+        agents: "对话式 Agent 与综合助手",
+        skills: "Skills、智能体与自动化平台",
+        research: "AI 搜索、研究与知识整理",
+        coding: "AI 编程与应用生成",
+        creative: "多模态创作与办公效率",
+      };
+
+      function normalize(value) {
+        return value.toLowerCase().trim();
+      }
+
+      const sectionRankings = {
+        global: [
+          "OpenAI Models", "Claude Models", "Gemini", "Llama", "Mistral Models", "Hugging Face Models",
+          "Grok", "Azure AI Foundry", "Amazon Nova", "Command", "Together AI", "Fireworks AI",
+          "Replicate", "GroqCloud", "Cerebras Inference", "Jamba", "IBM Granite", "Mosaic AI", "Snowflake Cortex AI",
+        ],
+        china: [
+          "DeepSeek", "通义千问 / Qwen", "文心大模型 / ERNIE", "豆包大模型 / Seed", "Moonshot / Kimi Models", "腾讯混元",
+          "智谱 GLM", "讯飞星火", "MiniMax Models", "日日新 / SenseNova", "盘古大模型", "ModelScope",
+          "百川大模型", "Yi Models", "StepFun", "天工大模型", "360 智脑", "书生浦语 InternLM", "OpenBMB / MiniCPM", "SiliconFlow",
+        ],
+        agents: [
+          "ChatGPT", "Claude", "Gemini App", "Microsoft Copilot", "Grok", "豆包",
+          "Kimi", "腾讯元宝", "文心一言", "智谱清言", "Poe", "Manus",
+          "Meta AI", "You.com", "Monica",
+        ],
+        skills: [
+          "GPT Store", "Claude Skills", "Dify", "Coze", "LangGraph", "n8n",
+          "Copilot Studio", "Agentforce", "Zapier Agents", "LlamaIndex", "CrewAI", "Make",
+          "UiPath Agentic Automation", "AutoGen", "Flowise", "Langflow", "Botpress", "Voiceflow",
+          "Lindy", "Gumloop", "Stack AI", "Relevance AI", "Workato", "Pipedream",
+          "Vellum", "ServiceNow AI Agents", "Automation Anywhere", "AutoGPT", "Adept", "MindStudio",
+          "Wordware", "Relay.app", "Haystack",
+        ],
+        research: [
+          "Perplexity", "NotebookLM", "You.com Search", "Phind", "秘塔 AI 搜索", "Felo Search",
+          "Consensus", "Elicit", "Semantic Scholar", "Scite", "SciSpace", "Genspark",
+          "ChatPDF", "ResearchRabbit", "Connected Papers", "Humata",
+        ],
+        coding: [
+          "GitHub Copilot", "Cursor", "Claude Code", "Codex", "Devin", "Windsurf",
+          "Replit Agent", "Lovable", "v0", "Cline", "Continue", "Tabnine",
+          "Sourcegraph Amp", "Amazon Q Developer", "Bolt.new", "Trae", "CodeRabbit", "Qodo", "Base44",
+        ],
+        creative: [
+          "Midjourney", "Runway", "Suno", "ElevenLabs", "可灵 AI", "Pika",
+          "Luma Dream Machine", "Adobe Firefly", "Ideogram", "Leonardo AI", "Canva AI", "Gamma",
+          "Notion AI", "HeyGen", "Synthesia", "Udio", "Descript", "海螺 AI",
+          "PixVerse", "Stable Assistant", "Freepik AI", "Beautiful.ai", "Pitch", "Otter.ai",
+        ],
+      };
+
+      function sortSection(section, sectionId) {
+        const grid = section.querySelector(".grid");
+        const names = sectionRankings[sectionId] || [];
+        if (!grid || !names.length) return;
+        const rank = new Map(names.map((name, index) => [name, index]));
+        [...grid.querySelectorAll(".model-card")]
+          .sort((a, b) => {
+            const aName = a.querySelector("h3")?.textContent || "";
+            const bName = b.querySelector("h3")?.textContent || "";
+            return (rank.get(aName) ?? 999) - (rank.get(bName) ?? 999);
+          })
+          .forEach((card) => grid.append(card));
+      }
+
+      function badgesFor(card) {
+        const name = card.querySelector("h3")?.textContent || "";
+        const sectionId = card.closest(".section")?.id || "";
+        const badges = [];
+        if (["OpenAI Models", "Claude Models", "Gemini", "DeepSeek", "通义千问 / Qwen", "ChatGPT", "Claude", "GitHub Copilot", "Cursor", "Midjourney", "Perplexity"].includes(name)) badges.push("热门");
+        if (["Llama", "Hugging Face Models", "Dify", "LangGraph", "n8n", "Cline", "Continue", "ModelScope"].includes(name)) badges.push("开源");
+        if (["global", "china"].includes(sectionId)) badges.push("模型平台");
+        if (sectionId === "coding") badges.push("开发者");
+        if (sectionId === "creative") badges.push("创作");
+        if (sectionId === "research") badges.push("研究");
+        if (sectionId === "skills") badges.push("Agent");
+        return badges.slice(0, 3);
+      }
+
+      function enhanceCards(scope) {
+        scope.querySelectorAll(".model-card").forEach((card) => {
+          if (!card.querySelector(".meta-badges")) {
+            const badges = document.createElement("div");
+            badges.className = "meta-badges";
+            badgesFor(card).forEach((label) => {
+              const badge = document.createElement("span");
+              badge.className = "badge";
+              badge.textContent = label;
+              badges.append(badge);
+            });
+            card.querySelector("p")?.before(badges);
+          }
+        });
+      }
+
+      function initBackTop() {
+        const button = document.querySelector(".back-top");
+        if (!button) return;
+        const sync = () => button.classList.toggle("visible", window.scrollY > 520);
+        button.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        window.addEventListener("scroll", sync, { passive: true });
+        sync();
+      }
+
+      function showShareToast(message) {
+        let toast = document.querySelector(".share-toast");
+        if (!toast) {
+          toast = document.createElement("div");
+          toast.className = "share-toast";
+          document.body.append(toast);
+        }
+        toast.textContent = message;
+        toast.classList.add("visible");
+        clearTimeout(showShareToast.timer);
+        showShareToast.timer = setTimeout(() => toast.classList.remove("visible"), 1800);
+      }
+
+      function initShare() {
+        const button = document.querySelector(".share-button");
+        if (!button) return;
+        const url = new URL("index.html", location.href).href;
+        const data = {
+          title: "AI 大模型导航",
+          text: "国内外 AI 大模型、Agent、搜索、编程与多模态工具导航。",
+          url,
+        };
+        button.addEventListener("click", async () => {
+          try {
+            if (navigator.share) {
+              await navigator.share(data);
+              return;
+            }
+            await navigator.clipboard.writeText(url);
+            showShareToast("链接已复制");
+          } catch (error) {
+            if (error.name === "AbortError") return;
+            showShareToast("分享失败，请手动复制链接");
+          }
+        });
+      }
+
+      function initLogos(scope) {
+        scope.querySelectorAll(".logo[data-domain]").forEach((logo) => {
+          const fallback = logo.textContent;
+          const image = new Image();
+          image.alt = "";
+          image.loading = "lazy";
+          image.src = `https://www.google.com/s2/favicons?domain=${logo.dataset.domain}&sz=64`;
+          image.addEventListener("load", () => {
+            logo.textContent = "";
+            logo.append(image);
+          });
+          image.addEventListener("error", () => {
+            logo.textContent = fallback;
+          });
+        });
+      }
+
+      function initCards(scope) {
+        scope.querySelectorAll(".model-card").forEach((card) => {
+          const link = card.querySelector(".card-link");
+          card.tabIndex = 0;
+          card.setAttribute("role", "link");
+          card.setAttribute("aria-label", `${card.querySelector("h3").textContent} AI 入口`);
+
+          card.addEventListener("click", (event) => {
+            if (event.target.closest("a")) return;
+            window.open(link.href, "_blank", "noopener");
+          });
+
+          card.addEventListener("keydown", (event) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            window.open(link.href, "_blank", "noopener");
+          });
+        });
+      }
+
+      async function boot() {
+        const params = new URLSearchParams(location.search);
+        const sectionId = params.get("section") || "global";
+        const response = await fetch("index.html", { cache: "no-store" });
+        const html = await response.text();
+        const source = new DOMParser().parseFromString(html, "text/html");
+        const style = source.querySelector("style");
+        const sourceSection = source.querySelector(`#${CSS.escape(sectionId)}`);
+
+        if (!sourceSection) {
+          document.body.innerHTML = `<main class="loading">没有找到这个版块。<a href="index.html" style="color:#67e8f9;margin-left:10px">返回首页</a></main>`;
+          return;
+        }
+
+        document.head.append(style.cloneNode(true));
+        document.title = `${sectionLabels[sectionId] || "AI 入口"} | Global LLM Hub`;
+
+        const section = sourceSection.cloneNode(true);
+        sortSection(section, sectionId);
+        const title = section.querySelector("h2")?.textContent || "AI 入口";
+        const count = section.querySelectorAll(".model-card").length;
+
+        document.body.innerHTML = `
+          <header class="topbar">
+            <nav class="shell nav" aria-label="主导航">
+              <a class="brand" href="index.html" aria-label="AI 大模型导航首页">
+                <span class="brand-mark" aria-hidden="true">AI</span>
+                <span>
+                  AI 大模型导航
+                  <small>Global LLM Hub</small>
+                </span>
+              </a>
+              <div class="nav-tools">
+                <form class="search top-search" action="search.html" method="get" role="search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-3.5-3.5"></path>
+                  </svg>
+                  <input id="search" name="q" type="search" placeholder="搜索 AI 入口" />
+                </form>
+                <button class="share-button" type="button" aria-label="分享本站" title="分享本站">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <path d="m8.6 10.5 6.8-4"></path>
+                    <path d="m8.6 13.5 6.8 4"></path>
+                  </svg>
+                </button>
+              </div>
+            </nav>
+          </header>
+          <main>
+            <section class="shell hero" style="grid-template-columns:1fr;min-height:auto;padding-bottom:22px">
+              <div>
+                <div class="kicker"><span class="pulse" aria-hidden="true"></span> Full Directory</div>
+                <h1>${title}</h1>
+                <p>这个版块共收录 ${count} 个入口。使用标题栏搜索会进入集中搜索结果页。</p>
+                <div class="hero-actions">
+                  <a class="button primary" href="#directory">浏览列表</a>
+                  <a class="button" href="index.html#${sectionId}">回到首页版块</a>
+                </div>
+              </div>
+            </section>
+            <section id="directory" class="shell" aria-label="版块完整目录">
+              <div id="section-target"></div>
+              <div id="empty" class="empty">暂无可展示的 AI 入口。</div>
+            </section>
+          </main>
+          <footer class="footer">
+            <div class="shell">© 2026 AI 大模型导航 · 由 倚栏听雨 整理维护。本站仅作为 AI 产品与模型入口导航，所有商标、名称和链接归原网站或权利方所有。</div>
+          </footer>
+          <button class="back-top" type="button" aria-label="返回顶部">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 15 6-6 6 6"></path>
+            </svg>
+          </button>
+        `;
+
+        document.querySelector("#section-target").append(section);
+        enhanceCards(document);
+        initLogos(document);
+        initCards(document);
+        initBackTop();
+        initShare();
+      }
+
+      boot().catch(() => {
+        document.body.innerHTML = `<main class="loading">详情页加载失败。<a href="index.html" style="color:#67e8f9;margin-left:10px">返回首页</a></main>`;
+      });
+    </script>
+  </body>
+</html>
