@@ -20,5 +20,16 @@
     "sourceUrl": "https://data.ecb.europa.eu/data/datasets/EXR",
     "eurUsd": 1.1394,
     "eurCny": 7.7314
+  },
+  {
+    "id": "usd-cny-2026-07-01",
+    "base": "USD",
+    "quote": "CNY",
+    "rate": 6.7945,
+    "observedAt": "2026-07-01",
+    "source": "European Central Bank",
+    "sourceUrl": "https://data.ecb.europa.eu/data/datasets/EXR",
+    "eurUsd": 1.1383,
+    "eurCny": 7.7342
   }
 ]
