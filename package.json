@@ -1,6 +1,29 @@
 {
+  "name": "ai-sites-hub",
+  "private": true,
+  "type": "module",
   "scripts": {
+    "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "start": "ASTRO_TELEMETRY_DISABLED=1 astro dev",
+    "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
+    "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "check:links": "node tools/check-links.mjs",
-    "discover:ai": "node tools/discover-ai.mjs"
+    "discover:ai": "node tools/discover-ai.mjs",
+    "discover:deals": "node tools/discover-deals.mjs",
+    "notify:deals": "node tools/notify-deals.mjs",
+    "seed:price-history": "node tools/seed-price-history.mjs",
+    "update:rates": "node tools/update-exchange-rate.mjs",
+    "migrate:directory": "node tools/migrate-directory.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.0.4",
+    "chart.js": "^4.5.1",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "cheerio": "^1.2.0",
+    "typescript": "^6.0.3"
   }
 }

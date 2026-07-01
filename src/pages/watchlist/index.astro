@@ -1,0 +1,193 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { modelPriceRows } from "../../lib/data";
+
+const watchModels = modelPriceRows.map((row) => ({
+  id: row.modelId,
+  name: row.name,
+  provider: row.provider.name,
+  currency: row.currency,
+  input: row.input,
+  output: row.output,
+  verifiedAt: row.verifiedAt,
+  url: `/models/${row.modelId}/`,
+}));
+---
+
+<BaseLayout
+  title="我的关注模型 | AI Sites Hub"
+  description="在当前浏览器关注 AI 模型、设置目标价格并查看相关优惠。"
+>
+  <section class="page-head shell">
+    <p>LOCAL WATCHLIST</p>
+    <h1>我的关注</h1>
+    <span>关注与目标价格只保存在当前浏览器，不会上传。当前总价等于“发送给模型的内容价格 + 模型生成内容的价格”。</span>
+  </section>
+  <section class="watchlist shell">
+    <div id="watch-summary" class="watch-summary" aria-live="polite"></div>
+    <div id="watch-items" class="watch-items"></div>
+    <div id="watch-empty" class="empty-state" hidden>
+      <strong>还没有关注模型</strong>
+      <span>在模型详情页点击“关注模型”，之后可在这里设置你希望价格降到多少。</span>
+      <a href="/models/">浏览模型价格</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ watchModels }}>
+  const storageKey = "ai-sites-hub-watchlist-v1";
+  const models = watchModels;
+  const itemsRoot = document.querySelector("#watch-items");
+  const empty = document.querySelector("#watch-empty");
+  const summary = document.querySelector("#watch-summary");
+
+  const readItems = () => {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) ?? "[]");
+    } catch {
+      return [];
+    }
+  };
+
+  const writeItems = (items) => {
+    localStorage.setItem(storageKey, JSON.stringify(items));
+    render();
+  };
+
+  const updateSummary = () => {
+    const watched = readItems();
+    const rows = watched
+      .map((item) => ({ item, model: models.find((model) => model.id === item.modelId) }))
+      .filter((row) => row.model);
+    if (summary) {
+      const reached = rows.filter(({ item, model }) =>
+        item.threshold !== null && model.input + model.output <= item.threshold
+      ).length;
+      summary.textContent = `${rows.length} 个关注模型 · ${reached} 个已降到目标总价`;
+    }
+    return rows;
+  };
+
+  const render = () => {
+    const rows = updateSummary();
+    if (empty) empty.hidden = rows.length > 0;
+    if (!itemsRoot) return;
+    itemsRoot.replaceChildren(
+      ...rows.map(({ item, model }) => {
+        const card = document.createElement("article");
+        const total = model.input + model.output;
+        const symbol = model.currency === "CNY" ? "¥" : "$";
+        const info = document.createElement("div");
+        const provider = document.createElement("span");
+        provider.textContent = model.provider;
+        const title = document.createElement("h2");
+        const link = document.createElement("a");
+        link.href = model.url;
+        link.textContent = model.name;
+        title.append(link);
+        const price = document.createElement("p");
+        price.textContent = `输入 ${symbol}${model.input} · 输出 ${symbol}${model.output} · 合计 ${symbol}${total}`;
+        info.append(provider, title, price);
+
+        const controls = document.createElement("div");
+        controls.className = "watch-controls";
+        const label = document.createElement("label");
+        label.textContent = `目标总价（${model.currency}）`;
+        const input = document.createElement("input");
+        input.type = "number";
+        input.min = "0";
+        input.step = "0.01";
+        input.placeholder = total.toString();
+        input.value = item.threshold ?? "";
+        const targetStatus = document.createElement("p");
+        targetStatus.className = "target-status";
+        const updateTargetStatus = (threshold) => {
+          const reached = threshold !== null && total <= threshold;
+          card.classList.toggle("reached", reached);
+          targetStatus.classList.toggle("success", reached);
+          if (threshold === null) {
+            targetStatus.textContent = "设置目标总价后，这里会显示距离目标还有多少。";
+          } else if (reached) {
+            targetStatus.textContent = `已达到目标：当前总价 ${symbol}${total}，不高于目标 ${symbol}${threshold}。`;
+          } else {
+            targetStatus.textContent = `尚未达到：当前总价 ${symbol}${total}，还需下降 ${symbol}${(total - threshold).toFixed(2)}。`;
+          }
+        };
+        updateTargetStatus(item.threshold);
+        input.addEventListener("input", () => {
+          const value = input.value === "" ? null : Math.max(0, Number(input.value));
+          const next = readItems().map((entry) =>
+            entry.modelId === model.id ? { ...entry, threshold: value } : entry
+          );
+          localStorage.setItem(storageKey, JSON.stringify(next));
+          updateTargetStatus(value);
+          updateSummary();
+        });
+        label.append(input);
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.textContent = "取消关注";
+        remove.addEventListener("click", () =>
+          writeItems(readItems().filter((entry) => entry.modelId !== model.id))
+        );
+        controls.append(label, remove);
+        card.append(info, controls, targetStatus);
+        return card;
+      })
+    );
+  };
+
+  render();
+</script>
+
+<style>
+  .page-head { padding-block: 68px 38px; }
+  .page-head p { margin: 0 0 12px; color: var(--cyan); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  h1 { margin: 0; font-size: 46px; }
+  .page-head span { display: block; margin-top: 15px; color: var(--muted); line-height: 1.7; }
+  .watchlist { padding-bottom: 90px; }
+  .watch-summary { border-bottom: 1px solid var(--line); padding: 0 2px 15px; color: var(--muted); font-size: 12px; }
+  .watch-items { display: grid; gap: 12px; margin-top: 15px; }
+  article {
+    display: grid; grid-template-columns: minmax(0, 1fr) 300px; align-items: center; gap: 24px;
+    border: 1px solid var(--line); border-radius: 8px; padding: 20px; background: rgba(10,18,32,.76);
+  }
+  article.reached { border-color: rgba(134,239,172,.55); }
+  article span { color: var(--muted); font-size: 10px; }
+  h2 { margin: 6px 0 0; font-size: 18px; }
+  h2 a:hover { color: var(--cyan); }
+  article p { margin: 8px 0 0; color: #d8fff0; font-size: 12px; }
+  .watch-controls { display: flex; align-items: end; gap: 10px; }
+  .target-status {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--line);
+    margin: 0;
+    padding-top: 13px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+  .target-status.success {
+    color: var(--green);
+    font-weight: 700;
+  }
+  label { display: grid; flex: 1; gap: 6px; color: var(--muted); font-size: 10px; }
+  input {
+    width: 100%; height: 40px; border: 1px solid var(--line); border-radius: 6px; padding: 0 10px;
+    outline: none; background: #07101c; color: var(--text); font: inherit;
+  }
+  button {
+    height: 40px; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: 0 12px;
+    background: transparent; color: var(--muted); font: inherit; font-size: 11px;
+  }
+  .empty-state {
+    border: 1px solid var(--line); border-radius: 8px; margin-top: 15px; padding: 45px 20px;
+    background: rgba(10,18,32,.72); text-align: center;
+  }
+  .empty-state strong, .empty-state span { display: block; }
+  .empty-state span { margin-top: 8px; color: var(--muted); font-size: 12px; }
+  .empty-state a { display: inline-block; margin-top: 18px; color: var(--cyan); font-size: 12px; font-weight: 800; }
+  @media (max-width: 700px) {
+    h1 { font-size: 36px; }
+    article { grid-template-columns: 1fr; }
+  }
+</style>

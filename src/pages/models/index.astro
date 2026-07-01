@@ -1,0 +1,321 @@
+---
+import PriceTable from "../../components/PriceTable.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { latestVerifiedAt, modelPriceRows } from "../../lib/data";
+
+const rows = [...modelPriceRows].sort(
+  (a, b) => a.provider.name.localeCompare(b.provider.name) || a.input - b.input,
+);
+---
+
+<BaseLayout
+  title="主流 AI 模型开发接口价格 | AI Sites Hub"
+  description="比较国内外主流 AI 模型发送内容、重复内容优惠价、生成内容价格、单次处理上限和官方来源。"
+>
+  <section class="page-head shell">
+    <p>MODEL PRICE DIRECTORY</p>
+    <h1>主流 AI 模型价格</h1>
+    <div>
+      <span>{rows.length} 个已确认价格的模型</span>
+      <span>原始币种 / 100 万个文本单位</span>
+      <span>最近确认：{latestVerifiedAt}</span>
+    </div>
+    <div class="plain-note">
+      <strong>怎么看价格？</strong>
+      <span>“发送内容”是你交给模型的文字；“生成内容”是模型回复的文字；文本单位（Token）是厂商计算文字量的方式，不等同于汉字数。</span>
+    </div>
+  </section>
+  <section class="shell table-section">
+    <div class="filter-bar" aria-label="模型价格筛选">
+      <label class="search-field">
+        <span>搜索模型或厂商</span>
+        <input id="model-search" type="search" placeholder="例如 Claude、DeepSeek" autocomplete="off" />
+      </label>
+      <label>
+        <span>地区</span>
+        <select id="region-filter">
+          <option value="all">全部</option>
+          <option value="global">国外</option>
+          <option value="china">国内</option>
+        </select>
+      </label>
+      <label>
+        <span>厂商</span>
+        <select id="provider-filter">
+          <option value="all">全部厂商</option>
+          {
+            [...new Map(rows.map((row) => [row.provider.id, row.provider])).values()].map(
+              (provider) => <option value={provider.id}>{provider.name}</option>,
+            )
+          }
+        </select>
+      </label>
+      <label>
+        <span>币种</span>
+        <select id="currency-filter">
+          <option value="all">全部币种</option>
+          <option value="USD">美元 USD</option>
+          <option value="CNY">人民币 CNY</option>
+        </select>
+      </label>
+      <label>
+        <span>排序</span>
+        <select id="sort-filter">
+          <option value="default">默认</option>
+          <option value="input-asc">输入价格从低到高</option>
+          <option value="output-asc">输出价格从低到高</option>
+          <option value="total-asc">综合价格从低到高</option>
+        </select>
+      </label>
+    </div>
+    <div class="result-line" aria-live="polite">
+      <span id="result-count">{rows.length} 个模型</span>
+      <button id="reset-filters" type="button">清除筛选</button>
+    </div>
+    <div id="price-results">
+      <PriceTable rows={rows} />
+    </div>
+    <div id="empty-result" class="empty-result" hidden>
+      <strong>没有符合条件的模型</strong>
+      <span>调整关键词或清除筛选后再试。</span>
+    </div>
+    <p class="method-note">
+      表格保留厂商原始币种，不直接混合比较人民币和美元。超长内容、不同服务地区、加速服务、联网搜索以及图片或音视频处理可能另收费，请在使用前查看官方说明。
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 76px 34px;
+  }
+
+  .page-head > p {
+    margin: 0 0 13px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+  }
+
+  .page-head div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .table-section {
+    padding-bottom: 90px;
+  }
+
+  .plain-note {
+    display: flex;
+    gap: 10px;
+    border-left: 2px solid var(--cyan);
+    margin-bottom: 18px;
+    padding: 10px 13px;
+    background: rgba(103, 232, 249, 0.055);
+  }
+
+  .plain-note strong {
+    flex: 0 0 auto;
+    color: var(--text);
+    font-size: 11px;
+  }
+
+  .plain-note span {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .filter-bar {
+    display: grid;
+    grid-template-columns: minmax(210px, 1.25fr) repeat(4, minmax(130px, 0.75fr));
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+
+  label {
+    display: grid;
+    gap: 7px;
+  }
+
+  label > span {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  input,
+  select {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 12px;
+    outline: none;
+    background: rgba(10, 18, 32, 0.88);
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+  }
+
+  input:focus,
+  select:focus {
+    border-color: rgba(103, 232, 249, 0.62);
+    box-shadow: 0 0 0 3px rgba(103, 232, 249, 0.08);
+  }
+
+  .result-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 32px;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .result-line button {
+    cursor: pointer;
+    border: 0;
+    padding: 4px 0;
+    background: transparent;
+    color: var(--cyan);
+    font: inherit;
+    font-weight: 700;
+  }
+
+  .empty-result {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 42px 24px;
+    background: rgba(10, 18, 32, 0.72);
+    text-align: center;
+  }
+
+  .empty-result strong,
+  .empty-result span {
+    display: block;
+  }
+
+  .empty-result span {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .method-note {
+    max-width: 900px;
+    margin: 18px 2px 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 560px) {
+    .page-head {
+      padding-block: 54px 26px;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+
+    .filter-bar {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .search-field {
+      grid-column: 1 / -1;
+    }
+  }
+</style>
+
+<script>
+  const search = document.querySelector<HTMLInputElement>("#model-search");
+  const region = document.querySelector<HTMLSelectElement>("#region-filter");
+  const provider = document.querySelector<HTMLSelectElement>("#provider-filter");
+  const currency = document.querySelector<HTMLSelectElement>("#currency-filter");
+  const sort = document.querySelector<HTMLSelectElement>("#sort-filter");
+  const reset = document.querySelector<HTMLButtonElement>("#reset-filters");
+  const count = document.querySelector<HTMLElement>("#result-count");
+  const results = document.querySelector<HTMLElement>("#price-results");
+  const empty = document.querySelector<HTMLElement>("#empty-result");
+  const tbody = results?.querySelector("tbody");
+
+  const rows = Array.from(
+    document.querySelectorAll<HTMLTableRowElement>("[data-price-row]"),
+  );
+
+  const applyFilters = () => {
+    const query = search?.value.trim().toLowerCase() ?? "";
+    const selectedRegion = region?.value ?? "all";
+    const selectedProvider = provider?.value ?? "all";
+    const selectedCurrency = currency?.value ?? "all";
+
+    const visibleRows = rows.filter((row) => {
+      const matchesQuery = !query || row.dataset.name?.includes(query);
+      const matchesRegion =
+        selectedRegion === "all" || row.dataset.region === selectedRegion;
+      const matchesProvider =
+        selectedProvider === "all" || row.dataset.provider === selectedProvider;
+      const matchesCurrency =
+        selectedCurrency === "all" || row.dataset.currency === selectedCurrency;
+      const visible = Boolean(
+        matchesQuery && matchesRegion && matchesProvider && matchesCurrency,
+      );
+      row.hidden = !visible;
+      return visible;
+    });
+
+    const sortValue = sort?.value ?? "default";
+    const valueFor = (row: HTMLTableRowElement) => {
+      const input = Number(row.dataset.input);
+      const output = Number(row.dataset.output);
+      if (sortValue === "input-asc") return input;
+      if (sortValue === "output-asc") return output;
+      if (sortValue === "total-asc") return input + output;
+      return rows.indexOf(row);
+    };
+
+    if (tbody) {
+      [...visibleRows]
+        .sort((a, b) => {
+          if (sortValue === "default") return valueFor(a) - valueFor(b);
+          const currencyOrder = (a.dataset.currency ?? "").localeCompare(
+            b.dataset.currency ?? "",
+          );
+          return currencyOrder || valueFor(a) - valueFor(b);
+        })
+        .forEach((row) => tbody.append(row));
+    }
+
+    if (count) count.textContent = `${visibleRows.length} 个模型`;
+    if (results) results.hidden = visibleRows.length === 0;
+    if (empty) empty.hidden = visibleRows.length > 0;
+  };
+
+  [search, region, provider, currency, sort].forEach((control) => {
+    control?.addEventListener("input", applyFilters);
+  });
+
+  reset?.addEventListener("click", () => {
+    if (search) search.value = "";
+    if (region) region.value = "all";
+    if (provider) provider.value = "all";
+    if (currency) currency.value = "all";
+    if (sort) sort.value = "default";
+    applyFilters();
+    search?.focus();
+  });
+</script>

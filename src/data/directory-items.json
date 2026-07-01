@@ -1,0 +1,2885 @@
+[
+  {
+    "id": "global-01",
+    "categoryId": "global",
+    "name": "OpenAI Models",
+    "provider": "OpenAI",
+    "description": "OpenAI 的模型入口，覆盖 GPT、推理、多模态、图像、音频等通用基础模型与开发者能力。",
+    "url": "https://openai.com/models/",
+    "domain": "openai.com",
+    "logoText": "GPT",
+    "tags": [
+      "chat",
+      "code",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "热门",
+      "模型平台"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "global-02",
+    "categoryId": "global",
+    "name": "Claude Models",
+    "provider": "Anthropic",
+    "description": "Anthropic 的 Claude 模型家族入口，包含面向复杂推理、代码、长上下文和企业应用的模型系列。",
+    "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
+    "domain": "anthropic.com",
+    "logoText": "CL",
+    "tags": [
+      "chat",
+      "code",
+      "office"
+    ],
+    "badges": [
+      "热门",
+      "模型平台"
+    ],
+    "accent": "#fcd34d",
+    "rank": 1
+  },
+  {
+    "id": "global-03",
+    "categoryId": "global",
+    "name": "Gemini",
+    "provider": "Google",
+    "description": "Google DeepMind 的 Gemini 模型家族，面向文本、代码、图像、音频、视频和长上下文多模态任务。",
+    "url": "https://deepmind.google/models/gemini/",
+    "domain": "deepmind.google",
+    "logoText": "GE",
+    "tags": [
+      "chat",
+      "office",
+      "multimodal",
+      "search"
+    ],
+    "badges": [
+      "热门",
+      "模型平台"
+    ],
+    "accent": "#86efac",
+    "rank": 2
+  },
+  {
+    "id": "global-04",
+    "categoryId": "global",
+    "name": "Llama",
+    "provider": "Meta",
+    "description": "Meta 的开放权重大模型家族，覆盖文本、代码、多模态和端侧部署，是开源生态的重要基座。",
+    "url": "https://ai.meta.com/llama/",
+    "domain": "ai.meta.com",
+    "logoText": "LL",
+    "tags": [
+      "chat",
+      "code",
+      "open",
+      "multimodal"
+    ],
+    "badges": [
+      "开源",
+      "模型平台"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 3
+  },
+  {
+    "id": "global-05",
+    "categoryId": "global",
+    "name": "Mistral Models",
+    "provider": "Mistral AI",
+    "description": "Mistral AI 的模型平台，覆盖开源权重模型、商用 API、推理模型和多语言开发者场景。",
+    "url": "https://mistral.ai/technology/",
+    "domain": "mistral.ai",
+    "logoText": "MS",
+    "tags": [
+      "chat",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#38bdf8",
+    "rank": 4
+  },
+  {
+    "id": "global-06",
+    "categoryId": "global",
+    "name": "Hugging Face Models",
+    "provider": "Hugging Face",
+    "description": "全球模型、数据集和 Space 应用社区，可检索开源大模型、多模态模型和推理端点。",
+    "url": "https://huggingface.co/models",
+    "domain": "huggingface.co",
+    "logoText": "HF",
+    "tags": [
+      "open",
+      "code",
+      "chat",
+      "multimodal"
+    ],
+    "badges": [
+      "开源",
+      "模型平台"
+    ],
+    "accent": "#67e8f9",
+    "rank": 5
+  },
+  {
+    "id": "global-07",
+    "categoryId": "global",
+    "name": "Grok",
+    "provider": "xAI",
+    "description": "xAI 的通用大模型系列，面向推理、代码、实时信息理解和多模态任务。",
+    "url": "https://x.ai/grok",
+    "domain": "grok.com",
+    "logoText": "GX",
+    "tags": [
+      "chat",
+      "search"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fda4af",
+    "rank": 6
+  },
+  {
+    "id": "global-08",
+    "categoryId": "global",
+    "name": "Azure AI Foundry",
+    "provider": "Microsoft",
+    "description": "微软 AI 模型与应用平台，聚合 OpenAI、开源模型和企业级 Agent 开发能力。",
+    "url": "https://ai.azure.com/",
+    "domain": "microsoft.com",
+    "logoText": "AZ",
+    "tags": [
+      "code",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#38bdf8",
+    "rank": 7
+  },
+  {
+    "id": "global-09",
+    "categoryId": "global",
+    "name": "Amazon Nova",
+    "provider": "Amazon",
+    "description": "Amazon 的基础模型家族，面向文本、多模态理解、内容生成和企业级云上 AI 应用。",
+    "url": "https://aws.amazon.com/ai/generative-ai/nova/",
+    "domain": "amazon.science",
+    "logoText": "NV",
+    "tags": [
+      "office",
+      "chat",
+      "code",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#93c5fd",
+    "rank": 8
+  },
+  {
+    "id": "global-10",
+    "categoryId": "global",
+    "name": "Command",
+    "provider": "Cohere",
+    "description": "Cohere 的企业级通用模型系列，侧重检索增强、工具调用、多语言和生产环境部署。",
+    "url": "https://cohere.com/models",
+    "domain": "cohere.com",
+    "logoText": "CO",
+    "tags": [
+      "chat",
+      "code",
+      "office"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#34d399",
+    "rank": 9
+  },
+  {
+    "id": "global-11",
+    "categoryId": "global",
+    "name": "Together AI",
+    "provider": "Together AI",
+    "description": "开放模型云平台，提供 Llama、Qwen、DeepSeek 等模型的训练、微调和推理服务。",
+    "url": "https://www.together.ai/models",
+    "domain": "together.ai",
+    "logoText": "TG",
+    "tags": [
+      "code",
+      "open",
+      "chat",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fcd34d",
+    "rank": 10
+  },
+  {
+    "id": "global-12",
+    "categoryId": "global",
+    "name": "Fireworks AI",
+    "provider": "Fireworks AI",
+    "description": "高性能模型推理平台，面向开源大模型、Serverless 推理、微调和生产级 API 部署。",
+    "url": "https://fireworks.ai/models",
+    "domain": "fireworks.ai",
+    "logoText": "FW",
+    "tags": [
+      "code",
+      "open",
+      "chat",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#86efac",
+    "rank": 11
+  },
+  {
+    "id": "global-13",
+    "categoryId": "global",
+    "name": "Replicate",
+    "provider": "Replicate",
+    "description": "云端模型运行平台，可调用图像、视频、语音、LLM 和开源模型 API。",
+    "url": "https://replicate.com/explore",
+    "domain": "replicate.com",
+    "logoText": "RP",
+    "tags": [
+      "code",
+      "open",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 12
+  },
+  {
+    "id": "global-14",
+    "categoryId": "global",
+    "name": "GroqCloud",
+    "provider": "Groq",
+    "description": "以低延迟推理闻名的模型 API 平台，支持多种开放权重模型的高速调用。",
+    "url": "https://console.groq.com/docs/models",
+    "domain": "groq.com",
+    "logoText": "GQ",
+    "tags": [
+      "code",
+      "chat",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#93c5fd",
+    "rank": 13
+  },
+  {
+    "id": "global-15",
+    "categoryId": "global",
+    "name": "Cerebras Inference",
+    "provider": "Cerebras",
+    "description": "面向大模型高速推理的云平台，提供开放模型 API 和企业级部署能力。",
+    "url": "https://www.cerebras.ai/inference",
+    "domain": "cerebras.ai",
+    "logoText": "CB",
+    "tags": [
+      "code",
+      "chat",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fda4af",
+    "rank": 14
+  },
+  {
+    "id": "global-16",
+    "categoryId": "global",
+    "name": "Jamba",
+    "provider": "AI21 Labs",
+    "description": "AI21 Labs 的通用模型系列，结合长上下文、企业文本处理和生成式应用开发能力。",
+    "url": "https://www.ai21.com/jamba",
+    "domain": "ai21.com",
+    "logoText": "J",
+    "tags": [
+      "open",
+      "code",
+      "chat",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fb7185",
+    "rank": 15
+  },
+  {
+    "id": "global-17",
+    "categoryId": "global",
+    "name": "IBM Granite",
+    "provider": "IBM",
+    "description": "IBM 的企业级基础模型家族，覆盖语言、代码、时间序列和可信 AI 场景。",
+    "url": "https://www.ibm.com/granite",
+    "domain": "ibm.com",
+    "logoText": "IB",
+    "tags": [
+      "office",
+      "code",
+      "chat"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#34d399",
+    "rank": 16
+  },
+  {
+    "id": "global-18",
+    "categoryId": "global",
+    "name": "Mosaic AI",
+    "provider": "Databricks",
+    "description": "Databricks 的模型训练、部署和治理平台，面向企业数据与生成式 AI 应用。",
+    "url": "https://www.databricks.com/",
+    "domain": "databricks.com",
+    "logoText": "DB",
+    "tags": [
+      "code",
+      "office",
+      "chat"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 17
+  },
+  {
+    "id": "global-19",
+    "categoryId": "global",
+    "name": "Snowflake Cortex AI",
+    "provider": "Snowflake",
+    "description": "Snowflake 的企业 AI 与模型服务入口，面向数据云中的文本、搜索和应用智能。",
+    "url": "https://www.snowflake.com/en/data-cloud/cortex/",
+    "domain": "snowflake.com",
+    "logoText": "SF",
+    "tags": [
+      "code",
+      "office",
+      "chat"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fb7185",
+    "rank": 18
+  },
+  {
+    "id": "china-01",
+    "categoryId": "china",
+    "name": "DeepSeek",
+    "provider": "DeepSeek",
+    "description": "深度求索的大模型与 API 平台，覆盖推理、代码、通用文本和开放权重模型生态。",
+    "url": "https://api-docs.deepseek.com/",
+    "domain": "deepseek.com",
+    "logoText": "DS",
+    "tags": [
+      "chat",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "热门",
+      "模型平台"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "china-02",
+    "categoryId": "china",
+    "name": "通义千问 / Qwen",
+    "provider": "阿里云",
+    "description": "阿里通义千问模型家族，覆盖开源权重、代码、多模态、长上下文和企业级模型服务。",
+    "url": "https://qwenlm.github.io/",
+    "domain": "qwen.ai",
+    "logoText": "QW",
+    "tags": [
+      "chat",
+      "code",
+      "open",
+      "office"
+    ],
+    "badges": [
+      "热门",
+      "模型平台"
+    ],
+    "accent": "#86efac",
+    "rank": 1
+  },
+  {
+    "id": "china-03",
+    "categoryId": "china",
+    "name": "文心大模型 / ERNIE",
+    "provider": "百度",
+    "description": "百度文心大模型家族与千帆平台入口，面向中文理解、生成、多模态和企业应用开发。",
+    "url": "https://cloud.baidu.com/product/wenxinworkshop",
+    "domain": "baidu.com",
+    "logoText": "WY",
+    "tags": [
+      "chat",
+      "search",
+      "office"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#93c5fd",
+    "rank": 2
+  },
+  {
+    "id": "china-04",
+    "categoryId": "china",
+    "name": "豆包大模型 / Seed",
+    "provider": "字节跳动",
+    "description": "字节跳动 Seed/豆包模型家族，覆盖文本、语音、视觉、视频生成和火山引擎企业服务。",
+    "url": "https://www.volcengine.com/product/doubao",
+    "domain": "doubao.com",
+    "logoText": "DB",
+    "tags": [
+      "chat",
+      "search",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fda4af",
+    "rank": 3
+  },
+  {
+    "id": "china-05",
+    "categoryId": "china",
+    "name": "Moonshot / Kimi Models",
+    "provider": "Moonshot AI",
+    "description": "月之暗面的大模型开放平台，主打长上下文、文件理解、复杂推理和中文应用开发。",
+    "url": "https://platform.moonshot.cn/docs",
+    "domain": "moonshot.cn",
+    "logoText": "KM",
+    "tags": [
+      "chat",
+      "search",
+      "office"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 4
+  },
+  {
+    "id": "china-06",
+    "categoryId": "china",
+    "name": "腾讯混元",
+    "provider": "腾讯",
+    "description": "腾讯混元大模型开放平台，覆盖文本生成、图像、多模态、企业知识库和行业应用。",
+    "url": "https://hunyuan.tencent.com/",
+    "domain": "tencent.com",
+    "logoText": "YB",
+    "tags": [
+      "chat",
+      "search",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fcd34d",
+    "rank": 5
+  },
+  {
+    "id": "china-07",
+    "categoryId": "china",
+    "name": "智谱 GLM",
+    "provider": "智谱",
+    "description": "智谱 AI 的 GLM 模型开放平台，覆盖通用对话、代码、多模态、智能体和企业级调用。",
+    "url": "https://open.bigmodel.cn/",
+    "domain": "chatglm.cn",
+    "logoText": "ZP",
+    "tags": [
+      "chat",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#38bdf8",
+    "rank": 6
+  },
+  {
+    "id": "china-08",
+    "categoryId": "china",
+    "name": "讯飞星火",
+    "provider": "科大讯飞",
+    "description": "科大讯飞的大模型体系，覆盖中文对话、教育办公、语音、多模态和行业应用。",
+    "url": "https://xinghuo.xfyun.cn/",
+    "domain": "xfyun.cn",
+    "logoText": "XF",
+    "tags": [
+      "chat",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#67e8f9",
+    "rank": 7
+  },
+  {
+    "id": "china-09",
+    "categoryId": "china",
+    "name": "MiniMax Models",
+    "provider": "MiniMax",
+    "description": "MiniMax 大模型开放平台，覆盖文本、语音、多模态、角色智能和长上下文应用开发。",
+    "url": "https://www.minimaxi.com/platform",
+    "domain": "hailuoai.com",
+    "logoText": "HX",
+    "tags": [
+      "chat",
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 8
+  },
+  {
+    "id": "china-10",
+    "categoryId": "china",
+    "name": "日日新 / SenseNova",
+    "provider": "商汤",
+    "description": "商汤日日新大模型体系，面向语言、视觉、多模态生成和行业智能化应用。",
+    "url": "https://www.sensetime.com/cn",
+    "domain": "sensetime.com",
+    "logoText": "SP",
+    "tags": [
+      "chat",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#34d399",
+    "rank": 9
+  },
+  {
+    "id": "china-11",
+    "categoryId": "china",
+    "name": "盘古大模型",
+    "provider": "华为云",
+    "description": "华为云盘古大模型体系，面向行业智能、科学计算、视觉、语音和企业应用。",
+    "url": "https://www.huaweicloud.com/product/pangu.html",
+    "domain": "huawei.com",
+    "logoText": "PG",
+    "tags": [
+      "chat",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fb7185",
+    "rank": 10
+  },
+  {
+    "id": "china-12",
+    "categoryId": "china",
+    "name": "ModelScope",
+    "provider": "魔搭",
+    "description": "国内模型开源社区和模型托管平台，覆盖 LLM、语音、视觉、多模态和数据集。",
+    "url": "https://www.modelscope.cn/models",
+    "domain": "modelscope.cn",
+    "logoText": "MS",
+    "tags": [
+      "chat",
+      "code",
+      "open",
+      "multimodal"
+    ],
+    "badges": [
+      "开源",
+      "模型平台"
+    ],
+    "accent": "#fda4af",
+    "rank": 11
+  },
+  {
+    "id": "china-13",
+    "categoryId": "china",
+    "name": "百川大模型",
+    "provider": "百川智能",
+    "description": "百川智能的通用大模型与开放平台，面向中文知识、医疗、企业和开发者应用。",
+    "url": "https://www.baichuan-ai.com/",
+    "domain": "baichuan-ai.com",
+    "logoText": "BC",
+    "tags": [
+      "chat",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fcd34d",
+    "rank": 12
+  },
+  {
+    "id": "china-14",
+    "categoryId": "china",
+    "name": "Yi Models",
+    "provider": "零一万物",
+    "description": "零一万物 Yi 模型家族入口，覆盖开源模型、长上下文、多模态和开发者生态。",
+    "url": "https://www.01.ai/",
+    "domain": "01.ai",
+    "logoText": "YI",
+    "tags": [
+      "chat",
+      "code",
+      "open",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#86efac",
+    "rank": 13
+  },
+  {
+    "id": "china-15",
+    "categoryId": "china",
+    "name": "StepFun",
+    "provider": "阶跃星辰",
+    "description": "阶跃星辰的大模型与开放平台，面向通用智能、多模态理解和应用开发。",
+    "url": "https://platform.stepfun.com/",
+    "domain": "stepfun.com",
+    "logoText": "ST",
+    "tags": [
+      "chat",
+      "code",
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 14
+  },
+  {
+    "id": "china-16",
+    "categoryId": "china",
+    "name": "天工大模型",
+    "provider": "昆仑万维",
+    "description": "昆仑万维天工大模型体系，覆盖中文生成、搜索增强、多模态创作和开放平台能力。",
+    "url": "https://model-platform.tiangong.cn/",
+    "domain": "tiangong.cn",
+    "logoText": "TG",
+    "tags": [
+      "chat",
+      "search",
+      "office"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#fb7185",
+    "rank": 15
+  },
+  {
+    "id": "china-17",
+    "categoryId": "china",
+    "name": "360 智脑",
+    "provider": "360",
+    "description": "360 的大模型与 AI 产品体系，面向搜索、办公、安全和中文智能助手场景。",
+    "url": "https://ai.360.com/",
+    "domain": "360.cn",
+    "logoText": "360",
+    "tags": [
+      "chat",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#93c5fd",
+    "rank": 16
+  },
+  {
+    "id": "china-18",
+    "categoryId": "china",
+    "name": "书生浦语 InternLM",
+    "provider": "上海 AI Lab",
+    "description": "上海人工智能实验室的开源大模型体系，覆盖语言、代码、智能体和工具链生态。",
+    "url": "https://internlm.intern-ai.org.cn/",
+    "domain": "openxlab.org.cn",
+    "logoText": "IL",
+    "tags": [
+      "chat",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#38bdf8",
+    "rank": 17
+  },
+  {
+    "id": "china-19",
+    "categoryId": "china",
+    "name": "OpenBMB / MiniCPM",
+    "provider": "OpenBMB",
+    "description": "面向端侧和开源生态的模型项目，覆盖 MiniCPM、Agent、工具调用和轻量化部署。",
+    "url": "https://www.openbmb.cn/",
+    "domain": "openbmb.cn",
+    "logoText": "BM",
+    "tags": [
+      "chat",
+      "code",
+      "open",
+      "multimodal"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#34d399",
+    "rank": 18
+  },
+  {
+    "id": "china-20",
+    "categoryId": "china",
+    "name": "SiliconFlow",
+    "provider": "硅基流动",
+    "description": "国内高性能模型云平台，提供开源模型推理、部署、模型广场和 API 服务。",
+    "url": "https://siliconflow.cn/",
+    "domain": "siliconflow.cn",
+    "logoText": "SF",
+    "tags": [
+      "code",
+      "chat",
+      "open"
+    ],
+    "badges": [
+      "模型平台"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 19
+  },
+  {
+    "id": "agents-01",
+    "categoryId": "agents",
+    "name": "ChatGPT",
+    "provider": "OpenAI",
+    "description": "通用对话式 AI 产品，覆盖写作、分析、图片理解、语音、文件处理、GPTs 和 Agent 任务。",
+    "url": "https://chatgpt.com/",
+    "domain": "chatgpt.com",
+    "logoText": "CG",
+    "tags": [
+      "chat",
+      "agent",
+      "office",
+      "multimodal"
+    ],
+    "badges": [
+      "热门"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "agents-02",
+    "categoryId": "agents",
+    "name": "Claude",
+    "provider": "Anthropic",
+    "description": "擅长长文档、代码协作、严谨写作和工作流任务的 AI 助手，可结合项目、连接器和技能使用。",
+    "url": "https://claude.ai/",
+    "domain": "claude.ai",
+    "logoText": "CL",
+    "tags": [
+      "chat",
+      "agent",
+      "code",
+      "office"
+    ],
+    "badges": [
+      "热门"
+    ],
+    "accent": "#fcd34d",
+    "rank": 1
+  },
+  {
+    "id": "agents-03",
+    "categoryId": "agents",
+    "name": "Gemini App",
+    "provider": "Google",
+    "description": "Google 的 AI 助手产品，适合搜索增强、移动端协作、文档理解和多模态内容处理。",
+    "url": "https://gemini.google.com/",
+    "domain": "gemini.google.com",
+    "logoText": "GM",
+    "tags": [
+      "chat",
+      "agent",
+      "search",
+      "multimodal"
+    ],
+    "badges": [],
+    "accent": "#86efac",
+    "rank": 2
+  },
+  {
+    "id": "agents-04",
+    "categoryId": "agents",
+    "name": "Microsoft Copilot",
+    "provider": "Microsoft",
+    "description": "微软面向个人和办公场景的 AI 助手，连接 Windows、Edge、Microsoft 365 和网页搜索。",
+    "url": "https://copilot.microsoft.com/",
+    "domain": "copilot.microsoft.com",
+    "logoText": "CP",
+    "tags": [
+      "chat",
+      "agent",
+      "search",
+      "office"
+    ],
+    "badges": [],
+    "accent": "#38bdf8",
+    "rank": 3
+  },
+  {
+    "id": "agents-05",
+    "categoryId": "agents",
+    "name": "Grok",
+    "provider": "xAI",
+    "description": "xAI 的对话式 AI 产品，适合实时信息、推理问答、代码辅助和社交内容理解。",
+    "url": "https://grok.com/",
+    "domain": "grok.com",
+    "logoText": "GX",
+    "tags": [
+      "chat",
+      "agent",
+      "search"
+    ],
+    "badges": [],
+    "accent": "#34d399",
+    "rank": 4
+  },
+  {
+    "id": "agents-06",
+    "categoryId": "agents",
+    "name": "豆包",
+    "provider": "字节跳动",
+    "description": "中文 AI 助手产品，覆盖聊天、搜索、写作、图片、语音和移动端日常效率场景。",
+    "url": "https://www.doubao.com/chat/",
+    "domain": "doubao.com",
+    "logoText": "DB",
+    "tags": [
+      "chat",
+      "agent",
+      "office",
+      "multimodal"
+    ],
+    "badges": [],
+    "accent": "#67e8f9",
+    "rank": 5
+  },
+  {
+    "id": "agents-07",
+    "categoryId": "agents",
+    "name": "Kimi",
+    "provider": "Moonshot",
+    "description": "适合长文档阅读、文件总结、联网搜索和中文资料整理的 AI 助手。",
+    "url": "https://kimi.moonshot.cn/",
+    "domain": "kimi.moonshot.cn",
+    "logoText": "KM",
+    "tags": [
+      "chat",
+      "agent",
+      "search",
+      "office"
+    ],
+    "badges": [],
+    "accent": "#fcd34d",
+    "rank": 6
+  },
+  {
+    "id": "agents-08",
+    "categoryId": "agents",
+    "name": "腾讯元宝",
+    "provider": "腾讯",
+    "description": "腾讯 AI 助手，适合微信生态内容处理、文档阅读、搜索问答和中文办公任务。",
+    "url": "https://yuanbao.tencent.com/",
+    "domain": "yuanbao.tencent.com",
+    "logoText": "YB",
+    "tags": [
+      "chat",
+      "agent",
+      "office"
+    ],
+    "badges": [],
+    "accent": "#86efac",
+    "rank": 7
+  },
+  {
+    "id": "agents-09",
+    "categoryId": "agents",
+    "name": "文心一言",
+    "provider": "百度",
+    "description": "百度文心大模型的 AI 助手产品，适合中文问答、创作、搜索增强和办公写作。",
+    "url": "https://yiyan.baidu.com/",
+    "domain": "yiyan.baidu.com",
+    "logoText": "YY",
+    "tags": [
+      "chat",
+      "agent",
+      "search",
+      "office"
+    ],
+    "badges": [],
+    "accent": "#93c5fd",
+    "rank": 8
+  },
+  {
+    "id": "agents-10",
+    "categoryId": "agents",
+    "name": "智谱清言",
+    "provider": "智谱",
+    "description": "智谱 AI 面向个人和办公的 AI 助手，覆盖对话、写作、代码、多模态和智能体。",
+    "url": "https://chatglm.cn/",
+    "domain": "chatglm.cn",
+    "logoText": "ZP",
+    "tags": [
+      "chat",
+      "agent",
+      "office",
+      "multimodal"
+    ],
+    "badges": [],
+    "accent": "#c4b5fd",
+    "rank": 9
+  },
+  {
+    "id": "agents-11",
+    "categoryId": "agents",
+    "name": "Poe",
+    "provider": "Quora",
+    "description": "聚合多家模型的聊天与 Bot 平台，可快速切换模型、创建机器人并分享给其他用户。",
+    "url": "https://poe.com/",
+    "domain": "poe.com",
+    "logoText": "PO",
+    "tags": [
+      "chat",
+      "agent",
+      "search",
+      "office"
+    ],
+    "badges": [],
+    "accent": "#c4b5fd",
+    "rank": 10
+  },
+  {
+    "id": "agents-12",
+    "categoryId": "agents",
+    "name": "Manus",
+    "provider": "Manus",
+    "description": "面向复杂在线任务的通用 AI Agent，可执行研究、数据整理、报告、网页和自动化工作流。",
+    "url": "https://manus.im/",
+    "domain": "manus.im",
+    "logoText": "MA",
+    "tags": [
+      "agent",
+      "search",
+      "office",
+      "code"
+    ],
+    "badges": [],
+    "accent": "#fda4af",
+    "rank": 11
+  },
+  {
+    "id": "agents-13",
+    "categoryId": "agents",
+    "name": "Meta AI",
+    "provider": "Meta",
+    "description": "Meta 的 AI 助手入口，覆盖聊天、图片生成、社交生态和 Llama 模型能力。",
+    "url": "https://www.meta.ai/",
+    "domain": "meta.ai",
+    "logoText": "ME",
+    "tags": [
+      "chat",
+      "agent",
+      "office",
+      "multimodal"
+    ],
+    "badges": [],
+    "accent": "#fb7185",
+    "rank": 12
+  },
+  {
+    "id": "agents-14",
+    "categoryId": "agents",
+    "name": "You.com",
+    "provider": "You.com",
+    "description": "融合搜索、聊天、研究和生产力 Agent 的 AI 工作台，适合资料查询和任务执行。",
+    "url": "https://you.com/",
+    "domain": "you.com",
+    "logoText": "YOU",
+    "tags": [
+      "chat",
+      "agent",
+      "office"
+    ],
+    "badges": [],
+    "accent": "#a7f3d0",
+    "rank": 13
+  },
+  {
+    "id": "agents-15",
+    "categoryId": "agents",
+    "name": "Monica",
+    "provider": "Monica",
+    "description": "跨网页、桌面和移动端的 AI 助手，适合浏览器侧边栏、翻译、总结、写作和多模型调用。",
+    "url": "https://monica.im/",
+    "domain": "monica.im",
+    "logoText": "MO",
+    "tags": [
+      "chat",
+      "agent",
+      "office",
+      "search"
+    ],
+    "badges": [],
+    "accent": "#93c5fd",
+    "rank": 14
+  },
+  {
+    "id": "skills-01",
+    "categoryId": "skills",
+    "name": "GPT Store",
+    "provider": "OpenAI",
+    "description": "ChatGPT 的自定义 GPT 生态，可创建、发现和使用面向具体任务的专用 AI 应用。",
+    "url": "https://chatgpt.com/gpts",
+    "domain": "chatgpt.com",
+    "logoText": "GS",
+    "tags": [
+      "agent",
+      "chat",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "skills-02",
+    "categoryId": "skills",
+    "name": "Claude Skills",
+    "provider": "Anthropic",
+    "description": "Claude 的可复用技能机制，用于把专业流程、知识和工具操作封装成可调用能力。",
+    "url": "https://claude.com/blog/skills",
+    "domain": "anthropic.com",
+    "logoText": "SK",
+    "tags": [
+      "agent",
+      "office",
+      "code"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fcd34d",
+    "rank": 1
+  },
+  {
+    "id": "skills-03",
+    "categoryId": "skills",
+    "name": "Dify",
+    "provider": "Dify",
+    "description": "开源 LLM 应用开发平台，支持 Agent、RAG、工作流、模型路由和企业 AI 应用部署。",
+    "url": "https://dify.ai/",
+    "domain": "dify.ai",
+    "logoText": "DF",
+    "tags": [
+      "agent",
+      "code",
+      "open",
+      "office"
+    ],
+    "badges": [
+      "开源",
+      "Agent"
+    ],
+    "accent": "#86efac",
+    "rank": 2
+  },
+  {
+    "id": "skills-04",
+    "categoryId": "skills",
+    "name": "Coze",
+    "provider": "Coze",
+    "description": "低代码 AI Bot 与 Agent 开发平台，可搭建知识库、插件、工作流和多渠道发布。",
+    "url": "https://www.coze.com/",
+    "domain": "coze.com",
+    "logoText": "CZ",
+    "tags": [
+      "agent",
+      "code",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 3
+  },
+  {
+    "id": "skills-05",
+    "categoryId": "skills",
+    "name": "LangGraph",
+    "provider": "LangChain",
+    "description": "面向有状态 Agent 和多步骤工作流的开发框架，适合构建可控、可观测、可恢复的智能体系统。",
+    "url": "https://www.langchain.com/langgraph",
+    "domain": "langchain.com",
+    "logoText": "LG",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "开源",
+      "Agent"
+    ],
+    "accent": "#38bdf8",
+    "rank": 4
+  },
+  {
+    "id": "skills-06",
+    "categoryId": "skills",
+    "name": "n8n",
+    "provider": "n8n",
+    "description": "可自托管的工作流自动化平台，支持 AI 节点、工具编排、API 集成和企业流程自动化。",
+    "url": "https://n8n.io/",
+    "domain": "n8n.io",
+    "logoText": "N8",
+    "tags": [
+      "agent",
+      "code",
+      "open",
+      "office"
+    ],
+    "badges": [
+      "开源",
+      "Agent"
+    ],
+    "accent": "#67e8f9",
+    "rank": 5
+  },
+  {
+    "id": "skills-07",
+    "categoryId": "skills",
+    "name": "Copilot Studio",
+    "provider": "Microsoft",
+    "description": "微软低代码 Agent 构建平台，可连接企业数据、插件、流程和 Microsoft 365 生态。",
+    "url": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio",
+    "domain": "microsoft.com",
+    "logoText": "CS",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 6
+  },
+  {
+    "id": "skills-08",
+    "categoryId": "skills",
+    "name": "Agentforce",
+    "provider": "Salesforce",
+    "description": "Salesforce 的企业 AI Agent 平台，面向销售、服务、市场和 CRM 自动化。",
+    "url": "https://www.salesforce.com/agentforce/",
+    "domain": "salesforce.com",
+    "logoText": "AF",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#93c5fd",
+    "rank": 7
+  },
+  {
+    "id": "skills-09",
+    "categoryId": "skills",
+    "name": "Zapier Agents",
+    "provider": "Zapier",
+    "description": "面向业务自动化的 AI Agent 平台，连接大量 SaaS 工具并执行跨应用工作流。",
+    "url": "https://zapier.com/agents",
+    "domain": "zapier.com",
+    "logoText": "ZA",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#93c5fd",
+    "rank": 8
+  },
+  {
+    "id": "skills-10",
+    "categoryId": "skills",
+    "name": "LlamaIndex",
+    "provider": "LlamaIndex",
+    "description": "面向 RAG、数据 Agent 和知识应用的开源框架与云平台，适合连接企业私有数据。",
+    "url": "https://www.llamaindex.ai/",
+    "domain": "llamaindex.ai",
+    "logoText": "LI",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fcd34d",
+    "rank": 9
+  },
+  {
+    "id": "skills-11",
+    "categoryId": "skills",
+    "name": "CrewAI",
+    "provider": "CrewAI",
+    "description": "多 Agent 协作框架和平台，可定义角色、任务、工具、知识源和企业自动化流程。",
+    "url": "https://www.crewai.com/",
+    "domain": "crewai.com",
+    "logoText": "CR",
+    "tags": [
+      "agent",
+      "code",
+      "open",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#34d399",
+    "rank": 10
+  },
+  {
+    "id": "skills-12",
+    "categoryId": "skills",
+    "name": "Make",
+    "provider": "Make",
+    "description": "可视化自动化平台，可把 AI、表格、CRM、邮件和各类 SaaS 串成跨应用工作流。",
+    "url": "https://www.make.com/",
+    "domain": "make.com",
+    "logoText": "MK",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fcd34d",
+    "rank": 11
+  },
+  {
+    "id": "skills-13",
+    "categoryId": "skills",
+    "name": "UiPath Agentic Automation",
+    "provider": "UiPath",
+    "description": "RPA 与 AI Agent 结合的企业自动化平台，适合流程机器人、文档处理和任务编排。",
+    "url": "https://www.uipath.com/platform/agentic-automation",
+    "domain": "uipath.com",
+    "logoText": "UI",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#38bdf8",
+    "rank": 12
+  },
+  {
+    "id": "skills-14",
+    "categoryId": "skills",
+    "name": "AutoGen",
+    "provider": "Microsoft",
+    "description": "微软开源的多 Agent 应用框架，适合研究、原型开发和复杂 Agent 对话协作流程。",
+    "url": "https://microsoft.github.io/autogen/",
+    "domain": "microsoft.github.io",
+    "logoText": "AG",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fb7185",
+    "rank": 13
+  },
+  {
+    "id": "skills-15",
+    "categoryId": "skills",
+    "name": "Flowise",
+    "provider": "Flowise",
+    "description": "开源低代码 LLM 应用构建器，用拖拽方式搭建 Chatflow、Agentflow、RAG 和工具调用链。",
+    "url": "https://flowiseai.com/",
+    "domain": "flowiseai.com",
+    "logoText": "FL",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fda4af",
+    "rank": 14
+  },
+  {
+    "id": "skills-16",
+    "categoryId": "skills",
+    "name": "Langflow",
+    "provider": "Langflow",
+    "description": "可视化构建 AI 应用和 Agent 的开源平台，适合快速拼装 RAG、工具调用和多模型流程。",
+    "url": "https://www.langflow.org/",
+    "domain": "langflow.org",
+    "logoText": "LF",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#38bdf8",
+    "rank": 15
+  },
+  {
+    "id": "skills-17",
+    "categoryId": "skills",
+    "name": "Botpress",
+    "provider": "Botpress",
+    "description": "AI Bot 与 Agent 构建平台，适合客服、销售、知识库问答和多渠道聊天机器人部署。",
+    "url": "https://botpress.com/",
+    "domain": "botpress.com",
+    "logoText": "BP",
+    "tags": [
+      "agent",
+      "chat",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#34d399",
+    "rank": 16
+  },
+  {
+    "id": "skills-18",
+    "categoryId": "skills",
+    "name": "Voiceflow",
+    "provider": "Voiceflow",
+    "description": "面向对话式 AI Agent 的设计和部署平台，适合客服 Bot、语音交互和知识库自动化。",
+    "url": "https://www.voiceflow.com/",
+    "domain": "voiceflow.com",
+    "logoText": "VF",
+    "tags": [
+      "agent",
+      "chat",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fb7185",
+    "rank": 17
+  },
+  {
+    "id": "skills-19",
+    "categoryId": "skills",
+    "name": "Lindy",
+    "provider": "Lindy",
+    "description": "面向团队工作的 AI 员工与自动化平台，常用于邮件、会议、销售、客服和运营流程。",
+    "url": "https://www.lindy.ai/",
+    "domain": "lindy.ai",
+    "logoText": "LD",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fda4af",
+    "rank": 18
+  },
+  {
+    "id": "skills-20",
+    "categoryId": "skills",
+    "name": "Gumloop",
+    "provider": "Gumloop",
+    "description": "AI 原生自动化构建器，适合把网页、表格、邮件、文件处理和模型调用组合成业务流程。",
+    "url": "https://www.gumloop.com/",
+    "domain": "gumloop.com",
+    "logoText": "GL",
+    "tags": [
+      "agent",
+      "office",
+      "code"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#86efac",
+    "rank": 19
+  },
+  {
+    "id": "skills-21",
+    "categoryId": "skills",
+    "name": "Stack AI",
+    "provider": "Stack AI",
+    "description": "企业 AI Agent 与工作流平台，可搭建文档问答、数据处理、内部工具和业务自动化应用。",
+    "url": "https://www.stack-ai.com/",
+    "domain": "stack-ai.com",
+    "logoText": "SA",
+    "tags": [
+      "agent",
+      "office",
+      "code"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#93c5fd",
+    "rank": 20
+  },
+  {
+    "id": "skills-22",
+    "categoryId": "skills",
+    "name": "Relevance AI",
+    "provider": "Relevance AI",
+    "description": "AI workforce 平台，可构建销售、运营、研究和客户支持等可部署的 AI Agent 团队。",
+    "url": "https://relevanceai.com/",
+    "domain": "relevanceai.com",
+    "logoText": "RA",
+    "tags": [
+      "agent",
+      "office",
+      "code"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 21
+  },
+  {
+    "id": "skills-23",
+    "categoryId": "skills",
+    "name": "Workato",
+    "provider": "Workato",
+    "description": "企业集成和自动化平台，可把 AI、业务应用、数据和审批流程连接成生产级工作流。",
+    "url": "https://www.workato.com/",
+    "domain": "workato.com",
+    "logoText": "WK",
+    "tags": [
+      "agent",
+      "office",
+      "code"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fb7185",
+    "rank": 22
+  },
+  {
+    "id": "skills-24",
+    "categoryId": "skills",
+    "name": "Pipedream",
+    "provider": "Pipedream",
+    "description": "开发者友好的集成自动化平台，可用代码、API、触发器和 AI 步骤构建工作流。",
+    "url": "https://pipedream.com/",
+    "domain": "pipedream.com",
+    "logoText": "PD",
+    "tags": [
+      "agent",
+      "code",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 23
+  },
+  {
+    "id": "skills-25",
+    "categoryId": "skills",
+    "name": "Vellum",
+    "provider": "Vellum",
+    "description": "LLM 应用和 Agent 工作流平台，支持提示词管理、评测、部署和生产监控。",
+    "url": "https://www.vellum.ai/",
+    "domain": "vellum.ai",
+    "logoText": "VL",
+    "tags": [
+      "agent",
+      "code",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#67e8f9",
+    "rank": 24
+  },
+  {
+    "id": "skills-26",
+    "categoryId": "skills",
+    "name": "ServiceNow AI Agents",
+    "provider": "ServiceNow",
+    "description": "面向 IT、客服、人力和企业服务流程的 AI Agent 与工作流自动化平台。",
+    "url": "https://www.servicenow.com/products/ai-agents.html",
+    "domain": "servicenow.com",
+    "logoText": "SN",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fda4af",
+    "rank": 25
+  },
+  {
+    "id": "skills-27",
+    "categoryId": "skills",
+    "name": "Automation Anywhere",
+    "provider": "Automation Anywhere",
+    "description": "企业自动化和 AI Agent 平台，覆盖 RPA、文档自动化、流程编排和业务系统集成。",
+    "url": "https://www.automationanywhere.com/",
+    "domain": "automationanywhere.com",
+    "logoText": "AA",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#34d399",
+    "rank": 26
+  },
+  {
+    "id": "skills-28",
+    "categoryId": "skills",
+    "name": "AutoGPT",
+    "provider": "AutoGPT",
+    "description": "早期代表性的自主 Agent 项目与平台，围绕目标拆解、工具调用和自动化任务执行展开。",
+    "url": "https://agpt.co/",
+    "domain": "agpt.co",
+    "logoText": "AT",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 27
+  },
+  {
+    "id": "skills-29",
+    "categoryId": "skills",
+    "name": "Adept",
+    "provider": "Adept",
+    "description": "面向软件操作和企业流程的 Agent 产品方向，关注让 AI 理解并操作现有工具界面。",
+    "url": "https://www.adept.ai/",
+    "domain": "adept.ai",
+    "logoText": "AD",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#67e8f9",
+    "rank": 28
+  },
+  {
+    "id": "skills-30",
+    "categoryId": "skills",
+    "name": "MindStudio",
+    "provider": "MindStudio",
+    "description": "无代码 AI 应用和自动化构建平台，可把提示词、模型、数据和工作流封装为可分享工具。",
+    "url": "https://www.mindstudio.ai/",
+    "domain": "mindstudio.ai",
+    "logoText": "MS",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#fcd34d",
+    "rank": 29
+  },
+  {
+    "id": "skills-31",
+    "categoryId": "skills",
+    "name": "Wordware",
+    "provider": "Wordware",
+    "description": "用自然语言构建 AI Agent 和 LLM 应用的平台，适合快速设计、测试和部署业务逻辑。",
+    "url": "https://www.wordware.ai/",
+    "domain": "wordware.ai",
+    "logoText": "WW",
+    "tags": [
+      "agent",
+      "office",
+      "code"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#86efac",
+    "rank": 30
+  },
+  {
+    "id": "skills-32",
+    "categoryId": "skills",
+    "name": "Relay.app",
+    "provider": "Relay",
+    "description": "面向运营和团队协作的自动化平台，支持人工审批、AI 步骤和多工具流程编排。",
+    "url": "https://www.relay.app/",
+    "domain": "relay.app",
+    "logoText": "RY",
+    "tags": [
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 31
+  },
+  {
+    "id": "skills-33",
+    "categoryId": "skills",
+    "name": "Haystack",
+    "provider": "deepset",
+    "description": "开源 LLM 应用框架，适合构建 RAG、问答、搜索、Agent 和生产级 NLP 管道。",
+    "url": "https://haystack.deepset.ai/",
+    "domain": "haystack.deepset.ai",
+    "logoText": "HS",
+    "tags": [
+      "agent",
+      "code",
+      "open"
+    ],
+    "badges": [
+      "Agent"
+    ],
+    "accent": "#86efac",
+    "rank": 32
+  },
+  {
+    "id": "research-01",
+    "categoryId": "research",
+    "name": "Perplexity",
+    "provider": "Perplexity",
+    "description": "AI 搜索问答产品，强调来源引用、主题研究、网页总结和快速事实核对。",
+    "url": "https://www.perplexity.ai/",
+    "domain": "perplexity.ai",
+    "logoText": "PX",
+    "tags": [
+      "search",
+      "chat",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "热门",
+      "研究"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "research-02",
+    "categoryId": "research",
+    "name": "NotebookLM",
+    "provider": "Google",
+    "description": "围绕个人资料源构建的 AI 笔记和研究工具，可总结文档、生成问答和整理学习材料。",
+    "url": "https://notebooklm.google.com/",
+    "domain": "notebooklm.google.com",
+    "logoText": "NL",
+    "tags": [
+      "search",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#fcd34d",
+    "rank": 1
+  },
+  {
+    "id": "research-03",
+    "categoryId": "research",
+    "name": "You.com Search",
+    "provider": "You.com",
+    "description": "AI 搜索和研究工作台，可按用途切换搜索、写作、研究和多模型问答模式。",
+    "url": "https://you.com/search",
+    "domain": "you.com",
+    "logoText": "YO",
+    "tags": [
+      "search",
+      "chat",
+      "agent"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#38bdf8",
+    "rank": 2
+  },
+  {
+    "id": "research-04",
+    "categoryId": "research",
+    "name": "Phind",
+    "provider": "Phind",
+    "description": "面向开发者和技术问题的 AI 搜索问答工具，适合代码、文档和工程资料检索。",
+    "url": "https://www.phind.com/",
+    "domain": "phind.com",
+    "logoText": "PH",
+    "tags": [
+      "search",
+      "code",
+      "chat"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#34d399",
+    "rank": 3
+  },
+  {
+    "id": "research-05",
+    "categoryId": "research",
+    "name": "秘塔 AI 搜索",
+    "provider": "秘塔",
+    "description": "中文 AI 搜索产品，适合资料检索、网页总结、学术搜索和结构化答案生成。",
+    "url": "https://metaso.cn/",
+    "domain": "metaso.cn",
+    "logoText": "MT",
+    "tags": [
+      "search",
+      "chat",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#fda4af",
+    "rank": 4
+  },
+  {
+    "id": "research-06",
+    "categoryId": "research",
+    "name": "Felo Search",
+    "provider": "Felo",
+    "description": "AI 搜索与知识发现工具，适合跨语言检索、主题总结、脑图和演示内容生成。",
+    "url": "https://felo.ai/",
+    "domain": "felo.ai",
+    "logoText": "FE",
+    "tags": [
+      "search",
+      "agent",
+      "chat"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#93c5fd",
+    "rank": 5
+  },
+  {
+    "id": "research-07",
+    "categoryId": "research",
+    "name": "Consensus",
+    "provider": "Consensus",
+    "description": "面向学术论文的 AI 搜索工具，适合科研问题检索、证据总结和文献方向判断。",
+    "url": "https://consensus.app/",
+    "domain": "consensus.app",
+    "logoText": "CS",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#86efac",
+    "rank": 6
+  },
+  {
+    "id": "research-08",
+    "categoryId": "research",
+    "name": "Elicit",
+    "provider": "Elicit",
+    "description": "研究工作流助手，可查找论文、提取关键信息、对比研究结论并辅助综述写作。",
+    "url": "https://elicit.com/",
+    "domain": "elicit.com",
+    "logoText": "EL",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 7
+  },
+  {
+    "id": "research-09",
+    "categoryId": "research",
+    "name": "Semantic Scholar",
+    "provider": "AI2",
+    "description": "AI 驱动的学术搜索引擎，适合论文检索、引用关系、摘要理解和研究脉络追踪。",
+    "url": "https://www.semanticscholar.org/",
+    "domain": "semanticscholar.org",
+    "logoText": "SS",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 8
+  },
+  {
+    "id": "research-10",
+    "categoryId": "research",
+    "name": "Scite",
+    "provider": "Scite",
+    "description": "学术引用和论文分析工具，可查看支持、反驳或提及某篇论文的证据关系。",
+    "url": "https://scite.ai/",
+    "domain": "scite.ai",
+    "logoText": "SC",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#67e8f9",
+    "rank": 9
+  },
+  {
+    "id": "research-11",
+    "categoryId": "research",
+    "name": "SciSpace",
+    "provider": "SciSpace",
+    "description": "论文阅读和学术写作助手，可解释论文、生成综述、管理引用和辅助研究流程。",
+    "url": "https://typeset.io/",
+    "domain": "scispace.com",
+    "logoText": "SP",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#fcd34d",
+    "rank": 10
+  },
+  {
+    "id": "research-12",
+    "categoryId": "research",
+    "name": "Genspark",
+    "provider": "Genspark",
+    "description": "AI 搜索与 Agent 产品，适合聚合资料、生成专题页面、执行研究和信息整理任务。",
+    "url": "https://www.genspark.ai/",
+    "domain": "genspark.ai",
+    "logoText": "GS",
+    "tags": [
+      "search",
+      "chat"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#fb7185",
+    "rank": 11
+  },
+  {
+    "id": "research-13",
+    "categoryId": "research",
+    "name": "ChatPDF",
+    "provider": "ChatPDF",
+    "description": "面向 PDF 文档的问答和总结工具，适合论文、合同、报告和长文档快速理解。",
+    "url": "https://www.chatpdf.com/",
+    "domain": "chatpdf.com",
+    "logoText": "PDF",
+    "tags": [
+      "search",
+      "office",
+      "chat"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#93c5fd",
+    "rank": 12
+  },
+  {
+    "id": "research-14",
+    "categoryId": "research",
+    "name": "ResearchRabbit",
+    "provider": "ResearchRabbit",
+    "description": "论文发现和文献网络工具，可探索作者、主题、引用关系和相近研究方向。",
+    "url": "https://www.researchrabbit.ai/",
+    "domain": "researchrabbit.ai",
+    "logoText": "RR",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#86efac",
+    "rank": 13
+  },
+  {
+    "id": "research-15",
+    "categoryId": "research",
+    "name": "Connected Papers",
+    "provider": "Connected Papers",
+    "description": "论文关系图谱工具，适合从一篇核心论文扩展到相关研究、先驱工作和后续工作。",
+    "url": "https://www.connectedpapers.com/",
+    "domain": "connectedpapers.com",
+    "logoText": "CP",
+    "tags": [
+      "search",
+      "office"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 14
+  },
+  {
+    "id": "research-16",
+    "categoryId": "research",
+    "name": "Humata",
+    "provider": "Humata",
+    "description": "文档和知识库 AI 问答工具，适合团队资料、PDF、合规文件和企业内部知识检索。",
+    "url": "https://www.humata.ai/",
+    "domain": "humata.ai",
+    "logoText": "HU",
+    "tags": [
+      "search",
+      "office",
+      "chat"
+    ],
+    "badges": [
+      "研究"
+    ],
+    "accent": "#fda4af",
+    "rank": 15
+  },
+  {
+    "id": "coding-01",
+    "categoryId": "coding",
+    "name": "GitHub Copilot",
+    "provider": "GitHub",
+    "description": "面向 IDE 和 GitHub 工作流的 AI 编程助手，支持代码补全、解释、重构、测试和任务协作。",
+    "url": "https://github.com/features/copilot",
+    "domain": "github.com",
+    "logoText": "GH",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "热门",
+      "开发者"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "coding-02",
+    "categoryId": "coding",
+    "name": "Cursor",
+    "provider": "Cursor",
+    "description": "AI 原生代码编辑器，适合代码库问答、批量修改、重构和与模型协作完成开发任务。",
+    "url": "https://cursor.com/",
+    "domain": "cursor.com",
+    "logoText": "CU",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "热门",
+      "开发者"
+    ],
+    "accent": "#fcd34d",
+    "rank": 1
+  },
+  {
+    "id": "coding-03",
+    "categoryId": "coding",
+    "name": "Claude Code",
+    "provider": "Anthropic",
+    "description": "Anthropic 的命令行和 IDE 编程 Agent，适合理解代码库、修改文件、运行命令和提交变更。",
+    "url": "https://www.anthropic.com/claude-code",
+    "domain": "anthropic.com",
+    "logoText": "CC",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#34d399",
+    "rank": 2
+  },
+  {
+    "id": "coding-04",
+    "categoryId": "coding",
+    "name": "Codex",
+    "provider": "OpenAI",
+    "description": "OpenAI 面向软件工程的编程 Agent，用于代码修改、项目理解、测试和开发任务自动化。",
+    "url": "https://openai.com/codex/",
+    "domain": "openai.com",
+    "logoText": "CX",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#fb7185",
+    "rank": 3
+  },
+  {
+    "id": "coding-05",
+    "categoryId": "coding",
+    "name": "Devin",
+    "provider": "Cognition",
+    "description": "面向软件工程任务的 AI 编程 Agent，可规划、修改代码、运行测试并协作处理开发任务。",
+    "url": "https://devin.ai/",
+    "domain": "devin.ai",
+    "logoText": "DV",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#38bdf8",
+    "rank": 4
+  },
+  {
+    "id": "coding-06",
+    "categoryId": "coding",
+    "name": "Windsurf",
+    "provider": "Windsurf",
+    "description": "面向 Agentic Coding 的开发环境，可让 AI 理解项目上下文并执行多步开发任务。",
+    "url": "https://windsurf.com/",
+    "domain": "windsurf.com",
+    "logoText": "WS",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#86efac",
+    "rank": 5
+  },
+  {
+    "id": "coding-07",
+    "categoryId": "coding",
+    "name": "Replit Agent",
+    "provider": "Replit",
+    "description": "浏览器中的 AI 应用开发平台，可从需求生成项目、运行环境、迭代代码并发布应用。",
+    "url": "https://replit.com/ai",
+    "domain": "replit.com",
+    "logoText": "RP",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 6
+  },
+  {
+    "id": "coding-08",
+    "categoryId": "coding",
+    "name": "Lovable",
+    "provider": "Lovable",
+    "description": "通过自然语言生成 Web 应用和前端原型，适合快速搭建产品 demo 与迭代界面。",
+    "url": "https://lovable.dev/",
+    "domain": "lovable.dev",
+    "logoText": "LV",
+    "tags": [
+      "code",
+      "agent",
+      "multimodal"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#93c5fd",
+    "rank": 7
+  },
+  {
+    "id": "coding-09",
+    "categoryId": "coding",
+    "name": "v0",
+    "provider": "Vercel",
+    "description": "Vercel 的 AI 界面生成工具，可通过提示词生成 React、Tailwind 和可迭代的前端组件。",
+    "url": "https://v0.dev/",
+    "domain": "v0.dev",
+    "logoText": "V0",
+    "tags": [
+      "code",
+      "agent",
+      "multimodal"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#fda4af",
+    "rank": 8
+  },
+  {
+    "id": "coding-10",
+    "categoryId": "coding",
+    "name": "Cline",
+    "provider": "Cline",
+    "description": "开源 VS Code 编程 Agent，可读取项目、编辑文件、执行命令并与多种模型协作。",
+    "url": "https://cline.bot/",
+    "domain": "cline.bot",
+    "logoText": "CL",
+    "tags": [
+      "code",
+      "agent",
+      "open"
+    ],
+    "badges": [
+      "开源",
+      "开发者"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 9
+  },
+  {
+    "id": "coding-11",
+    "categoryId": "coding",
+    "name": "Continue",
+    "provider": "Continue",
+    "description": "开源 AI 代码助手平台，可在 VS Code 和 JetBrains 中接入自选模型、上下文和工作流。",
+    "url": "https://www.continue.dev/",
+    "domain": "continue.dev",
+    "logoText": "CT",
+    "tags": [
+      "code",
+      "agent",
+      "open"
+    ],
+    "badges": [
+      "开源",
+      "开发者"
+    ],
+    "accent": "#67e8f9",
+    "rank": 10
+  },
+  {
+    "id": "coding-12",
+    "categoryId": "coding",
+    "name": "Tabnine",
+    "provider": "Tabnine",
+    "description": "企业级 AI 代码补全和开发助手，强调隐私、团队知识、代码生成和 IDE 集成。",
+    "url": "https://www.tabnine.com/",
+    "domain": "tabnine.com",
+    "logoText": "TN",
+    "tags": [
+      "code",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#fcd34d",
+    "rank": 11
+  },
+  {
+    "id": "coding-13",
+    "categoryId": "coding",
+    "name": "Sourcegraph Amp",
+    "provider": "Sourcegraph",
+    "description": "Sourcegraph 的 AI 编程 Agent，适合大型代码库理解、修改、测试和工程任务处理。",
+    "url": "https://ampcode.com/",
+    "domain": "sourcegraph.com",
+    "logoText": "SG",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#86efac",
+    "rank": 12
+  },
+  {
+    "id": "coding-14",
+    "categoryId": "coding",
+    "name": "Amazon Q Developer",
+    "provider": "Amazon",
+    "description": "AWS 的 AI 开发助手，适合云开发、代码解释、迁移、生成和运维问题排查。",
+    "url": "https://aws.amazon.com/q/developer/",
+    "domain": "amazon.com",
+    "logoText": "Q",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#fb7185",
+    "rank": 13
+  },
+  {
+    "id": "coding-15",
+    "categoryId": "coding",
+    "name": "Bolt.new",
+    "provider": "StackBlitz",
+    "description": "浏览器中的 AI 全栈应用生成工具，可用自然语言创建、运行和迭代 Web 项目。",
+    "url": "https://bolt.new/",
+    "domain": "bolt.new",
+    "logoText": "BT",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#fda4af",
+    "rank": 14
+  },
+  {
+    "id": "coding-16",
+    "categoryId": "coding",
+    "name": "Trae",
+    "provider": "Trae",
+    "description": "AI 原生 IDE 和编程助手，面向项目理解、代码生成、调试和多文件开发协作。",
+    "url": "https://www.trae.ai/",
+    "domain": "trae.ai",
+    "logoText": "TR",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#34d399",
+    "rank": 15
+  },
+  {
+    "id": "coding-17",
+    "categoryId": "coding",
+    "name": "CodeRabbit",
+    "provider": "CodeRabbit",
+    "description": "AI 代码审查工具，可在 Pull Request 中给出上下文评论、风险提示和改进建议。",
+    "url": "https://www.coderabbit.ai/",
+    "domain": "coderabbit.ai",
+    "logoText": "CR",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#93c5fd",
+    "rank": 16
+  },
+  {
+    "id": "coding-18",
+    "categoryId": "coding",
+    "name": "Qodo",
+    "provider": "Qodo",
+    "description": "面向代码质量的 AI 开发工具，覆盖测试生成、代码审查、变更理解和团队协作。",
+    "url": "https://www.qodo.ai/",
+    "domain": "qodo.ai",
+    "logoText": "QD",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 17
+  },
+  {
+    "id": "coding-19",
+    "categoryId": "coding",
+    "name": "Base44",
+    "provider": "Base44",
+    "description": "AI 无代码应用构建平台，可通过对话生成数据库、界面、业务逻辑和可发布应用。",
+    "url": "https://base44.com/",
+    "domain": "base44.com",
+    "logoText": "B44",
+    "tags": [
+      "code",
+      "agent",
+      "office"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#38bdf8",
+    "rank": 18
+  },
+  {
+    "id": "creative-01",
+    "categoryId": "creative",
+    "name": "Midjourney",
+    "provider": "Midjourney",
+    "description": "主流 AI 图像生成产品，适合概念设计、视觉探索、海报插画和创意风格实验。",
+    "url": "https://www.midjourney.com/",
+    "domain": "midjourney.com",
+    "logoText": "MJ",
+    "tags": [
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "热门",
+      "创作"
+    ],
+    "accent": "#67e8f9",
+    "rank": 0
+  },
+  {
+    "id": "creative-02",
+    "categoryId": "creative",
+    "name": "Runway",
+    "provider": "Runway",
+    "description": "AI 视频与创意工具平台，支持视频生成、编辑、视觉特效和多模态内容工作流。",
+    "url": "https://runwayml.com/",
+    "domain": "runwayml.com",
+    "logoText": "RW",
+    "tags": [
+      "multimodal",
+      "agent"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fcd34d",
+    "rank": 1
+  },
+  {
+    "id": "creative-03",
+    "categoryId": "creative",
+    "name": "Suno",
+    "provider": "Suno",
+    "description": "AI 音乐生成产品，可根据文字提示生成歌曲、旋律和人声，适合音乐创意草稿。",
+    "url": "https://suno.com/",
+    "domain": "suno.com",
+    "logoText": "SN",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 2
+  },
+  {
+    "id": "creative-04",
+    "categoryId": "creative",
+    "name": "ElevenLabs",
+    "provider": "ElevenLabs",
+    "description": "AI 语音生成与配音平台，适合旁白、播客、本地化、声音克隆和语音交互内容。",
+    "url": "https://elevenlabs.io/",
+    "domain": "elevenlabs.io",
+    "logoText": "EL",
+    "tags": [
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#93c5fd",
+    "rank": 3
+  },
+  {
+    "id": "creative-05",
+    "categoryId": "creative",
+    "name": "可灵 AI",
+    "provider": "快手",
+    "description": "面向图像和视频生成的 AI 创作平台，适合短视频、分镜、动效和视觉内容制作。",
+    "url": "https://klingai.com/",
+    "domain": "klingai.com",
+    "logoText": "KL",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#86efac",
+    "rank": 4
+  },
+  {
+    "id": "creative-06",
+    "categoryId": "creative",
+    "name": "Pika",
+    "provider": "Pika",
+    "description": "AI 视频生成和编辑平台，可通过提示词、图片或视频素材生成创意短片和特效。",
+    "url": "https://pika.art/",
+    "domain": "pika.art",
+    "logoText": "PK",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fb7185",
+    "rank": 5
+  },
+  {
+    "id": "creative-07",
+    "categoryId": "creative",
+    "name": "Luma Dream Machine",
+    "provider": "Luma",
+    "description": "Luma 的 AI 视频生成产品，适合文本/图像到视频、镜头运动和创意影像制作。",
+    "url": "https://lumalabs.ai/dream-machine",
+    "domain": "lumalabs.ai",
+    "logoText": "LM",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 6
+  },
+  {
+    "id": "creative-08",
+    "categoryId": "creative",
+    "name": "Adobe Firefly",
+    "provider": "Adobe",
+    "description": "Adobe 的生成式创意工具，覆盖图片生成、编辑、设计素材和 Creative Cloud 工作流。",
+    "url": "https://www.adobe.com/products/firefly.html",
+    "domain": "adobe.com",
+    "logoText": "AF",
+    "tags": [
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#86efac",
+    "rank": 7
+  },
+  {
+    "id": "creative-09",
+    "categoryId": "creative",
+    "name": "Ideogram",
+    "provider": "Ideogram",
+    "description": "AI 图像生成工具，尤其适合海报、字体、Logo、产品图和包含文字的视觉设计。",
+    "url": "https://ideogram.ai/",
+    "domain": "ideogram.ai",
+    "logoText": "ID",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#67e8f9",
+    "rank": 8
+  },
+  {
+    "id": "creative-10",
+    "categoryId": "creative",
+    "name": "Leonardo AI",
+    "provider": "Leonardo",
+    "description": "面向设计师和游戏资产的 AI 图像平台，支持风格训练、素材生成和创意工作流。",
+    "url": "https://leonardo.ai/",
+    "domain": "leonardo.ai",
+    "logoText": "LA",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fcd34d",
+    "rank": 9
+  },
+  {
+    "id": "creative-11",
+    "categoryId": "creative",
+    "name": "Canva AI",
+    "provider": "Canva",
+    "description": "集成在 Canva 设计套件中的 AI 创作能力，覆盖文案、图片、演示、海报和品牌素材。",
+    "url": "https://www.canva.com/ai/",
+    "domain": "canva.com",
+    "logoText": "CV",
+    "tags": [
+      "office",
+      "agent",
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#34d399",
+    "rank": 10
+  },
+  {
+    "id": "creative-12",
+    "categoryId": "creative",
+    "name": "Gamma",
+    "provider": "Gamma",
+    "description": "AI 演示文稿和网页文档生成工具，适合快速生成汇报、方案、课程和营销材料。",
+    "url": "https://gamma.app/",
+    "domain": "gamma.app",
+    "logoText": "GA",
+    "tags": [
+      "office",
+      "agent",
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fda4af",
+    "rank": 11
+  },
+  {
+    "id": "creative-13",
+    "categoryId": "creative",
+    "name": "Notion AI",
+    "provider": "Notion",
+    "description": "嵌入 Notion 工作区的 AI 能力，适合文档总结、知识库问答、写作改写和项目协作。",
+    "url": "https://www.notion.com/product/ai",
+    "domain": "notion.so",
+    "logoText": "NT",
+    "tags": [
+      "office",
+      "agent"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#38bdf8",
+    "rank": 12
+  },
+  {
+    "id": "creative-14",
+    "categoryId": "creative",
+    "name": "HeyGen",
+    "provider": "HeyGen",
+    "description": "AI 数字人和视频生成平台，适合营销视频、口播、翻译、本地化和虚拟人内容。",
+    "url": "https://www.heygen.com/",
+    "domain": "heygen.com",
+    "logoText": "HG",
+    "tags": [
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fb7185",
+    "rank": 13
+  },
+  {
+    "id": "creative-15",
+    "categoryId": "creative",
+    "name": "Synthesia",
+    "provider": "Synthesia",
+    "description": "企业 AI 视频平台，可生成数字人培训、销售、客服和内部沟通视频。",
+    "url": "https://www.synthesia.io/",
+    "domain": "synthesia.io",
+    "logoText": "SY",
+    "tags": [
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#a7f3d0",
+    "rank": 14
+  },
+  {
+    "id": "creative-16",
+    "categoryId": "creative",
+    "name": "Udio",
+    "provider": "Udio",
+    "description": "AI 音乐生成产品，可通过提示词生成歌曲片段、旋律、人声和不同风格音乐。",
+    "url": "https://www.udio.com/",
+    "domain": "udio.com",
+    "logoText": "UD",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#34d399",
+    "rank": 15
+  },
+  {
+    "id": "creative-17",
+    "categoryId": "creative",
+    "name": "Descript",
+    "provider": "Descript",
+    "description": "AI 音视频编辑工具，支持转写、剪辑、降噪、配音和播客/短视频生产流程。",
+    "url": "https://www.descript.com/",
+    "domain": "descript.com",
+    "logoText": "DS",
+    "tags": [
+      "multimodal",
+      "office"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#67e8f9",
+    "rank": 16
+  },
+  {
+    "id": "creative-18",
+    "categoryId": "creative",
+    "name": "海螺 AI",
+    "provider": "MiniMax",
+    "description": "MiniMax 的多模态创作产品，覆盖视频生成、图像、语音和创意内容生产。",
+    "url": "https://hailuoai.com/",
+    "domain": "hailuoai.com",
+    "logoText": "HL",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fda4af",
+    "rank": 17
+  },
+  {
+    "id": "creative-19",
+    "categoryId": "creative",
+    "name": "PixVerse",
+    "provider": "PixVerse",
+    "description": "AI 视频生成平台，支持文本到视频、图像到视频、角色动画和短视频创作。",
+    "url": "https://pixverse.ai/",
+    "domain": "pixverse.ai",
+    "logoText": "PV",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#38bdf8",
+    "rank": 18
+  },
+  {
+    "id": "creative-20",
+    "categoryId": "creative",
+    "name": "Stable Assistant",
+    "provider": "Stability AI",
+    "description": "Stability AI 的创意产品入口，面向图像生成、编辑、视频和开放生成模型生态。",
+    "url": "https://stability.ai/stable-image",
+    "domain": "stability.ai",
+    "logoText": "SD",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#93c5fd",
+    "rank": 19
+  },
+  {
+    "id": "creative-21",
+    "categoryId": "creative",
+    "name": "Freepik AI",
+    "provider": "Freepik",
+    "description": "面向图像、设计素材、矢量和营销视觉的 AI 创作平台，适合快速生成商业素材。",
+    "url": "https://www.freepik.com/ai",
+    "domain": "freepik.com",
+    "logoText": "FP",
+    "tags": [
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 20
+  },
+  {
+    "id": "creative-22",
+    "categoryId": "creative",
+    "name": "Beautiful.ai",
+    "provider": "Beautiful.ai",
+    "description": "智能演示文稿设计工具，帮助快速生成布局统一、视觉专业的商业幻灯片。",
+    "url": "https://www.beautiful.ai/",
+    "domain": "beautiful.ai",
+    "logoText": "BA",
+    "tags": [
+      "office",
+      "agent",
+      "multimodal"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#86efac",
+    "rank": 21
+  },
+  {
+    "id": "creative-23",
+    "categoryId": "creative",
+    "name": "Pitch",
+    "provider": "Pitch",
+    "description": "团队演示文稿和视觉叙事工具，适合商业方案、销售材料、报告和协作式演示制作。",
+    "url": "https://pitch.com/",
+    "domain": "pitch.com",
+    "logoText": "PT",
+    "tags": [
+      "office",
+      "agent"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#fcd34d",
+    "rank": 22
+  },
+  {
+    "id": "creative-24",
+    "categoryId": "creative",
+    "name": "Otter.ai",
+    "provider": "Otter",
+    "description": "AI 会议记录和转写工具，适合会议摘要、行动项、访谈记录和团队知识沉淀。",
+    "url": "https://otter.ai/",
+    "domain": "otter.ai",
+    "logoText": "OT",
+    "tags": [
+      "office",
+      "agent"
+    ],
+    "badges": [
+      "创作"
+    ],
+    "accent": "#c4b5fd",
+    "rank": 23
+  }
+]

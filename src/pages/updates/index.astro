@@ -1,0 +1,107 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { priceHistory, models, providers } from "../../lib/data";
+
+const modelMap = new Map(models.map((model) => [model.id, model]));
+const providerMap = new Map(providers.map((provider) => [provider.id, provider]));
+const entries = [...priceHistory].sort((a, b) => b.recordedAt.localeCompare(a.recordedAt));
+const labels = {
+  initial: "初始基线",
+  increase: "价格上涨",
+  decrease: "价格下降",
+  mixed: "价格调整",
+  unchanged: "复核无变化",
+};
+---
+
+<BaseLayout
+  title="AI 模型价格更新记录 | AI Sites Hub"
+  description="查看 AI 模型价格基线、涨价、降价和复核记录，每项变更保留日期与官方来源。"
+>
+  <section class="page-head shell">
+    <p>PRICE CHANGELOG</p>
+    <h1>价格更新记录</h1>
+    <span>{entries.length} 条可追溯价格记录，历史数据只追加、不覆盖。</span>
+  </section>
+  <section class="updates shell">
+    {entries.map((entry) => {
+      const model = modelMap.get(entry.modelId);
+      const provider = model ? providerMap.get(model.providerId) : undefined;
+      const symbol = entry.currency === "CNY" ? "¥" : "$";
+      return (
+        <article>
+          <time>{entry.recordedAt}</time>
+          <div>
+            <span>{labels[entry.changeType]}</span>
+            <h2><a href={`/models/${entry.modelId}/`}>{model?.name ?? entry.modelId}</a></h2>
+            <p>{provider?.name} · 发送内容 {symbol}{entry.input} · 生成内容 {symbol}{entry.output} / 100 万个文本单位</p>
+          </div>
+          <a class="source" href={entry.sourceUrl} target="_blank" rel="noopener noreferrer">官方来源</a>
+        </article>
+      );
+    })}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 68px 38px;
+  }
+  .page-head p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  h1 { margin: 0; font-size: 46px; }
+  .page-head span {
+    display: block;
+    margin-top: 15px;
+    color: var(--muted);
+  }
+  .updates {
+    padding-bottom: 90px;
+  }
+  article {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 22px;
+    border-top: 1px solid var(--line);
+    padding: 20px 4px;
+  }
+  time {
+    color: var(--muted);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+  }
+  article div > span {
+    color: var(--cyan);
+    font-size: 10px;
+    font-weight: 800;
+  }
+  h2 {
+    margin: 5px 0 0;
+    font-size: 17px;
+  }
+  h2 a:hover { color: var(--cyan); }
+  article p {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+  .source {
+    color: var(--cyan);
+    font-size: 11px;
+    font-weight: 800;
+  }
+  @media (max-width: 620px) {
+    h1 { font-size: 36px; }
+    article {
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    time { grid-column: 1 / -1; }
+  }
+</style>

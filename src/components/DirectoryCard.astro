@@ -1,0 +1,176 @@
+---
+import type { DirectoryItem } from "../lib/schema";
+
+interface Props {
+  item: DirectoryItem;
+}
+
+const { item } = Astro.props;
+const faviconUrl = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(item.domain)}&sz=64`;
+---
+
+<a
+  class="directory-card"
+  href={item.url}
+  target="_blank"
+  rel="noopener noreferrer"
+  style={`--card-accent: ${item.accent}`}
+  data-directory-card
+  data-search={`${item.name} ${item.provider} ${item.description} ${item.tags.join(" ")}`.toLowerCase()}
+  aria-label={`${item.name}，打开官方网站`}
+>
+  <div class="card-top">
+    <span class="logo">
+      <img src={faviconUrl} alt="" loading="lazy" width="26" height="26" />
+      <i>{item.logoText}</i>
+    </span>
+    <span class="provider">{item.provider}</span>
+  </div>
+  <div class="badges">
+    {item.badges.map((badge) => <span>{badge}</span>)}
+  </div>
+  <h3>{item.name}</h3>
+  <p>{item.description}</p>
+  <span class="card-action">
+    打开网站
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M7 17 17 7M8 7h9v9" />
+    </svg>
+  </span>
+</a>
+
+<style>
+  .directory-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    min-height: 248px;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 18px;
+    overflow: hidden;
+    background: rgba(10, 18, 32, 0.76);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025);
+    transition:
+      border-color 170ms ease,
+      background 170ms ease,
+      transform 170ms ease;
+  }
+
+  .directory-card::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 2px;
+    content: "";
+    background: var(--card-accent);
+    opacity: 0.8;
+  }
+
+  .directory-card:hover {
+    border-color: color-mix(in srgb, var(--card-accent) 55%, transparent);
+    background: rgba(13, 24, 42, 0.92);
+    transform: translateY(-3px);
+  }
+
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .logo {
+    position: relative;
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    background: rgba(5, 11, 21, 0.8);
+    color: var(--card-accent);
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .logo img {
+    position: relative;
+    z-index: 1;
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+  }
+
+  .logo i {
+    position: absolute;
+    font-style: normal;
+  }
+
+  .provider {
+    max-width: 150px;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .badges {
+    display: flex;
+    min-height: 23px;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 15px;
+  }
+
+  .badges span {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 3px 6px;
+    color: #bdd0e2;
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  h3 {
+    margin: 13px 0 0;
+    color: var(--text);
+    font-size: 17px;
+    line-height: 1.35;
+  }
+
+  p {
+    display: -webkit-box;
+    margin: 9px 0 18px;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.65;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .card-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: auto;
+    color: var(--card-accent);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+</style>

@@ -1,0 +1,52 @@
+{
+  "kimi-promotions": {
+    "fingerprint": "43f6f71c482578230e458f6517998e8f29d9096d67a47cdad4e9a75e23a5989c",
+    "checkedAt": "2026-07-01T14:01:51.025Z",
+    "finalUrl": "https://platform.kimi.com/docs/pricing/promotion"
+  },
+  "minimax-token-plan-promotions": {
+    "fingerprint": "85b53e1ed5dfe068609128b2d5b9416dcbd9e7f62ab14911e94c4a3710fe044a",
+    "checkedAt": "2026-07-01T14:01:46.046Z",
+    "finalUrl": "https://platform.minimaxi.com/docs/token-plan/promotion"
+  },
+  "aliyun-bailian-free-quota": {
+    "fingerprint": "d90cc9e1f2f6c3322bc09d8ae753e76e4fd7e1cd68e4d53e366a1e28555be8ba",
+    "checkedAt": "2026-07-01T14:01:45.854Z",
+    "finalUrl": "https://help.aliyun.com/zh/model-studio/new-free-quota"
+  },
+  "aliyun-night-plan": {
+    "fingerprint": "9d3f7a054bc8cf24d66fe7d2c20e03bdc518dcb8891f5a065c0bcbc2633adc5d",
+    "checkedAt": "2026-07-01T14:01:45.532Z",
+    "finalUrl": "https://www.aliyun.com/benefit/client/nightplan"
+  },
+  "openai-pricing": {
+    "fingerprint": "ecf8d4c935709b54621300d2a389b2364e474f2abc53f858eb3003afb25bbd77",
+    "checkedAt": "2026-07-01T14:01:47.253Z",
+    "finalUrl": "https://developers.openai.com/api/docs/pricing"
+  },
+  "anthropic-pricing": {
+    "fingerprint": "e858ced0b971ba4611c0e85e9e73212d243b70d7f74df4f189b94f4c74869b4b",
+    "checkedAt": "2026-07-01T14:01:48.273Z",
+    "finalUrl": "https://claude.com/pricing"
+  },
+  "deepseek-pricing": {
+    "fingerprint": "cfb063fe146e6b93f13622c150319e7f299ebd540aee1da0bbfdd97cf2644455",
+    "checkedAt": "2026-07-01T14:01:46.099Z",
+    "finalUrl": "https://api-docs.deepseek.com/quick_start/pricing"
+  },
+  "tencent-hunyuan-pricing": {
+    "fingerprint": "f87a3c12eb45854523f4eed225153a981dbf609a05c286794656951db4bd5aef",
+    "checkedAt": "2026-07-01T14:01:46.536Z",
+    "finalUrl": "https://cloud.tencent.com/document/product/1729/97731"
+  },
+  "baidu-qianfan-pricing": {
+    "fingerprint": "db61cd617dd38c3de48eaae12eca69ecc552e72bc2c66a24de2a507d734699e0",
+    "checkedAt": "2026-07-01T14:01:46.820Z",
+    "finalUrl": "https://cloud.baidu.com/doc/qianfan-docs/s/Jm8r1826a"
+  },
+  "zhipu-model-pricing": {
+    "fingerprint": "ac351181f0d755d879e0e43d91c8b561fb1d886b2f62a1eb5a799cec4cd4f817",
+    "checkedAt": "2026-07-01T14:01:47.292Z",
+    "finalUrl": "https://docs.bigmodel.cn/cn/guide/models/text/glm-4-long"
+  }
+}

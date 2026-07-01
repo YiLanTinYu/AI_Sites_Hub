@@ -1,0 +1,237 @@
+---
+import type { Deal, DealStatus, Provider } from "../lib/schema";
+
+interface Props {
+  deal: Deal & { provider: Provider; status: DealStatus };
+  compact?: boolean;
+}
+
+const { deal, compact = false } = Astro.props;
+const statusLabels: Record<DealStatus, string> = {
+  upcoming: "即将开始",
+  active: "进行中",
+  ending_soon: "即将结束",
+  ended: "已结束",
+  pending: "待核实",
+};
+const typeLabels = {
+  discount: "折扣",
+  credit: "赠送额度",
+  free_trial: "免费试用",
+  education: "教育优惠",
+  startup: "创业扶持",
+  annual_plan: "年度套餐",
+};
+const dateLabel = deal.endsAt
+  ? `${deal.endsAt} 截止`
+  : deal.startsAt
+    ? `${deal.startsAt} 起`
+    : "长期有效，定期复核";
+---
+
+<article class:list={["deal-card", `status-${deal.status}`, { compact }]}>
+  <div class="deal-topline">
+    <span>{typeLabels[deal.type]}</span>
+    <strong>{statusLabels[deal.status]}</strong>
+  </div>
+  <p class="provider">{deal.provider.name}</p>
+  <h3>{deal.title}</h3>
+  <p class="benefit">{deal.benefit}</p>
+  {!compact && <p class="summary">{deal.summary}</p>}
+  <div class="deal-meta">
+    <span>{dateLabel}</span>
+    <span>最近确认于 {deal.verifiedAt}</span>
+  </div>
+  {!compact && (
+    <>
+      <div class="eligibility">
+        <strong>适用条件</strong>
+        <span>{deal.eligibility}</span>
+      </div>
+      <ul>
+        {deal.restrictions.map((restriction) => <li>{restriction}</li>)}
+      </ul>
+    </>
+  )}
+  <a href={deal.sourceUrl} target="_blank" rel="noopener noreferrer">
+    查看官方活动
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M14 5h5v5M10 14 19 5M19 14v5H5V5h5" />
+    </svg>
+  </a>
+  {!deal.affiliate && <small>非推广链接</small>}
+</article>
+
+<style>
+  .deal-card {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 22px;
+    background: rgba(10, 18, 32, 0.78);
+  }
+
+  .deal-card::before {
+    position: absolute;
+    top: -1px;
+    right: 22px;
+    left: 22px;
+    height: 2px;
+    content: "";
+    background: var(--cyan);
+    opacity: 0.72;
+  }
+
+  .status-ending_soon::before {
+    background: #fbbf24;
+  }
+
+  .status-ended {
+    opacity: 0.62;
+  }
+
+  .deal-topline,
+  .deal-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .deal-topline span,
+  .deal-topline strong {
+    font-size: 11px;
+  }
+
+  .deal-topline span {
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-weight: 800;
+  }
+
+  .deal-topline strong {
+    color: var(--green);
+  }
+
+  .status-ending_soon .deal-topline strong {
+    color: #fbbf24;
+  }
+
+  .status-ended .deal-topline strong {
+    color: var(--muted);
+  }
+
+  .provider {
+    margin: 23px 0 6px;
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.4;
+  }
+
+  .benefit {
+    margin: 13px 0 0;
+    color: var(--cyan);
+    font-size: 16px;
+    font-weight: 850;
+    line-height: 1.5;
+  }
+
+  .summary,
+  li,
+  .eligibility span {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  .summary {
+    margin: 12px 0 0;
+  }
+
+  .deal-meta {
+    border-top: 1px solid var(--line);
+    margin-top: 18px;
+    padding-top: 14px;
+    color: var(--muted);
+    font-size: 10px;
+  }
+
+  .eligibility {
+    display: grid;
+    gap: 5px;
+    margin-top: 16px;
+  }
+
+  .eligibility strong {
+    font-size: 11px;
+  }
+
+  ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    margin-top: auto;
+    border: 1px solid rgba(103, 232, 249, 0.5);
+    border-radius: 6px;
+    padding: 10px 14px;
+    background: rgba(103, 232, 249, 0.1);
+    box-shadow: inset 0 0 18px rgba(103, 232, 249, 0.04);
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 800;
+    transition:
+      border-color 160ms ease,
+      background 160ms ease,
+      color 160ms ease;
+  }
+
+  a:hover {
+    border-color: var(--cyan);
+    background: var(--cyan);
+    color: #031018;
+  }
+
+  svg {
+    width: 15px;
+    height: 15px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  small {
+    align-self: center;
+    margin-top: 7px;
+    color: #75879b;
+    font-size: 9px;
+  }
+
+  .compact {
+    min-height: 315px;
+  }
+
+  @media (max-width: 520px) {
+    .deal-meta {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+</style>

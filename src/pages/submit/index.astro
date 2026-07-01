@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const issueBase = "https://github.com/YiLanTinYu/AI_Sites_Hub/issues/new";
+const submissions = [
+  {
+    title: "提交新 AI 产品",
+    description: "提供产品名称、官网、分类、简介和推荐理由。",
+    url: `${issueBase}?title=${encodeURIComponent("新 AI 产品投稿：")}&body=${encodeURIComponent("产品名称：\n官方网站：\n建议分类：\n产品简介：\n推荐理由：\n官方来源：")}`,
+  },
+  {
+    title: "提交价格更新",
+    description: "提供模型、原始币种、计价单位、价格和官方来源。",
+    url: `${issueBase}?title=${encodeURIComponent("模型价格更新：")}&body=${encodeURIComponent("厂商与模型：\n输入价格：\n输出价格：\n币种与单位：\n生效时间：\n官方来源：")}`,
+  },
+  {
+    title: "提交优惠活动",
+    description: "提供活动期限、优惠力度、适用条件与官方活动页面。",
+    url: `${issueBase}?title=${encodeURIComponent("AI 优惠活动投稿：")}&body=${encodeURIComponent("厂商与产品：\n优惠内容：\n开始时间：\n结束时间：\n适用条件：\n限制说明：\n官方来源：")}`,
+  },
+];
+---
+
+<BaseLayout title="提交 AI 产品、价格或优惠 | AI Sites Hub" description="向 AI Sites Hub 提交新产品、价格更新和官方优惠活动，所有内容经过人工审核后发布。">
+  <section class="page-head shell">
+    <p>COMMUNITY SUBMISSIONS</p>
+    <h1>提交线索</h1>
+    <span>投稿会进入 GitHub Issues 审核队列，不会自动发布。请优先提供无需登录即可访问的官方来源。</span>
+  </section>
+  <section class="submission-grid shell">
+    {submissions.map((item) => (
+      <a href={item.url} target="_blank" rel="noopener noreferrer">
+        <span>OPEN REVIEW QUEUE</span>
+        <h2>{item.title}</h2>
+        <p>{item.description}</p>
+        <strong>前往提交 →</strong>
+      </a>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { padding-block: 68px 42px; }
+  .page-head p { margin: 0 0 12px; color: var(--cyan); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  h1 { margin: 0; font-size: 46px; }
+  .page-head > span { display: block; max-width: 760px; margin-top: 16px; color: var(--muted); line-height: 1.7; }
+  .submission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding-bottom: 90px; }
+  .submission-grid a { border: 1px solid var(--line); border-radius: 8px; padding: 22px; background: rgba(10,18,32,.76); }
+  .submission-grid a:hover { border-color: rgba(103,232,249,.55); }
+  .submission-grid span { color: var(--cyan); font: 800 10px "SFMono-Regular", Consolas, monospace; }
+  h2 { margin: 24px 0 0; font-size: 20px; }
+  .submission-grid p { min-height: 62px; margin: 10px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+  .submission-grid strong { display: block; margin-top: 22px; color: var(--cyan); font-size: 12px; }
+  @media (max-width: 760px) { .submission-grid { grid-template-columns: 1fr; } h1 { font-size: 36px; } }
+</style>

@@ -1,0 +1,59 @@
+[
+  {
+    "id": "claude-free",
+    "providerId": "anthropic",
+    "name": "Claude Free",
+    "audience": "individual",
+    "currency": "USD",
+    "monthlyPrice": 0,
+    "annualPrice": null,
+    "annualMonthlyEquivalent": null,
+    "billingOptions": ["free"],
+    "features": ["基础 Claude 使用额度", "网页与移动端", "联网搜索", "文件与代码执行"],
+    "sourceUrl": "https://claude.com/pricing",
+    "verifiedAt": "2026-07-01"
+  },
+  {
+    "id": "claude-pro",
+    "providerId": "anthropic",
+    "name": "Claude Pro",
+    "audience": "individual",
+    "currency": "USD",
+    "monthlyPrice": 20,
+    "annualPrice": 200,
+    "annualMonthlyEquivalent": 16.67,
+    "billingOptions": ["monthly", "annual"],
+    "features": ["更多使用额度", "Claude Code", "Research", "无限项目"],
+    "sourceUrl": "https://claude.com/pricing",
+    "verifiedAt": "2026-07-01",
+    "notes": "官网按年订阅页面显示约 $17/月，全年一次性支付 $200；月付价格为 $20。"
+  },
+  {
+    "id": "claude-max-5x",
+    "providerId": "anthropic",
+    "name": "Claude Max 5x",
+    "audience": "individual",
+    "currency": "USD",
+    "monthlyPrice": 100,
+    "annualPrice": null,
+    "annualMonthlyEquivalent": null,
+    "billingOptions": ["monthly"],
+    "features": ["约 5 倍 Pro 会话容量", "更高输出限制", "高峰期优先访问", "高级功能抢先体验"],
+    "sourceUrl": "https://claude.com/pricing",
+    "verifiedAt": "2026-07-01"
+  },
+  {
+    "id": "claude-max-20x",
+    "providerId": "anthropic",
+    "name": "Claude Max 20x",
+    "audience": "individual",
+    "currency": "USD",
+    "monthlyPrice": 200,
+    "annualPrice": null,
+    "annualMonthlyEquivalent": null,
+    "billingOptions": ["monthly"],
+    "features": ["约 20 倍 Pro 会话容量", "更高输出限制", "高峰期优先访问", "高级功能抢先体验"],
+    "sourceUrl": "https://claude.com/pricing",
+    "verifiedAt": "2026-07-01"
+  }
+]

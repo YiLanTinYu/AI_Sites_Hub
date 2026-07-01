@@ -1,0 +1,119 @@
+---
+import DirectoryCard from "../components/DirectoryCard.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { directoryItems } from "../lib/data";
+---
+
+<BaseLayout
+  title="AI 产品搜索 | AI Sites Hub"
+  description="集中搜索 AI Sites Hub 收录的模型、Agent、自动化、搜索、编程和创作产品。"
+>
+  <section class="page-head shell">
+    <p>PRODUCT SEARCH</p>
+    <h1>AI 产品搜索</h1>
+    <div id="search-summary" aria-live="polite">正在整理搜索结果...</div>
+  </section>
+  <section class="shell results-grid" id="search-results">
+    {directoryItems.map((item) => <DirectoryCard item={item} />)}
+  </section>
+  <section class="shell empty-result" id="search-empty" hidden>
+    <strong>没有找到匹配的 AI 产品</strong>
+    <span>可以尝试产品名称、厂商名称或用途关键词。</span>
+  </section>
+</BaseLayout>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const query = (params.get("q") ?? "").trim();
+  const normalizedQuery = query.toLowerCase();
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-directory-card]"),
+  );
+  const summary = document.querySelector<HTMLElement>("#search-summary");
+  const results = document.querySelector<HTMLElement>("#search-results");
+  const empty = document.querySelector<HTMLElement>("#search-empty");
+
+  const matches = cards.filter((card) => {
+    const visible = Boolean(normalizedQuery && card.dataset.search?.includes(normalizedQuery));
+    card.hidden = !visible;
+    return visible;
+  });
+
+  document.title = query
+    ? `${query} 搜索结果 | AI Sites Hub`
+    : "AI 产品搜索 | AI Sites Hub";
+
+  if (summary) {
+    summary.textContent = query
+      ? `“${query}”找到 ${matches.length} 个结果`
+      : "请使用标题栏搜索产品、厂商或用途";
+  }
+
+  if (results) results.hidden = matches.length === 0;
+  if (empty) empty.hidden = !query || matches.length > 0;
+</script>
+
+<style>
+  .page-head {
+    padding-block: 68px 32px;
+  }
+
+  .page-head > p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 44px;
+  }
+
+  #search-summary {
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .results-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    padding-bottom: 90px;
+  }
+
+  .empty-result {
+    border-block: 1px solid var(--line);
+    padding-block: 42px 90px;
+    text-align: center;
+  }
+
+  .empty-result strong,
+  .empty-result span {
+    display: block;
+  }
+
+  .empty-result span {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  @media (max-width: 820px) {
+    .results-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 560px) {
+    h1 {
+      font-size: 36px;
+    }
+
+    .results-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

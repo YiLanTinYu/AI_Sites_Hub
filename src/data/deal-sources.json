@@ -1,0 +1,72 @@
+[
+  {
+    "id": "kimi-promotions",
+    "providerId": "moonshot",
+    "name": "Kimi 限时活动",
+    "url": "https://platform.kimi.com/docs/pricing/promotion",
+    "keywords": ["活动时间", "活动内容", "充值", "赠券"]
+  },
+  {
+    "id": "minimax-token-plan-promotions",
+    "providerId": "minimax",
+    "name": "MiniMax Token Plan 活动",
+    "url": "https://platform.minimaxi.com/docs/token-plan/promotion",
+    "keywords": ["活动时间", "优惠", "折扣", "奖励"]
+  },
+  {
+    "id": "aliyun-bailian-free-quota",
+    "providerId": "alibaba-cloud",
+    "name": "阿里云百炼新人免费额度",
+    "url": "https://help.aliyun.com/zh/model-studio/new-free-quota",
+    "keywords": ["免费额度", "有效期", "新人", "到期"]
+  },
+  {
+    "id": "aliyun-night-plan",
+    "providerId": "alibaba-cloud",
+    "name": "阿里云 Night Plan",
+    "url": "https://www.aliyun.com/benefit/client/nightplan",
+    "keywords": ["Night Plan", "22:00", "Qwen3.7-Max", "Qwen3.7-Plus"]
+  },
+  {
+    "id": "openai-pricing",
+    "providerId": "openai",
+    "name": "OpenAI API 定价",
+    "url": "https://developers.openai.com/api/docs/pricing",
+    "keywords": ["pricing", "batch", "cached input", "tokens"]
+  },
+  {
+    "id": "anthropic-pricing",
+    "providerId": "anthropic",
+    "name": "Anthropic 定价",
+    "url": "https://claude.com/pricing",
+    "keywords": ["pricing", "Claude", "monthly", "API"]
+  },
+  {
+    "id": "deepseek-pricing",
+    "providerId": "deepseek",
+    "name": "DeepSeek API 定价",
+    "url": "https://api-docs.deepseek.com/quick_start/pricing",
+    "keywords": ["价格", "缓存命中", "输入", "输出"]
+  },
+  {
+    "id": "tencent-hunyuan-pricing",
+    "providerId": "tencent-cloud",
+    "name": "腾讯混元定价",
+    "url": "https://cloud.tencent.com/document/product/1729/97731",
+    "keywords": ["计费", "价格", "免费额度", "优惠"]
+  },
+  {
+    "id": "baidu-qianfan-pricing",
+    "providerId": "baidu-cloud",
+    "name": "百度千帆定价",
+    "url": "https://cloud.baidu.com/doc/qianfan-docs/s/Jm8r1826a",
+    "keywords": ["价格", "按量后付费", "免费", "优惠"]
+  },
+  {
+    "id": "zhipu-model-pricing",
+    "providerId": "zhipu",
+    "name": "智谱模型与价格",
+    "url": "https://docs.bigmodel.cn/cn/guide/models/text/glm-4-long",
+    "keywords": ["价格", "模型", "免费", "tokens"]
+  }
+]
