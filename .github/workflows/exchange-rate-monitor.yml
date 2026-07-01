@@ -46,10 +46,18 @@ jobs:
           git switch -C "$branch"
           git add src/data/exchange-rates.json
           git commit -m "Update ECB exchange rate"
-          git push --force-with-lease origin "$branch"
-          gh pr create \
-            --base main \
-            --head "$branch" \
-            --title "Update ECB exchange rate" \
-            --body "Automated ECB USD/CNY reference-rate update. Review the source date and rate before merging." \
-            || echo "An exchange-rate pull request may already be open."
+          remote_sha="$(git ls-remote --heads origin "$branch" | cut -f1)"
+          if [ -n "$remote_sha" ]; then
+            git push --force-with-lease="$branch:$remote_sha" origin "$branch"
+          else
+            git push origin "$branch"
+          fi
+          if [ "$(gh pr list --head "$branch" --state open --json number --jq length)" = "0" ]; then
+            gh pr create \
+              --base main \
+              --head "$branch" \
+              --title "Update ECB exchange rate" \
+              --body "Automated ECB USD/CNY reference-rate update. Review the source date and rate before merging."
+          else
+            echo "An exchange-rate pull request is already open."
+          fi
