@@ -1,0 +1,633 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { latestExchangeRate, modelPriceRows, publishedDealRows } from "../../lib/data";
+
+const calculatorModels = modelPriceRows.map((row) => ({
+  id: row.modelId,
+  name: row.name,
+  provider: row.provider.name,
+  providerId: row.provider.id,
+  input: row.input,
+  cachedInput: row.cachedInput,
+  output: row.output,
+  currency: row.currency,
+  verifiedAt: row.verifiedAt,
+}));
+const calculatorDeals = publishedDealRows
+  .filter((deal) => ["active", "ending_soon"].includes(deal.status))
+  .map((deal) => ({
+    id: deal.id,
+    providerId: deal.providerId,
+    modelIds: deal.modelIds,
+    title: deal.title,
+    benefit: deal.benefit,
+    eligibility: deal.eligibility,
+    sourceUrl: deal.sourceUrl,
+    endsAt: deal.endsAt,
+    mode: deal.calculatorMode,
+    multiplier: deal.calculatorMultiplier,
+  }));
+---
+
+<BaseLayout
+  title="AI 模型使用费用计算器 | AI Sites Hub"
+  description="根据使用次数、发送内容、生成内容和重复内容比例，估算主流 AI 模型的每日与每月开发接口费用。"
+>
+  <section class="page-head shell">
+    <p>API COST CALCULATOR</p>
+    <h1>AI 模型费用计算器</h1>
+    <span>输入预计用量，比较单次、每日和每月成本。计算全部在本地浏览器完成。</span>
+  </section>
+
+  <section class="calculator shell">
+    <form id="cost-form">
+      <div class="form-heading">
+        <h2>使用量设置</h2>
+        <button id="reset-calculator" type="reset" title="恢复默认值" aria-label="恢复默认值">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5" />
+          </svg>
+        </button>
+      </div>
+      <label>
+        <span>模型</span>
+        <select id="model" name="model">
+          {calculatorModels.map((model) => (
+            <option value={model.id}>{model.name} · {model.provider}</option>
+          ))}
+        </select>
+      </label>
+      <div class="two-columns">
+        <label>
+          <span>每日请求次数</span>
+          <input id="requests" type="number" min="1" step="1" value="100" />
+        </label>
+        <label>
+          <span>每月使用天数</span>
+          <input id="days" type="number" min="1" max="31" step="1" value="30" />
+        </label>
+      </div>
+      <div class="two-columns">
+        <label>
+          <span>每次发送多少文本单位（Tokens）</span>
+          <input id="input-tokens" type="number" min="0" step="100" value="2000" />
+        </label>
+        <label>
+          <span>每次预计生成多少文本单位（Tokens）</span>
+          <input id="output-tokens" type="number" min="0" step="100" value="500" />
+        </label>
+      </div>
+      <label>
+        <span class="range-label">
+          重复内容比例
+          <output id="cache-output">0%</output>
+        </span>
+        <input id="cache-ratio" type="range" min="0" max="100" step="5" value="0" />
+      </label>
+      <p class="form-note">文本单位（Token）是厂商计算文字量的方式，并不等同于汉字数。重复内容只有在厂商支持缓存优惠时才按低价计算。</p>
+    </form>
+
+    <div class="results-panel" aria-live="polite">
+      <div class="result-head">
+        <div>
+          <p>COST ESTIMATE</p>
+          <h2 id="selected-model">模型费用</h2>
+        </div>
+        <span id="verified-date"></span>
+      </div>
+      <div class="cost-grid">
+        <article>
+          <span>单次请求</span>
+          <strong id="per-request">$0.00</strong>
+        </article>
+        <article>
+          <span>每日预计</span>
+          <strong id="per-day">$0.00</strong>
+        </article>
+        <article class="primary-cost">
+          <span>每月预计</span>
+          <strong id="per-month">$0.00</strong>
+        </article>
+      </div>
+      {latestExchangeRate && (
+        <div class="exchange-result">
+          <span>参考汇率换算</span>
+          <strong id="converted-month"></strong>
+          <small>欧洲央行参考汇率 {latestExchangeRate.observedAt} · 1 美元约合 {latestExchangeRate.rate} 元人民币</small>
+        </div>
+      )}
+      <div class="breakdown">
+        <div>
+          <span>普通发送内容</span>
+          <strong id="input-cost">$0.00</strong>
+        </div>
+        <div>
+          <span>重复内容优惠部分</span>
+          <strong id="cache-cost">$0.00</strong>
+        </div>
+        <div>
+          <span>模型生成内容</span>
+          <strong id="output-cost">$0.00</strong>
+        </div>
+      </div>
+      <section id="deal-notice" class="deal-notice" hidden aria-labelledby="deal-notice-title">
+        <div class="deal-notice-head">
+          <div>
+            <span>AVAILABLE OFFERS</span>
+            <h3 id="deal-notice-title">当前可用优惠</h3>
+          </div>
+          <strong id="deal-count"></strong>
+        </div>
+        <div id="deal-list"></div>
+        <p id="deal-calculation-note"></p>
+      </section>
+      <p>
+        估算不包含税费、联网搜索、文件存储、不同服务地区和加速服务等额外费用，最终费用以厂商账单为准。
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline define:vars={{ calculatorModels, calculatorDeals, latestExchangeRate }}>
+  const models = calculatorModels;
+  const deals = calculatorDeals;
+  const form = document.querySelector("#cost-form");
+  const modelSelect = document.querySelector("#model");
+  const requestsInput = document.querySelector("#requests");
+  const daysInput = document.querySelector("#days");
+  const inputTokens = document.querySelector("#input-tokens");
+  const outputTokens = document.querySelector("#output-tokens");
+  const cacheRatio = document.querySelector("#cache-ratio");
+  const cacheOutput = document.querySelector("#cache-output");
+  const dealNotice = document.querySelector("#deal-notice");
+  const dealList = document.querySelector("#deal-list");
+
+  const setText = (selector, value) => {
+    const element = document.querySelector(selector);
+    if (element) element.textContent = value;
+  };
+
+  const calculate = () => {
+    const selected = models.find((item) => item.id === modelSelect?.value) ?? models[0];
+    if (!selected) return;
+    const currency = new Intl.NumberFormat("zh-CN", {
+      style: "currency",
+      currency: selected.currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 6,
+    });
+
+    const requests = Math.max(0, Number(requestsInput?.value) || 0);
+    const days = Math.max(0, Number(daysInput?.value) || 0);
+    const input = Math.max(0, Number(inputTokens?.value) || 0);
+    const output = Math.max(0, Number(outputTokens?.value) || 0);
+    const cachePercent = Math.max(0, Math.min(100, Number(cacheRatio?.value) || 0));
+    const effectiveCachePercent = selected.cachedInput === null ? 0 : cachePercent;
+
+    const cachedTokens = input * (effectiveCachePercent / 100);
+    const regularTokens = input - cachedTokens;
+    const inputCost = (regularTokens / 1_000_000) * selected.input;
+    const cachedCost =
+      (cachedTokens / 1_000_000) * (selected.cachedInput ?? selected.input);
+    const outputCost = (output / 1_000_000) * selected.output;
+    const basePerRequest = inputCost + cachedCost + outputCost;
+    const applicableDeals = deals.filter(
+      (deal) =>
+        deal.providerId === selected.providerId &&
+        (deal.modelIds.length === 0 || deal.modelIds.includes(selected.id)),
+    );
+    const directDiscounts = applicableDeals.filter(
+      (deal) => deal.mode === "price_multiplier" && deal.multiplier !== null,
+    );
+    const bestMultiplier = directDiscounts.length
+      ? Math.min(...directDiscounts.map((deal) => deal.multiplier))
+      : 1;
+    const perRequest = basePerRequest * bestMultiplier;
+    const perDay = perRequest * requests;
+    const perMonth = perDay * days;
+
+    setText("#selected-model", selected.name);
+    setText("#verified-date", `价格核实于 ${selected.verifiedAt}`);
+    setText("#per-request", currency.format(perRequest));
+    setText("#per-day", currency.format(perDay));
+    setText("#per-month", currency.format(perMonth));
+    if (latestExchangeRate) {
+      const convertedCurrency = selected.currency === "USD" ? "CNY" : "USD";
+      const convertedValue =
+        selected.currency === "USD"
+          ? perMonth * latestExchangeRate.rate
+          : perMonth / latestExchangeRate.rate;
+      const converted = new Intl.NumberFormat("zh-CN", {
+        style: "currency",
+        currency: convertedCurrency,
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      });
+      setText("#converted-month", `${converted.format(convertedValue)} / 月`);
+    }
+    setText("#input-cost", currency.format(inputCost * requests * days));
+    setText("#cache-cost", currency.format(cachedCost * requests * days));
+    setText("#output-cost", currency.format(outputCost * requests * days));
+    setText("#deal-count", `${applicableDeals.length} 项`);
+    setText(
+      "#deal-calculation-note",
+      directDiscounts.length
+        ? `已自动采用可核实的最低直接折扣，标准月费为 ${currency.format(basePerRequest * requests * days)}。`
+        : applicableDeals.some((deal) => deal.mode === "free_quota")
+          ? "免费额度会优先抵扣，但具体额度与余额因账号而异，因此不从估算金额中自动扣除。"
+          : "这些活动属于返券、订阅或使用额度（Credits）优惠，不等于开发接口单价下降，因此只提示条件，不自动减少估算金额。",
+    );
+    if (dealList) {
+      dealList.replaceChildren(
+        ...applicableDeals.map((deal) => {
+          const item = document.createElement("a");
+          item.href = deal.sourceUrl;
+          item.target = "_blank";
+          item.rel = "noopener noreferrer";
+          const copy = document.createElement("span");
+          const title = document.createElement("strong");
+          title.textContent = deal.title;
+          const benefit = document.createElement("small");
+          benefit.textContent = deal.benefit;
+          copy.append(title, benefit);
+          const meta = document.createElement("em");
+          meta.textContent = deal.endsAt ? `${deal.endsAt} 截止` : "查看条件";
+          item.append(copy, meta);
+          return item;
+        }),
+      );
+    }
+    if (dealNotice) dealNotice.hidden = applicableDeals.length === 0;
+    if (cacheOutput) cacheOutput.textContent = `${effectiveCachePercent}%`;
+  };
+
+  const requestedModel = new URLSearchParams(window.location.search).get("model");
+  if (requestedModel && models.some((item) => item.id === requestedModel) && modelSelect) {
+    modelSelect.value = requestedModel;
+  }
+
+  form?.addEventListener("input", calculate);
+  form?.addEventListener("reset", () => window.setTimeout(calculate, 0));
+  calculate();
+</script>
+
+<style>
+  .page-head {
+    padding-block: 68px 36px;
+  }
+
+  .page-head > p,
+  .result-head p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+  }
+
+  .page-head > span {
+    display: block;
+    margin-top: 16px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .calculator {
+    display: grid;
+    grid-template-columns: 390px minmax(0, 1fr);
+    align-items: start;
+    gap: 22px;
+    padding-bottom: 90px;
+  }
+
+  form,
+  .results-panel {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, 0.78);
+  }
+
+  form {
+    display: grid;
+    gap: 19px;
+    padding: 23px;
+  }
+
+  .form-heading,
+  .result-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 17px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  .form-heading button {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    cursor: pointer;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--muted);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  label {
+    display: grid;
+    gap: 8px;
+  }
+
+  label > span,
+  .range-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .range-label {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  output {
+    color: var(--cyan);
+  }
+
+  input,
+  select {
+    width: 100%;
+    height: 44px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 12px;
+    outline: none;
+    background: rgba(5, 11, 21, 0.82);
+    color: var(--text);
+    font: inherit;
+    font-size: 13px;
+  }
+
+  input[type="range"] {
+    height: 28px;
+    cursor: pointer;
+    padding: 0;
+    accent-color: var(--cyan);
+  }
+
+  input:focus,
+  select:focus {
+    border-color: rgba(103, 232, 249, 0.62);
+  }
+
+  .two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .form-note {
+    margin: -6px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .results-panel {
+    padding: 24px;
+  }
+
+  .result-head {
+    align-items: end;
+  }
+
+  .result-head > span {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .cost-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 22px;
+  }
+
+  .cost-grid article {
+    min-height: 150px;
+    border-right: 1px solid var(--line);
+    padding: 25px 20px;
+  }
+
+  .cost-grid article:last-child {
+    border-right: 0;
+  }
+
+  .cost-grid span,
+  .breakdown span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .cost-grid strong {
+    display: block;
+    margin-top: 17px;
+    color: var(--text);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: clamp(22px, 2.5vw, 34px);
+  }
+
+  .primary-cost strong {
+    color: var(--cyan);
+  }
+
+  .breakdown {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-block: 1px solid var(--line);
+  }
+
+  .exchange-result {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--line);
+    padding: 14px 20px;
+    color: var(--muted);
+  }
+
+  .exchange-result span,
+  .exchange-result small {
+    font-size: 10px;
+  }
+
+  .exchange-result strong {
+    margin-left: auto;
+    color: var(--text);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 13px;
+  }
+
+  .breakdown div {
+    padding: 20px;
+  }
+
+  .breakdown strong {
+    display: block;
+    margin-top: 8px;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 14px;
+  }
+
+  .results-panel > p {
+    margin: 20px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .deal-notice {
+    border: 1px solid rgba(103, 232, 249, 0.28);
+    border-radius: 7px;
+    margin-top: 20px;
+    padding: 18px;
+    background: rgba(103, 232, 249, 0.055);
+  }
+
+  .deal-notice[hidden] {
+    display: none;
+  }
+
+  .deal-notice-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .deal-notice-head span {
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 10px;
+    font-weight: 800;
+  }
+
+  .deal-notice h3 {
+    margin: 5px 0 0;
+    font-size: 16px;
+  }
+
+  .deal-notice-head > strong {
+    color: var(--cyan);
+    font-size: 12px;
+  }
+
+  #deal-list {
+    display: grid;
+    gap: 1px;
+    margin-top: 15px;
+    background: var(--line);
+  }
+
+  #deal-list a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 13px;
+    background: #0a1220;
+  }
+
+  #deal-list a:hover strong {
+    color: var(--cyan);
+  }
+
+  #deal-list span,
+  #deal-list small {
+    display: block;
+  }
+
+  #deal-list strong {
+    font-size: 12px;
+  }
+
+  #deal-list small {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  #deal-list em {
+    flex: 0 0 auto;
+    color: var(--cyan);
+    font-size: 10px;
+    font-style: normal;
+  }
+
+  #deal-calculation-note {
+    margin: 13px 0 0;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 880px) {
+    .calculator {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    h1 {
+      font-size: 36px;
+    }
+
+    .cost-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .cost-grid article {
+      min-height: 110px;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .cost-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .breakdown {
+      grid-template-columns: 1fr;
+    }
+
+    .breakdown div {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .breakdown div:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>

@@ -1,0 +1,72 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="alternate" type="application/atom+xml" title="AI 优惠更新" href="/feeds/deals.xml" />
+    <link rel="alternate" type="application/atom+xml" title="AI 价格更新" href="/feeds/updates.xml" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="shell nav">
+        <a class="brand" href="/" aria-label="AI Sites Hub 首页">
+          <span class="brand-mark">AI</span>
+          <span>
+            AI 模型比价
+            <small>AI Sites Hub</small>
+          </span>
+        </a>
+        <div class="nav-tools">
+          <nav aria-label="主要导航">
+            <a href="/models/">模型价格</a>
+            <a href="/deals/">优惠专区</a>
+            <a href="/recommendations/">场景推荐</a>
+            <a href="/calculator/">费用计算</a>
+            <a href="/updates/">更新记录</a>
+            <a href="/watchlist/">我的关注</a>
+            <a href="/#directory">产品导航</a>
+          </nav>
+          <form class="nav-search" action="/search/" method="get" role="search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"></circle>
+              <path d="m20 20-3.5-3.5"></path>
+            </svg>
+            <input name="q" type="search" placeholder="搜索 AI 产品" aria-label="搜索 AI 产品" />
+          </form>
+        </div>
+      </div>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer>
+      <div class="shell">
+        <p>Copyright © 倚栏听雨</p>
+        <span>价格仅供参考，请以厂商官方页面和最终账单为准。</span>
+        <a
+          class="feedback-link"
+          href="https://github.com/YiLanTinYu/AI_Sites_Hub/issues/new?title=%E4%BB%B7%E6%A0%BC%E6%88%96%E4%BC%98%E6%83%A0%E5%A4%B1%E6%95%88%E5%8F%8D%E9%A6%88"
+          target="_blank"
+          rel="noopener noreferrer"
+        >反馈价格或优惠失效</a>
+        <a class="feedback-link" href="/submit/">提交产品、价格或优惠</a>
+        <a class="feedback-link" href="/feeds/deals.xml">订阅优惠更新</a>
+        <a class="feedback-link" href="/feeds/updates.xml">订阅价格更新</a>
+      </div>
+    </footer>
+  </body>
+</html>

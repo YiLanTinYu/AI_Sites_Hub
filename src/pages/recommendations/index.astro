@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { recommendationsFor, scenarios, type ScenarioId } from "../../lib/recommendations";
+
+const scenarioEntries = Object.entries(scenarios) as [ScenarioId, (typeof scenarios)[ScenarioId]][];
+const money = (value: number, currency: "USD" | "CNY") =>
+  new Intl.NumberFormat("zh-CN", { style: "currency", currency, maximumFractionDigits: 3 }).format(value);
+---
+
+<BaseLayout
+  title="AI 模型场景推荐 | AI Sites Hub"
+  description="基于公开价格、能力、上下文和稳定性的透明规则，为常见 AI 使用场景推荐模型。"
+>
+  <section class="page-head shell">
+    <p>SCENARIO RECOMMENDATIONS</p>
+    <h1>按场景选择模型</h1>
+    <span>推荐由透明规则计算，不接受厂商付费干预；美元和人民币价格分别标准化。</span>
+  </section>
+  <section class="scenario-list shell">
+    {scenarioEntries.map(([id, scenario]) => (
+      <section class="scenario" aria-labelledby={`scenario-${id}`}>
+        <div class="scenario-head">
+          <div>
+            <h2 id={`scenario-${id}`}>{scenario.name}</h2>
+            <p>{scenario.description}</p>
+          </div>
+          <span>评分参考：价格 {scenario.weights.cost}% · 场景能力 {scenario.weights.capability}% · 单次处理量 {scenario.weights.context}% · 稳定程度 {scenario.weights.stability}%</span>
+        </div>
+        <div class="recommendation-grid">
+          {recommendationsFor(id).map(({ row, score, components }, index) => (
+            <article>
+              <div class="rank"><span>#{index + 1}</span><strong>{score}</strong></div>
+              <p>{row.provider.name}</p>
+              <h3><a href={`/models/${row.modelId}/`}>{row.name}</a></h3>
+              <div class="price">{money(row.input, row.currency)} 输入 · {money(row.output, row.currency)} 输出</div>
+              <dl>
+                <div><dt>成本</dt><dd>{components.cost}</dd></div>
+                <div><dt>能力</dt><dd>{components.capability}</dd></div>
+                <div><dt title="一次最多可以处理多少内容">处理量</dt><dd>{components.context}</dd></div>
+                <div><dt>稳定性</dt><dd>{components.stability}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { padding-block: 68px 42px; }
+  .page-head > p {
+    margin: 0 0 12px; color: var(--cyan); font: 800 11px "SFMono-Regular", Consolas, monospace;
+  }
+  h1 { margin: 0; font-size: 46px; }
+  .page-head > span { display: block; margin-top: 16px; color: var(--muted); line-height: 1.7; }
+  .scenario-list { padding-bottom: 90px; }
+  .scenario { border-top: 1px solid var(--line); padding-block: 32px; }
+  .scenario-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+  h2 { margin: 0; font-size: 25px; }
+  .scenario-head p { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
+  .scenario-head > span { max-width: 440px; color: var(--muted); font-size: 10px; text-align: right; }
+  .recommendation-grid {
+    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px;
+  }
+  article { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: rgba(10,18,32,.76); }
+  .rank { display: flex; align-items: center; justify-content: space-between; }
+  .rank span { color: var(--muted); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  .rank strong { color: var(--cyan); font-size: 25px; }
+  article > p { margin: 18px 0 5px; color: var(--muted); font-size: 10px; }
+  h3 { margin: 0; font-size: 17px; }
+  h3 a:hover { color: var(--cyan); }
+  .price { margin-top: 12px; color: #d8fff0; font-size: 11px; }
+  dl { display: grid; grid-template-columns: repeat(4, 1fr); margin: 16px 0 0; }
+  dl div { border-left: 1px solid var(--line); padding-left: 8px; }
+  dl div:first-child { border-left: 0; padding-left: 0; }
+  dt { color: var(--muted); font-size: 9px; }
+  dd { margin: 4px 0 0; font-size: 12px; font-weight: 800; }
+  @media (max-width: 900px) { .recommendation-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    h1 { font-size: 36px; }
+    .scenario-head { align-items: flex-start; flex-direction: column; }
+    .scenario-head > span { text-align: left; }
+    .recommendation-grid { grid-template-columns: 1fr; }
+  }
+</style>

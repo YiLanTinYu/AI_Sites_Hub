@@ -1,0 +1,82 @@
+[
+  {
+    "id": "openai",
+    "name": "OpenAI",
+    "region": "global",
+    "website": "https://openai.com/",
+    "pricingUrl": "https://platform.openai.com/docs/pricing/",
+    "accent": "#67e8f9"
+  },
+  {
+    "id": "anthropic",
+    "name": "Anthropic",
+    "region": "global",
+    "website": "https://www.anthropic.com/",
+    "pricingUrl": "https://claude.com/pricing",
+    "accent": "#fcd34d"
+  },
+  {
+    "id": "google",
+    "name": "Google",
+    "region": "global",
+    "website": "https://ai.google/",
+    "pricingUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "accent": "#86efac"
+  },
+  {
+    "id": "deepseek",
+    "name": "DeepSeek",
+    "region": "china",
+    "website": "https://www.deepseek.com/",
+    "pricingUrl": "https://api-docs.deepseek.com/quick_start/pricing",
+    "accent": "#93c5fd"
+  },
+  {
+    "id": "alibaba-cloud",
+    "name": "阿里云百炼",
+    "region": "china",
+    "website": "https://bailian.console.aliyun.com/",
+    "pricingUrl": "https://help.aliyun.com/zh/model-studio/model-pricing",
+    "accent": "#f59e0b"
+  },
+  {
+    "id": "tencent-cloud",
+    "name": "腾讯混元",
+    "region": "china",
+    "website": "https://cloud.tencent.com/product/hunyuan",
+    "pricingUrl": "https://cloud.tencent.com/document/product/1729/97731",
+    "accent": "#22d3ee"
+  },
+  {
+    "id": "moonshot",
+    "name": "月之暗面 Kimi",
+    "region": "china",
+    "website": "https://www.kimi.com/",
+    "pricingUrl": "https://platform.kimi.com/docs/pricing/chat",
+    "accent": "#8b5cf6"
+  },
+  {
+    "id": "baidu-cloud",
+    "name": "百度千帆",
+    "region": "china",
+    "website": "https://cloud.baidu.com/product-s/qianfan_home",
+    "pricingUrl": "https://cloud.baidu.com/doc/qianfan-docs/s/Jm8r1826a",
+    "accent": "#3b82f6"
+  },
+  {
+    "id": "minimax",
+    "name": "MiniMax",
+    "region": "china",
+    "website": "https://www.minimaxi.com/",
+    "pricingUrl": "https://platform.minimaxi.com/docs/guides/pricing-paygo",
+    "accent": "#f43f5e"
+  },
+  {
+    "id": "zhipu",
+    "name": "智谱 AI",
+    "region": "china",
+    "website": "https://www.zhipuai.cn/",
+    "pricingUrl": "https://docs.bigmodel.cn/cn/guide/models/overview",
+    "accent": "#14b8a6"
+  }
+]

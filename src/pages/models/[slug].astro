@@ -1,0 +1,620 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { modelPriceRows, priceHistoryFor } from "../../lib/data";
+import type { ModelPriceRow } from "../../lib/schema";
+
+export function getStaticPaths() {
+  return modelPriceRows.map((row) => ({
+    params: { slug: row.modelId },
+    props: { row },
+  }));
+}
+
+interface Props {
+  row: ModelPriceRow;
+}
+
+const { row } = Astro.props;
+const history = priceHistoryFor(row.modelId);
+const historyData = history.map((entry) => ({
+  date: entry.recordedAt,
+  input: entry.input,
+  cachedInput: entry.cachedInput,
+  output: entry.output,
+}));
+
+const money = (value: number | null) =>
+  value === null
+    ? "未提供"
+    : new Intl.NumberFormat("zh-CN", {
+        style: "currency",
+        currency: row.currency,
+        minimumFractionDigits: value < 0.1 ? 3 : 2,
+        maximumFractionDigits: value < 0.1 ? 4 : 2,
+      }).format(value);
+
+const capabilityLabels: Record<string, string> = {
+  reasoning: "复杂思考",
+  coding: "编程",
+  tools: "可使用外部工具",
+  vision: "视觉理解",
+  "long-context": "可处理长内容",
+};
+
+const modalityLabels: Record<string, string> = {
+  text: "文本",
+  image: "图像",
+  audio: "音频",
+  video: "视频",
+};
+---
+
+<BaseLayout
+  title={`${row.name} 开发接口价格与能力 | AI Sites Hub`}
+  description={`${row.name} 的发送内容、重复内容优惠价、生成内容价格、单次处理上限、能力与官方来源。`}
+>
+  <section class="detail-head shell">
+    <a class="back-link" href="/models/">返回模型价格</a>
+    <div class="title-line">
+      <div>
+        <p>{row.provider.name} · {row.provider.region === "china" ? "国内厂商" : "国外厂商"}</p>
+        <h1>{row.name}</h1>
+        <span>{row.description}</span>
+      </div>
+      <a class="source-button" href={row.sourceUrl} target="_blank" rel="noopener noreferrer">
+        官方价格来源
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M7 17 17 7M8 7h9v9" />
+        </svg>
+      </a>
+      <button
+        class="watch-button"
+        type="button"
+        data-watch-model={row.modelId}
+        data-watch-name={row.name}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M6 4h12v17l-6-4-6 4V4Z" />
+        </svg>
+        <span>关注模型</span>
+      </button>
+    </div>
+  </section>
+
+  <section class="shell detail-grid">
+    <div class="price-panel">
+      <div class="panel-heading">
+        <div>
+          <p>STANDARD API PRICE</p>
+          <h2>开发接口标准价格</h2>
+        </div>
+        <span>{row.currency === "CNY" ? "人民币" : "美元"} / 100 万个文本单位</span>
+      </div>
+      <div class="price-grid">
+        <article>
+          <span title="发送给模型的内容">发送内容</span>
+          <strong>{money(row.input)}</strong>
+        </article>
+        <article>
+          <span title="重复内容命中缓存后的优惠价格">重复内容优惠价</span>
+          <strong>{money(row.cachedInput)}</strong>
+        </article>
+        <article>
+          <span title="模型生成的内容">生成内容</span>
+          <strong>{money(row.output)}</strong>
+        </article>
+        <article>
+          <span title="非实时、集中处理大量任务">批量任务发送内容</span>
+          <strong>{money(row.batchInput)}</strong>
+        </article>
+        <article>
+          <span title="非实时、集中处理大量任务">批量任务生成内容</span>
+          <strong>{money(row.batchOutput)}</strong>
+        </article>
+        <article>
+          <span>最近确认日期</span>
+          <strong class="date">{row.verifiedAt}</strong>
+        </article>
+      </div>
+      {row.notes && <p class="notes">{row.notes}</p>}
+    </div>
+
+    <aside>
+      <section>
+        <p>MODEL PROFILE</p>
+        <h2>模型能力</h2>
+        <dl>
+          <div>
+            <dt title="一次请求最多能放入和生成多少内容">一次最多处理量</dt>
+            <dd>
+              {row.contextWindow
+                ? `${Intl.NumberFormat("zh-CN").format(row.contextWindow)} 个文本单位`
+                : "官方价格页未提供"}
+            </dd>
+          </div>
+          <div>
+            <dt>发布状态</dt>
+            <dd>{row.status === "stable" ? "稳定版" : row.status === "preview" ? "预览版" : "限量开放"}</dd>
+          </div>
+          <div>
+            <dt title="模型可以接收哪些内容形式">可处理的内容</dt>
+            <dd>{row.modalities.map((item) => modalityLabels[item]).join("、")}</dd>
+          </div>
+        </dl>
+        <div class="tags">
+          {row.capabilities.map((item) => <span>{capabilityLabels[item]}</span>)}
+        </div>
+      </section>
+      <a class="calculator-link" href={`/calculator/?model=${row.modelId}`}>
+        使用此模型计算费用
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M5 12h14M13 6l6 6-6 6" />
+        </svg>
+      </a>
+    </aside>
+  </section>
+
+  <section class="history-section shell" aria-labelledby="price-history-title">
+    <div class="history-heading">
+      <div>
+        <p>PRICE HISTORY</p>
+        <h2 id="price-history-title">价格历史</h2>
+      </div>
+      <span>{history.length} 次价格记录 · {row.currency} / 100 万个文本单位</span>
+    </div>
+    <div class="history-layout">
+      <div class="chart-wrap">
+        <canvas
+          id="price-history-chart"
+          data-history={JSON.stringify(historyData)}
+          data-currency={row.currency}
+          aria-label={`${row.name} 输入和输出价格历史图`}
+        ></canvas>
+      </div>
+      <div class="history-list">
+        {history.toReversed().map((entry) => (
+          <article>
+            <div>
+              <strong>{entry.recordedAt}</strong>
+              <span>{entry.changeType === "initial" ? "初始基线" : entry.changeType}</span>
+            </div>
+            <p>输入 {money(entry.input)} · 输出 {money(entry.output)}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+    {history.length === 1 && <p class="baseline-note">目前只有第一次记录；以后价格上涨或下降时，会继续添加新记录，旧价格不会删除。</p>}
+  </section>
+</BaseLayout>
+
+<script>
+  const watchButton = document.querySelector<HTMLButtonElement>("[data-watch-model]");
+  const storageKey = "ai-sites-hub-watchlist-v1";
+
+  function readWatchlist() {
+    try {
+      return JSON.parse(localStorage.getItem(storageKey) ?? "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function syncWatchButton() {
+    if (!watchButton) return;
+    const watched = readWatchlist().some(
+      (item: { modelId: string }) => item.modelId === watchButton.dataset.watchModel,
+    );
+    watchButton.classList.toggle("watched", watched);
+    const label = watchButton.querySelector("span");
+    if (label) label.textContent = watched ? "已关注" : "关注模型";
+  }
+
+  watchButton?.addEventListener("click", () => {
+    const items = readWatchlist();
+    const modelId = watchButton.dataset.watchModel;
+    const exists = items.some((item: { modelId: string }) => item.modelId === modelId);
+    const next = exists
+      ? items.filter((item: { modelId: string }) => item.modelId !== modelId)
+      : [...items, { modelId, threshold: null, addedAt: new Date().toISOString() }];
+    localStorage.setItem(storageKey, JSON.stringify(next));
+    syncWatchButton();
+  });
+
+  syncWatchButton();
+</script>
+
+<script>
+  import Chart from "chart.js/auto";
+
+  const canvas = document.querySelector<HTMLCanvasElement>("#price-history-chart");
+  if (canvas) {
+    const values = JSON.parse(canvas.dataset.history ?? "[]");
+    const currency = canvas.dataset.currency === "CNY" ? "¥" : "$";
+    new Chart(canvas, {
+      type: "line",
+      data: {
+        labels: values.map((item: { date: string }) => item.date),
+        datasets: [
+          {
+            label: "输入价格",
+            data: values.map((item: { input: number }) => item.input),
+            borderColor: "#67e8f9",
+            backgroundColor: "rgba(103, 232, 249, 0.12)",
+            tension: 0.2,
+          },
+          {
+            label: "输出价格",
+            data: values.map((item: { output: number }) => item.output),
+            borderColor: "#86efac",
+            backgroundColor: "rgba(134, 239, 172, 0.1)",
+            tension: 0.2,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: "#c8d4e4" } },
+          tooltip: {
+            callbacks: {
+              label: (context) => `${context.dataset.label}: ${currency}${context.parsed.y}`,
+            },
+          },
+        },
+        scales: {
+          x: { ticks: { color: "#9fb0c4" }, grid: { color: "rgba(148,163,184,.1)" } },
+          y: {
+            beginAtZero: true,
+            ticks: { color: "#9fb0c4", callback: (value) => `${currency}${value}` },
+            grid: { color: "rgba(148,163,184,.1)" },
+          },
+        },
+      },
+    });
+  }
+</script>
+
+<style>
+  .detail-head {
+    padding-block: 58px 36px;
+  }
+
+  .back-link {
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .title-line {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .title-line p,
+  .panel-heading p,
+  aside section > p {
+    margin: 0 0 10px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 48px;
+  }
+
+  .title-line div > span {
+    display: block;
+    max-width: 680px;
+    margin-top: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .source-button,
+  .calculator-link,
+  .watch-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: 1px solid rgba(103, 232, 249, 0.36);
+    border-radius: 6px;
+    padding: 12px 15px;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .watch-button {
+    cursor: pointer;
+    background: transparent;
+    font: inherit;
+  }
+
+  .watch-button.watched {
+    border-color: var(--green);
+    background: rgba(134, 239, 172, 0.1);
+    color: var(--green);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    align-items: start;
+    gap: 22px;
+    padding-bottom: 88px;
+  }
+
+  .history-section {
+    padding-bottom: 88px;
+  }
+
+  .history-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+  }
+
+  .history-heading p {
+    margin: 0 0 9px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .history-heading > span {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .history-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 310px;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .chart-wrap,
+  .history-list {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, 0.76);
+  }
+
+  .chart-wrap {
+    height: 330px;
+    padding: 18px;
+  }
+
+  .history-list {
+    max-height: 330px;
+    overflow-y: auto;
+  }
+
+  .history-list article {
+    border-bottom: 1px solid var(--line);
+    padding: 16px;
+  }
+
+  .history-list article:last-child {
+    border-bottom: 0;
+  }
+
+  .history-list div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .history-list strong {
+    font-size: 12px;
+  }
+
+  .history-list span {
+    color: var(--cyan);
+    font-size: 10px;
+  }
+
+  .history-list p,
+  .baseline-note {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .history-list p {
+    margin: 8px 0 0;
+  }
+
+  .baseline-note {
+    margin: 13px 2px 0;
+  }
+
+  .price-panel,
+  aside section {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, 0.76);
+  }
+
+  .price-panel {
+    padding: 24px;
+  }
+
+  .panel-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 20px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+  }
+
+  .panel-heading > span {
+    color: var(--muted);
+    font-size: 11px;
+  }
+
+  .price-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .price-grid article {
+    min-height: 130px;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 22px 16px;
+  }
+
+  .price-grid article:nth-child(3n) {
+    border-right: 0;
+  }
+
+  .price-grid article:nth-last-child(-n + 3) {
+    border-bottom: 0;
+  }
+
+  .price-grid span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .price-grid strong {
+    display: block;
+    margin-top: 13px;
+    color: #d8fff0;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 25px;
+  }
+
+  .price-grid .date {
+    color: var(--text);
+    font-size: 18px;
+  }
+
+  .notes {
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+
+  aside {
+    display: grid;
+    gap: 14px;
+  }
+
+  aside section {
+    padding: 23px;
+  }
+
+  dl {
+    margin: 20px 0;
+  }
+
+  dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    border-bottom: 1px solid var(--line);
+    padding-block: 13px;
+  }
+
+  dt {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text);
+    font-size: 12px;
+    text-align: right;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+  }
+
+  .tags span {
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 5px 7px;
+    color: #c8d4e4;
+    font-size: 11px;
+  }
+
+  .calculator-link {
+    background: rgba(103, 232, 249, 0.07);
+  }
+
+  @media (max-width: 850px) {
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .title-line {
+      align-items: start;
+      flex-direction: column;
+    }
+
+    .history-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 560px) {
+    h1 {
+      font-size: 38px;
+    }
+
+    .price-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .price-grid article:nth-child(3n) {
+      border-right: 1px solid var(--line);
+    }
+
+    .price-grid article:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .price-grid article:nth-last-child(-n + 3) {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .price-grid article:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+  }
+</style>

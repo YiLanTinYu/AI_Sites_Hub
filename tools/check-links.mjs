@@ -6,13 +6,17 @@ import { fileURLToPath } from "node:url";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const sourceFiles = ["index.html", "section.html", "search.html"];
+const dataFiles = [
+  "src/data/deal-sources.json",
+  "src/data/deals.json",
+  "src/data/directory-items.json",
+  "src/data/plans.json",
+  "src/data/prices.json",
+  "src/data/providers.json",
+];
 const outputDir = path.join(root, "reports");
 const timeoutMs = Number(process.env.LINK_CHECK_TIMEOUT_MS || 12000);
 const concurrency = Number(process.env.LINK_CHECK_CONCURRENCY || 8);
-
-function unique(values) {
-  return [...new Set(values)];
-}
 
 function normalizeUrl(raw) {
   const value = raw.trim();
@@ -31,6 +35,31 @@ async function extractLinks() {
 
     for (const match of matches) {
       const url = normalizeUrl(match[1]);
+      if (url) links.push({ file, url });
+    }
+  }
+
+  for (const file of dataFiles) {
+    const data = JSON.parse(await readFile(path.join(root, file), "utf8"));
+    const values = [];
+
+    function visit(value) {
+      if (typeof value === "string") {
+        values.push(value);
+        return;
+      }
+      if (Array.isArray(value)) {
+        value.forEach(visit);
+        return;
+      }
+      if (value && typeof value === "object") {
+        Object.values(value).forEach(visit);
+      }
+    }
+
+    visit(data);
+    for (const value of values) {
+      const url = normalizeUrl(value);
       if (url) links.push({ file, url });
     }
   }

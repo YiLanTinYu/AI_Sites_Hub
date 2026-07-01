@@ -1,0 +1,150 @@
+---
+import DealCard from "../../components/DealCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { publishedDealRows } from "../../lib/data";
+
+const statusOrder = { ending_soon: 0, active: 1, upcoming: 2, ended: 3, pending: 4 };
+const sortedDeals = [...publishedDealRows].sort((a, b) => {
+  const statusDifference = statusOrder[a.status] - statusOrder[b.status];
+  if (statusDifference !== 0) return statusDifference;
+  return (a.endsAt ?? "9999-12-31").localeCompare(b.endsAt ?? "9999-12-31");
+});
+const currentDeals = sortedDeals.filter((deal) => deal.status !== "ended");
+const endedDeals = sortedDeals.filter((deal) => deal.status === "ended");
+---
+
+<BaseLayout
+  title="AI 优惠专区 | AI Sites Hub"
+  description="查看经过人工确认的 AI 模型、开发接口和订阅优惠，了解活动期限、适用条件与官方来源。"
+>
+  <section class="page-head shell">
+    <p>VERIFIED AI DEALS</p>
+    <div>
+      <h1>AI 优惠专区</h1>
+      <span>{currentDeals.length} 项当前优惠</span>
+    </div>
+    <strong>只展示人工确认过的官方活动。返券、会员套餐和赠送额度会分别说明，不会误写成模型直接降价。</strong>
+  </section>
+
+  <section class="deal-section shell" aria-labelledby="current-deals">
+    <div class="section-heading">
+      <div>
+        <p>CURRENT OFFERS</p>
+        <h2 id="current-deals">当前优惠</h2>
+      </div>
+      <span>按临近结束时间优先展示</span>
+    </div>
+    <div class="deal-grid">
+      {currentDeals.map((deal) => <DealCard deal={deal} />)}
+    </div>
+  </section>
+
+  {
+    endedDeals.length > 0 && (
+      <section class="deal-section history shell" aria-labelledby="ended-deals">
+        <div class="section-heading">
+          <div>
+            <p>DEAL HISTORY</p>
+            <h2 id="ended-deals">历史优惠</h2>
+          </div>
+          <span>已结束活动保留作价格决策参考</span>
+        </div>
+        <div class="deal-grid">
+          {endedDeals.map((deal) => <DealCard deal={deal} />)}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 68px 42px;
+  }
+
+  .page-head > p,
+  .section-heading p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .page-head > div,
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+  }
+
+  .page-head > div span,
+  .section-heading > span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .page-head > strong {
+    display: block;
+    max-width: 720px;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.8;
+  }
+
+  .deal-section {
+    padding-block: 26px 78px;
+  }
+
+  .section-heading {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 18px;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 26px;
+  }
+
+  .deal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .history {
+    padding-top: 0;
+  }
+
+  @media (max-width: 900px) {
+    .deal-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .page-head > div,
+    .section-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    h1 {
+      font-size: 38px;
+    }
+
+    .deal-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

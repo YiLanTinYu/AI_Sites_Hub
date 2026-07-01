@@ -1,0 +1,217 @@
+---
+import type { ModelPriceRow } from "../lib/schema";
+
+interface Props {
+  rows: ModelPriceRow[];
+  compact?: boolean;
+}
+
+const { rows, compact = false } = Astro.props;
+
+const money = (value: number | null, currency: "USD" | "CNY") =>
+  value === null
+    ? "未提供"
+    : new Intl.NumberFormat("zh-CN", {
+        style: "currency",
+        currency,
+        minimumFractionDigits: value < 0.1 ? 3 : 2,
+        maximumFractionDigits: value < 0.1 ? 4 : 2,
+      }).format(value);
+---
+
+<div class="table-wrap">
+  <table class="price-table">
+    <thead>
+      <tr>
+        <th>模型</th>
+        <th>厂商</th>
+        <th title="发送给模型的内容价格">发送内容</th>
+        <th title="重复内容命中厂商缓存后的优惠价格">重复内容优惠价</th>
+        <th title="模型生成内容的价格">生成内容</th>
+        {!compact && <th title="一次请求最多可以处理多少内容">一次最多处理</th>}
+        <th>最近确认</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        rows.map((row) => (
+          <tr
+            data-price-row
+            data-provider={row.provider.id}
+            data-region={row.provider.region}
+            data-input={row.input}
+            data-output={row.output}
+            data-currency={row.currency}
+            data-name={`${row.name} ${row.provider.name}`.toLowerCase()}
+          >
+            <td>
+              <strong>
+                <a class="model-link" href={`/models/${row.modelId}/`}>
+                  {row.name}
+                </a>
+              </strong>
+              <span>{row.description}</span>
+            </td>
+            <td>
+              <a
+                class="provider-link"
+                href={row.provider.pricingUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={`查看 ${row.provider.name} 官方价格`}
+              >
+                <i style={`--provider-accent: ${row.provider.accent}`} />
+                {row.provider.name}
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
+              </a>
+            </td>
+            <td class="price">{money(row.input, row.currency)}</td>
+            <td class="price muted-price">{money(row.cachedInput, row.currency)}</td>
+            <td class="price">{money(row.output, row.currency)}</td>
+            {!compact && (
+              <td>
+                {row.contextWindow
+                  ? `${Intl.NumberFormat("zh-CN").format(row.contextWindow / 1000)}K`
+                  : "待补充"}
+              </td>
+            )}
+            <td class="verified-date">{row.verifiedAt}</td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, 0.76);
+    box-shadow: var(--shadow);
+  }
+
+  table {
+    width: 100%;
+    min-width: 920px;
+    border-collapse: collapse;
+  }
+
+  th,
+  td {
+    padding: 17px 18px;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  th {
+    position: sticky;
+    top: 70px;
+    z-index: 2;
+    background: #0a1220;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  tbody tr {
+    transition: background 160ms ease;
+  }
+
+  tbody tr:hover {
+    background: rgba(103, 232, 249, 0.055);
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  td {
+    color: #d9e6f5;
+    font-size: 14px;
+  }
+
+  td:first-child {
+    min-width: 260px;
+  }
+
+  strong,
+  span {
+    display: block;
+  }
+
+  strong {
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  span {
+    max-width: 330px;
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  i {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 7px;
+    border-radius: 50%;
+    background: var(--provider-accent);
+    box-shadow: 0 0 12px var(--provider-accent);
+  }
+
+  .price {
+    color: #d8fff0;
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-weight: 700;
+  }
+
+  .muted-price {
+    color: #b9d6de;
+  }
+
+  .provider-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .provider-link:hover {
+    text-decoration: underline;
+  }
+
+  .model-link {
+    color: var(--text);
+    font-size: 15px;
+  }
+
+  .model-link:hover {
+    color: var(--cyan);
+  }
+
+  .verified-date {
+    color: var(--muted);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+  }
+
+  svg {
+    width: 14px;
+    height: 14px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+</style>

@@ -1,0 +1,472 @@
+[
+  {
+    "id": "gpt-5.5",
+    "providerId": "openai",
+    "name": "GPT-5.5",
+    "description": "面向复杂编程与专业工作的旗舰模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5.4",
+    "providerId": "openai",
+    "name": "GPT-5.4",
+    "description": "兼顾专业能力与使用成本的通用模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5.4-mini",
+    "providerId": "openai",
+    "name": "GPT-5.4 mini",
+    "description": "适合高频编程、计算机操作和子智能体任务。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "claude-opus-4.8",
+    "providerId": "anthropic",
+    "name": "Claude Opus 4.8",
+    "description": "Anthropic 高性能旗舰模型，支持百万级上下文。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "claude-sonnet-4.6",
+    "providerId": "anthropic",
+    "name": "Claude Sonnet 4.6",
+    "description": "在能力、速度与成本之间取得平衡的主力模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "claude-haiku-4.5",
+    "providerId": "anthropic",
+    "name": "Claude Haiku 4.5",
+    "description": "面向低延迟和高吞吐场景的轻量模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gemini-3.5-flash",
+    "providerId": "google",
+    "name": "Gemini 3.5 Flash",
+    "description": "强调速度、搜索与多模态理解的通用模型。",
+    "modalities": ["text", "image", "audio", "video"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gemini-3.1-flash-lite",
+    "providerId": "google",
+    "name": "Gemini 3.1 Flash-Lite",
+    "description": "适合大批量智能体、翻译和简单数据处理。",
+    "modalities": ["text", "image", "audio", "video"],
+    "capabilities": ["tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "deepseek-v4-flash",
+    "providerId": "deepseek",
+    "name": "DeepSeek V4 Flash",
+    "description": "支持思考与非思考模式的高性价比通用模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "deepseek-v4-pro",
+    "providerId": "deepseek",
+    "name": "DeepSeek V4 Pro",
+    "description": "面向更高质量推理和复杂任务的主力模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5.4-nano",
+    "providerId": "openai",
+    "name": "GPT-5.4 nano",
+    "description": "适合分类、提取和高吞吐简单任务的低成本模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 400000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5.2",
+    "providerId": "openai",
+    "name": "GPT-5.2",
+    "description": "面向复杂编程和智能体任务的通用推理模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 400000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5-mini",
+    "providerId": "openai",
+    "name": "GPT-5 mini",
+    "description": "适合定义明确任务的快速、经济型 GPT-5 模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 400000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5-nano",
+    "providerId": "openai",
+    "name": "GPT-5 nano",
+    "description": "适合摘要、分类和超高吞吐工作负载的轻量模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": 400000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5.2-pro",
+    "providerId": "openai",
+    "name": "GPT-5.2 pro",
+    "description": "为高难度问题投入更多计算资源的高精度推理模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 400000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-5-pro",
+    "providerId": "openai",
+    "name": "GPT-5 pro",
+    "description": "面向复杂专业任务和高质量推理的增强版本。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 400000,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-4.1",
+    "providerId": "openai",
+    "name": "GPT-4.1",
+    "description": "支持百万级上下文的非推理通用与编程模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["coding", "tools", "vision", "long-context"],
+    "contextWindow": 1047576,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-4.1-mini",
+    "providerId": "openai",
+    "name": "GPT-4.1 mini",
+    "description": "兼顾长上下文、速度和成本的轻量非推理模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["coding", "tools", "vision", "long-context"],
+    "contextWindow": 1047576,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-4.1-nano",
+    "providerId": "openai",
+    "name": "GPT-4.1 nano",
+    "description": "GPT-4.1 系列中速度最快、成本最低的版本。",
+    "modalities": ["text", "image"],
+    "capabilities": ["coding", "tools", "vision", "long-context"],
+    "contextWindow": 1047576,
+    "status": "stable"
+  },
+  {
+    "id": "gpt-4o",
+    "providerId": "openai",
+    "name": "GPT-4o",
+    "description": "支持文本与视觉输入的经典多模态通用模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["coding", "tools", "vision"],
+    "contextWindow": 128000,
+    "status": "stable"
+  },
+  {
+    "id": "o3-pro",
+    "providerId": "openai",
+    "name": "o3-pro",
+    "description": "为复杂问题提供更高计算投入的专业推理模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 200000,
+    "status": "stable"
+  },
+  {
+    "id": "o3",
+    "providerId": "openai",
+    "name": "o3",
+    "description": "用于数学、科学、代码和复杂分析任务的推理模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 200000,
+    "status": "stable"
+  },
+  {
+    "id": "o4-mini",
+    "providerId": "openai",
+    "name": "o4-mini",
+    "description": "适合高频推理和代码任务的经济型推理模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": 200000,
+    "status": "stable"
+  },
+  {
+    "id": "claude-sonnet-5",
+    "providerId": "anthropic",
+    "name": "Claude Sonnet 5",
+    "description": "面向编程和智能体任务的高性能 Sonnet 模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "claude-opus-4.7",
+    "providerId": "anthropic",
+    "name": "Claude Opus 4.7",
+    "description": "适合复杂智能体编程与企业工作的高性能模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "claude-opus-4.6",
+    "providerId": "anthropic",
+    "name": "Claude Opus 4.6",
+    "description": "面向复杂推理、编程与长任务的旗舰模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "claude-sonnet-4.5",
+    "providerId": "anthropic",
+    "name": "Claude Sonnet 4.5",
+    "description": "兼顾质量、速度和成本的上一代 Sonnet 模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "claude-opus-4.5",
+    "providerId": "anthropic",
+    "name": "Claude Opus 4.5",
+    "description": "适合高难度分析和复杂智能体任务的 Opus 模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "coding", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gemini-3.1-pro-preview",
+    "providerId": "google",
+    "name": "Gemini 3.1 Pro Preview",
+    "description": "面向复杂多模态推理、智能体和编程任务的预览模型。",
+    "modalities": ["text", "image", "audio", "video"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 1000000,
+    "status": "preview"
+  },
+  {
+    "id": "gemini-3-flash-preview",
+    "providerId": "google",
+    "name": "Gemini 3 Flash Preview",
+    "description": "兼顾 Pro 级能力、Flash 速度与多模态输入的预览模型。",
+    "modalities": ["text", "image", "audio", "video"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 1048576,
+    "status": "preview"
+  },
+  {
+    "id": "qwen3.7-max",
+    "providerId": "alibaba-cloud",
+    "name": "Qwen 3.7 Max",
+    "description": "千问旗舰模型，支持思考与非思考模式及百万级上下文。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "qwen3.7-plus",
+    "providerId": "alibaba-cloud",
+    "name": "Qwen 3.7 Plus",
+    "description": "兼顾推理质量、速度和成本的千问主力模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "qwen3.6-flash",
+    "providerId": "alibaba-cloud",
+    "name": "Qwen 3.6 Flash",
+    "description": "适合高吞吐通用任务的千问快速模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "hunyuan-a13b",
+    "providerId": "tencent-cloud",
+    "name": "Hunyuan A13B",
+    "description": "腾讯混元面向低成本通用文本任务的模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "hunyuan-role-latest",
+    "providerId": "tencent-cloud",
+    "name": "Hunyuan Role",
+    "description": "面向角色扮演、内容互动和拟人对话的混元模型。",
+    "modalities": ["text"],
+    "capabilities": ["tools"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "hunyuan-turbos-vision",
+    "providerId": "tencent-cloud",
+    "name": "Hunyuan TurboS Vision",
+    "description": "支持文本和图像理解的腾讯混元多模态模型。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "kimi-k2.7-code",
+    "providerId": "moonshot",
+    "name": "Kimi K2.7 Code",
+    "description": "Kimi 面向复杂编程、长任务和智能体工作流的旗舰代码模型。",
+    "modalities": ["text", "image", "video"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 262144,
+    "status": "stable"
+  },
+  {
+    "id": "kimi-k2.6",
+    "providerId": "moonshot",
+    "name": "Kimi K2.6",
+    "description": "支持文本、图像与视频输入，以及思考和非思考模式的通用模型。",
+    "modalities": ["text", "image", "video"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 262144,
+    "status": "stable"
+  },
+  {
+    "id": "kimi-k2.5",
+    "providerId": "moonshot",
+    "name": "Kimi K2.5",
+    "description": "兼顾多模态理解、长上下文与 Agent 任务的 Kimi 通用模型。",
+    "modalities": ["text", "image", "video"],
+    "capabilities": ["reasoning", "coding", "tools", "vision", "long-context"],
+    "contextWindow": 262144,
+    "status": "stable"
+  },
+  {
+    "id": "ernie-5.1",
+    "providerId": "baidu-cloud",
+    "name": "ERNIE 5.1",
+    "description": "百度文心新一代旗舰模型，面向复杂推理与通用生成任务。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 131072,
+    "status": "stable"
+  },
+  {
+    "id": "ernie-5.0",
+    "providerId": "baidu-cloud",
+    "name": "ERNIE 5.0",
+    "description": "百度千帆提供的旗舰文本生成与深度思考模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools", "long-context"],
+    "contextWindow": 131072,
+    "status": "stable"
+  },
+  {
+    "id": "ernie-4.5-turbo",
+    "providerId": "baidu-cloud",
+    "name": "ERNIE 4.5 Turbo",
+    "description": "兼顾生成质量、速度和调用成本的文心高性价比模型。",
+    "modalities": ["text"],
+    "capabilities": ["coding", "tools", "long-context"],
+    "contextWindow": 131072,
+    "status": "stable"
+  },
+  {
+    "id": "minimax-m2.7",
+    "providerId": "minimax",
+    "name": "MiniMax M2.7",
+    "description": "面向编程、工具调用和复杂 Agent 工作流的 MiniMax 主力模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "minimax-m2.7-highspeed",
+    "providerId": "minimax",
+    "name": "MiniMax M2.7 Highspeed",
+    "description": "提供更高输出速度的 M2.7 版本，适合低延迟交互和编码任务。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "minimax-m2.5",
+    "providerId": "minimax",
+    "name": "MiniMax M2.5",
+    "description": "兼顾成本与智能体能力的 MiniMax 通用文本模型。",
+    "modalities": ["text"],
+    "capabilities": ["reasoning", "coding", "tools"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "glm-4-long",
+    "providerId": "zhipu",
+    "name": "GLM-4-Long",
+    "description": "支持百万级长上下文，适合长文档分析与记忆型任务。",
+    "modalities": ["text"],
+    "capabilities": ["tools", "long-context"],
+    "contextWindow": 1000000,
+    "status": "stable"
+  },
+  {
+    "id": "glm-4v-plus-0111",
+    "providerId": "zhipu",
+    "name": "GLM-4V-Plus-0111",
+    "description": "支持图像、视频和文本输入的智谱视觉理解模型。",
+    "modalities": ["text", "image", "video"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": 16384,
+    "status": "stable"
+  }
+]

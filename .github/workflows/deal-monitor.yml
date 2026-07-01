@@ -1,0 +1,49 @@
+name: Deal monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 1 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate and build
+        run: npm run build
+
+      - name: Monitor official deal pages
+        run: npm run discover:deals
+
+      - name: Publish run summary
+        run: cat reports/ai-deals-$(date -u +%F).md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Send optional Webhook notification
+        env:
+          DEAL_WEBHOOK_URL: ${{ secrets.DEAL_WEBHOOK_URL }}
+        run: npm run notify:deals
+
+      - name: Upload review report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-deal-report-${{ github.run_id }}
+          path: |
+            reports/ai-deals-*.md
+            reports/deal-snapshots.json
+          retention-days: 30
