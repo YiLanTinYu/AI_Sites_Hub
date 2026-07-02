@@ -224,7 +224,7 @@ src/data/
 输出目录为 `dist`。Pull Request 使用 Pages 预览部署，合并到 `main` 后才更新正式网站。
 构建产物是纯静态文件，后续仍可迁移到境外 VPS、GitHub Pages 或对象存储 CDN。
 
-当前生产地址：`https://ai-sites-hub.pages.dev`
+当前生产地址：`https://huixuanai.com`
 
 ## 数据更新流程
 
