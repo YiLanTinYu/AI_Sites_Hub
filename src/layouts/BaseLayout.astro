@@ -7,6 +7,9 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
+const siteUrl = Astro.site ?? new URL("https://ai-sites-hub.pages.dev");
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl);
+const shareImageUrl = new URL("/og-image.svg", siteUrl);
 ---
 
 <!doctype html>
@@ -16,8 +19,23 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#05070d" />
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
     <link rel="alternate" type="application/atom+xml" title="AI 优惠更新" href="/feeds/deals.xml" />
     <link rel="alternate" type="application/atom+xml" title="AI 价格更新" href="/feeds/updates.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="zh_CN" />
+    <meta property="og:site_name" content="AI惠选" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={shareImageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={shareImageUrl} />
     <title>{title}</title>
   </head>
   <body>
@@ -67,6 +85,8 @@ const { title, description } = Astro.props;
         <a class="feedback-link" href="/submit/">提交产品、价格或优惠</a>
         <a class="feedback-link" href="/feeds/deals.xml">订阅优惠更新</a>
         <a class="feedback-link" href="/feeds/updates.xml">订阅价格更新</a>
+        <a class="feedback-link" href="/methodology/">数据说明</a>
+        <a class="feedback-link" href="/privacy/">隐私说明</a>
       </div>
     </footer>
   </body>
