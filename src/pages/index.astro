@@ -101,6 +101,35 @@ const featuredDeals = publishedDealRows
     </div>
   </section>
 
+  <section id="directory" class="section shell">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">PRODUCT DIRECTORY</p>
+        <h2>AI 产品导航</h2>
+        <p>按用途整理主流模型、智能体（Agent）、自动化、搜索、编程以及图片和视频工具。</p>
+      </div>
+    </div>
+    {
+      directoryCategories.map((category) => {
+        const items = directoryItemsFor(category.id);
+        return (
+          <section class="directory-section" aria-labelledby={`directory-${category.id}`}>
+            <div class="directory-heading">
+              <div>
+                <h3 id={`directory-${category.id}`}>{category.name}</h3>
+                <p>{category.description}</p>
+              </div>
+              <a href={`/directory/${category.id}/`}>查看更多</a>
+            </div>
+            <div class="directory-grid">
+              {items.slice(0, 6).map((item) => <DirectoryCard item={item} />)}
+            </div>
+          </section>
+        );
+      })
+    }
+  </section>
+
   <section id="deals" class="section shell">
     <div class="section-heading">
       <div>
@@ -138,34 +167,6 @@ const featuredDeals = publishedDealRows
     <PriceTable rows={featuredRows} compact />
   </section>
 
-  <section id="directory" class="section shell">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">PRODUCT DIRECTORY</p>
-        <h2>AI 产品导航</h2>
-        <p>按用途整理主流模型、智能体（Agent）、自动化、搜索、编程以及图片和视频工具。</p>
-      </div>
-    </div>
-    {
-      directoryCategories.map((category) => {
-        const items = directoryItemsFor(category.id);
-        return (
-          <section class="directory-section" aria-labelledby={`directory-${category.id}`}>
-            <div class="directory-heading">
-              <div>
-                <h3 id={`directory-${category.id}`}>{category.name}</h3>
-                <p>{category.description}</p>
-              </div>
-              <a href={`/directory/${category.id}/`}>查看更多</a>
-            </div>
-            <div class="directory-grid">
-              {items.slice(0, 6).map((item) => <DirectoryCard item={item} />)}
-            </div>
-          </section>
-        );
-      })
-    }
-  </section>
 </BaseLayout>
 
 <style>
