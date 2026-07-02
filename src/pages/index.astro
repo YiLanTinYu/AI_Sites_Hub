@@ -115,6 +115,17 @@ const featuredDeals = publishedDealRows
     </div>
   </section>
 
+  <script>
+    const expiredDealCards = document.querySelectorAll<HTMLElement>(".deal-card[data-deal-end]");
+    const now = Date.now();
+    expiredDealCards.forEach((card) => {
+      const endDate = card.dataset.dealEnd;
+      if (!endDate) return;
+      const chinaDayEnd = Date.parse(`${endDate}T23:59:59+08:00`);
+      if (Number.isFinite(chinaDayEnd) && now > chinaDayEnd) card.remove();
+    });
+  </script>
+
   <section class="section shell" aria-labelledby="api-price-heading">
     <div class="section-heading">
       <div>
