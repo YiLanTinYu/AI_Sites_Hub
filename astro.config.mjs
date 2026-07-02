@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://ai-sites-hub.pages.dev",
+  site: "https://huixuanai.com",
   output: "static",
   trailingSlash: "always",
 });

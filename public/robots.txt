@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ai-sites-hub.pages.dev/sitemap.xml
+Sitemap: https://huixuanai.com/sitemap.xml

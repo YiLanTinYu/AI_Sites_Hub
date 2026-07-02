@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { directoryCategories, models } from "../lib/data";
 
-const siteUrl = "https://ai-sites-hub.pages.dev";
+const siteUrl = "https://huixuanai.com";
 const staticPaths = [
   "/",
   "/plans/",
