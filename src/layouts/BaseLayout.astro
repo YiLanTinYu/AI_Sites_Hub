@@ -37,6 +37,17 @@ const shareImageUrl = new URL("/og-image.svg", siteUrl);
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={shareImageUrl} />
     <title>{title}</title>
+    <script is:inline>
+      const navigationEntry = performance.getEntriesByType("navigation")[0];
+      const isReload = navigationEntry?.type === "reload";
+
+      if (isReload && !window.location.hash) {
+        if ("scrollRestoration" in history) {
+          history.scrollRestoration = "manual";
+        }
+        window.addEventListener("load", () => window.scrollTo(0, 0), { once: true });
+      }
+    </script>
   </head>
   <body>
     <header class="topbar">
