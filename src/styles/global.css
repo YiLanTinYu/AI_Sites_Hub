@@ -153,6 +153,7 @@ nav a {
   color: #c8d4e4;
   font-size: 13px;
   font-weight: 750;
+  white-space: nowrap;
 }
 
 nav a:hover {
@@ -187,15 +188,36 @@ footer span {
   font-weight: 700;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 1120px) {
   nav {
-    gap: 14px;
+    gap: 16px;
   }
 
-  nav a:nth-child(n + 2) {
+  nav a:nth-child(n + 5) {
     display: none;
   }
 
+  .nav-search {
+    width: min(230px, 25vw);
+  }
+}
+
+@media (max-width: 900px) {
+  nav {
+    display: none;
+  }
+
+  .nav-tools {
+    flex: 1;
+    justify-content: flex-end;
+  }
+
+  .nav-search {
+    width: min(250px, 38vw);
+  }
+}
+
+@media (max-width: 640px) {
   .nav-tools {
     flex: 1;
     justify-content: flex-end;
@@ -204,10 +226,6 @@ footer span {
 
   .nav-search {
     width: min(165px, 45vw);
-  }
-
-  nav {
-    display: none;
   }
 
   .brand small {

@@ -1,6 +1,7 @@
 ---
 import DirectoryCard from "../components/DirectoryCard.astro";
 import DealCard from "../components/DealCard.astro";
+import PlanCard from "../components/PlanCard.astro";
 import PriceTable from "../components/PriceTable.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
@@ -8,8 +9,8 @@ import {
   directoryItemsFor,
   latestVerifiedAt,
   modelPriceRows,
+  planRows,
   publishedDealRows,
-  providers,
 } from "../lib/data";
 
 const globalUsdRows = modelPriceRows.filter(
@@ -18,13 +19,19 @@ const globalUsdRows = modelPriceRows.filter(
 const featuredRows = [...globalUsdRows]
   .sort((a, b) => a.input + a.output - (b.input + b.output))
   .slice(0, 6);
-const chinaRows = modelPriceRows
-  .filter((row) => row.provider.region === "china" && row.currency === "CNY")
-  .sort((a, b) => a.input + a.output - (b.input + b.output))
-  .slice(0, 6);
-
-const lowestInput = featuredRows[0];
-const lowestOutput = [...globalUsdRows].sort((a, b) => a.output - b.output)[0];
+const featuredPlanIds = [
+  "chatgpt-free",
+  "chatgpt-plus",
+  "claude-free",
+  "claude-pro",
+  "gemini-free",
+  "google-ai-pro",
+];
+const featuredPlans = featuredPlanIds
+  .map((id) => planRows.find((plan) => plan.id === id))
+  .filter((plan) => plan !== undefined);
+const freePlanCount = planRows.filter((plan) => plan.monthlyPrice === 0).length;
+const planProviderCount = new Set(planRows.map((plan) => plan.providerId)).size;
 const featuredDeals = publishedDealRows
   .filter((deal) => deal.featured && deal.status !== "ended")
   .sort((a, b) => (a.endsAt ?? "9999-12-31").localeCompare(b.endsAt ?? "9999-12-31"))
@@ -33,18 +40,18 @@ const featuredDeals = publishedDealRows
 
 <BaseLayout
   title="AI惠选 | 模型价格与优惠指南"
-  description="比较国内外主流 AI 模型开发接口价格、重复内容优惠、单次处理量与活动，计算真实使用成本。"
+  description="比较 ChatGPT、Claude、Gemini 等主流 AI 产品的每月订阅价格、使用额度、官方优惠与开发接口价格。"
 >
   <section class="hero shell">
     <div class="hero-copy">
-      <p class="eyebrow">AI MODEL PRICE INTELLIGENCE</p>
-      <h1>AI 模型价格，<br /><em>看清再选择</em></h1>
+      <p class="eyebrow">AI SUBSCRIPTION & DEAL GUIDE</p>
+      <h1>每月多少钱，<br /><em>一眼看清</em></h1>
       <p class="lead">
-        统一比较发送内容、生成内容和重复内容的价格，追踪官方优惠与价格变化。每条数据都保留官方来源和最近确认时间。
+        比较主流 AI 的免费方案、个人月费、使用额度和官方优惠。每条数据都保留官方来源和最近确认时间。
       </p>
       <div class="hero-actions">
-        <a class="primary-button" href="/models/">
-          查看完整价格
+        <a class="primary-button" href="/plans/">
+          查看订阅套餐
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
@@ -54,54 +61,44 @@ const featuredDeals = publishedDealRows
     </div>
     <div class="signal-panel" aria-label="数据概览">
       <div class="signal-head">
-        <span>PRICE SIGNAL</span>
+        <span>SUBSCRIPTION SNAPSHOT</span>
         <i></i>
       </div>
       <div class="signal-grid">
         <article>
-          <span>已确认价格的模型</span>
-          <strong>{modelPriceRows.length}</strong>
+          <span>个人套餐</span>
+          <strong>{planRows.length}</strong>
         </article>
         <article>
-          <span>官方厂商</span>
-          <strong>{providers.length}</strong>
+          <span>主流厂商</span>
+          <strong>{planProviderCount}</strong>
         </article>
         <article class="wide">
-          <span>最低输入价格</span>
-          <strong>${lowestInput.input}<small> / 100 万个文本单位</small></strong>
-          <p>{lowestInput.name}</p>
+          <span>免费方案</span>
+          <strong>{freePlanCount}<small> 个</small></strong>
+          <p>ChatGPT、Claude、Gemini</p>
         </article>
         <article class="wide">
-          <span>最低输出价格</span>
-          <strong>${lowestOutput.output}<small> / 100 万个文本单位</small></strong>
-          <p>{lowestOutput.name}</p>
+          <span>主流个人付费档</span>
+          <strong>$20<small> / 月左右</small></strong>
+          <p>适合日常高频使用</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section shell" aria-labelledby="price-heading">
+  <section class="section shell" aria-labelledby="plan-heading">
     <div class="section-heading">
       <div>
-        <p class="eyebrow">VERIFIED API PRICING</p>
-        <h2 id="price-heading">高性价比模型</h2>
-        <p>按“发送内容价格 + 生成内容价格”从低到高排序，单位为美元/100 万个文本单位。</p>
+        <p class="eyebrow">MONTHLY PLANS</p>
+        <h2 id="plan-heading">个人订阅套餐</h2>
+        <p>先看每月实际支出，再比较使用额度和适合场景。</p>
       </div>
-      <a href="/models/">查看全部</a>
+      <a href="/plans/">查看全部</a>
     </div>
-    <PriceTable rows={featuredRows} compact />
-  </section>
-
-  <section class="section shell" aria-labelledby="china-price-heading">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">CHINA API PRICING</p>
-        <h2 id="china-price-heading">国内模型价格</h2>
-        <p>展示国内厂商人民币开发接口价格，单位为人民币/100 万个文本单位，不与美元价格混合排序。</p>
-      </div>
-      <a href="/models/">查看全部</a>
+    <div class="plan-grid">
+      {featuredPlans.map((plan) => <PlanCard plan={plan} compact />)}
     </div>
-    <PriceTable rows={chinaRows} compact />
   </section>
 
   <section id="deals" class="section shell">
@@ -116,6 +113,18 @@ const featuredDeals = publishedDealRows
     <div class="deal-grid">
       {featuredDeals.map((deal) => <DealCard deal={deal} compact />)}
     </div>
+  </section>
+
+  <section class="section shell" aria-labelledby="api-price-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">FOR DEVELOPERS</p>
+        <h2 id="api-price-heading">开发者 API 价格</h2>
+        <p>用于程序调用的按量计费，与 ChatGPT、Claude、Gemini 个人订阅相互独立。</p>
+      </div>
+      <a href="/models/">查看全部</a>
+    </div>
+    <PriceTable rows={featuredRows} compact />
   </section>
 
   <section id="directory" class="section shell">
@@ -270,6 +279,12 @@ const featuredDeals = publishedDealRows
     gap: 16px;
   }
 
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
   .signal-grid article {
     min-height: 125px;
     padding: 20px;
@@ -277,12 +292,14 @@ const featuredDeals = publishedDealRows
   }
 
   @media (max-width: 900px) {
+    .plan-grid,
     .deal-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 620px) {
+    .plan-grid,
     .deal-grid {
       grid-template-columns: 1fr;
     }

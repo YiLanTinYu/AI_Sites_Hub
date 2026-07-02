@@ -79,6 +79,8 @@ export const planSchema = z.object({
   annualPrice: z.number().nonnegative().nullable(),
   annualMonthlyEquivalent: z.number().nonnegative().nullable(),
   billingOptions: z.array(z.enum(["free", "monthly", "annual", "contact_sales"])).min(1),
+  usageSummary: z.string().min(1),
+  bestFor: z.string().min(1),
   features: z.array(z.string().min(1)).min(1),
   sourceUrl: httpUrl,
   verifiedAt: isoDate,
@@ -205,3 +207,7 @@ export type ModelPriceRow = Model &
   Price & {
     provider: Provider;
   };
+
+export type PlanRow = Plan & {
+  provider: Provider;
+};

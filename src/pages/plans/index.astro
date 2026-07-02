@@ -1,0 +1,146 @@
+---
+import PlanCard from "../../components/PlanCard.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { planRows } from "../../lib/data";
+
+const providerOrder = new Map(["openai", "anthropic", "google"].map((id, index) => [id, index]));
+const rows = [...planRows].sort(
+  (a, b) =>
+    (providerOrder.get(a.providerId) ?? Number.POSITIVE_INFINITY) -
+      (providerOrder.get(b.providerId) ?? Number.POSITIVE_INFINITY) ||
+    (a.monthlyPrice ?? Number.POSITIVE_INFINITY) -
+      (b.monthlyPrice ?? Number.POSITIVE_INFINITY),
+);
+const providerCount = new Set(rows.map((row) => row.providerId)).size;
+const lowestPaidPlan = rows
+  .filter((row) => row.monthlyPrice !== null && row.monthlyPrice > 0)
+  .sort(
+    (a, b) =>
+      (a.monthlyPrice ?? Number.POSITIVE_INFINITY) -
+      (b.monthlyPrice ?? Number.POSITIVE_INFINITY),
+  )[0];
+---
+
+<BaseLayout
+  title="AI 订阅套餐月费对比 | AI惠选"
+  description="比较 ChatGPT、Claude、Gemini 等主流 AI 产品的免费方案、个人月费、年付折算、使用额度和适用人群。"
+>
+  <section class="page-head shell">
+    <p>AI SUBSCRIPTION PLANS</p>
+    <h1>AI 订阅套餐月费</h1>
+    <div class="summary">
+      <span>{rows.length} 个个人套餐</span>
+      <span>{providerCount} 家主流厂商</span>
+      <span>付费套餐最低 ${lowestPaidPlan.monthlyPrice}/月</span>
+    </div>
+    <div class="plain-note">
+      <strong>额度怎么看？</strong>
+      <span>多数个人套餐不会承诺固定 Token 数，而是按消息、功能和系统负载动态调整。这里按厂商公开方式展示，不虚构固定额度。</span>
+    </div>
+  </section>
+
+  <section class="shell plan-section">
+    <div class="plan-grid">
+      {rows.map((plan) => <PlanCard plan={plan} />)}
+    </div>
+    <p class="method-note">
+      页面价格以美元区官网公开信息为主，不同地区的税费、币种、试用活动及功能可能不同。个人订阅通常不包含开发接口（API）额度，程序调用成本请查看
+      <a href="/models/">开发者 API 价格</a>。
+    </p>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 76px 34px;
+  }
+
+  .page-head > p {
+    margin: 0 0 13px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+  }
+
+  .summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 22px;
+    margin-top: 20px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .plain-note {
+    display: flex;
+    gap: 10px;
+    border-left: 2px solid var(--cyan);
+    margin-top: 20px;
+    padding: 10px 13px;
+    background: rgba(103, 232, 249, 0.055);
+  }
+
+  .plain-note strong {
+    flex: 0 0 auto;
+    font-size: 11px;
+  }
+
+  .plain-note span {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+
+  .plan-section {
+    padding-bottom: 90px;
+  }
+
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .method-note {
+    max-width: 900px;
+    margin: 20px 2px 0;
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.7;
+  }
+
+  .method-note a {
+    color: var(--cyan);
+    font-weight: 750;
+  }
+
+  @media (max-width: 900px) {
+    .plan-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .page-head {
+      padding-top: 52px;
+    }
+
+    h1 {
+      font-size: 36px;
+    }
+
+    .plain-note {
+      display: grid;
+    }
+
+    .plan-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
