@@ -1,6 +1,6 @@
 {
-  "name": "AI惠选",
-  "short_name": "AI惠选",
+  "name": "惠选AI",
+  "short_name": "惠选AI",
   "description": "模型价格与优惠指南",
   "start_url": "/",
   "display": "standalone",
