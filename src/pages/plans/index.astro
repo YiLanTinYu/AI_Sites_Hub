@@ -3,7 +3,24 @@ import PlanCard from "../../components/PlanCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { planRows } from "../../lib/data";
 
-const providerOrder = new Map(["openai", "anthropic", "google"].map((id, index) => [id, index]));
+const providerOrder = new Map(
+  [
+    "openai",
+    "anthropic",
+    "google",
+    "perplexity",
+    "github",
+    "cursor",
+    "midjourney",
+    "runway",
+    "suno",
+    "elevenlabs",
+    "deepseek",
+    "moonshot",
+    "zhipu",
+    "baidu-comate",
+  ].map((id, index) => [id, index]),
+);
 const rows = [...planRows].sort(
   (a, b) =>
     (providerOrder.get(a.providerId) ?? Number.POSITIVE_INFINITY) -
@@ -12,13 +29,8 @@ const rows = [...planRows].sort(
       (b.monthlyPrice ?? Number.POSITIVE_INFINITY),
 );
 const providerCount = new Set(rows.map((row) => row.providerId)).size;
-const lowestPaidPlan = rows
-  .filter((row) => row.monthlyPrice !== null && row.monthlyPrice > 0)
-  .sort(
-    (a, b) =>
-      (a.monthlyPrice ?? Number.POSITIVE_INFINITY) -
-      (b.monthlyPrice ?? Number.POSITIVE_INFINITY),
-  )[0];
+const globalRows = rows.filter((row) => row.provider.region === "global");
+const chinaRows = rows.filter((row) => row.provider.region === "china");
 ---
 
 <BaseLayout
@@ -30,8 +42,8 @@ const lowestPaidPlan = rows
     <h1>AI 订阅套餐月费</h1>
     <div class="summary">
       <span>{rows.length} 个个人套餐</span>
-      <span>{providerCount} 家主流厂商</span>
-      <span>付费套餐最低 ${lowestPaidPlan.monthlyPrice}/月</span>
+      <span>{providerCount} 家主流产品</span>
+      <span>{globalRows.length} 个国外套餐 · {chinaRows.length} 个国内套餐</span>
     </div>
     <div class="plain-note">
       <strong>额度怎么看？</strong>
@@ -40,9 +52,31 @@ const lowestPaidPlan = rows
   </section>
 
   <section class="shell plan-section">
-    <div class="plan-grid">
-      {rows.map((plan) => <PlanCard plan={plan} />)}
-    </div>
+    <section class="region-section" aria-labelledby="global-plans">
+      <div class="region-heading">
+        <div>
+          <p>GLOBAL PRODUCTS</p>
+          <h2 id="global-plans">国外主流 AI 产品</h2>
+        </div>
+        <span>{globalRows.length} 个套餐</span>
+      </div>
+      <div class="plan-grid">
+        {globalRows.map((plan) => <PlanCard plan={plan} />)}
+      </div>
+    </section>
+
+    <section class="region-section" aria-labelledby="china-plans">
+      <div class="region-heading">
+        <div>
+          <p>CHINA PRODUCTS</p>
+          <h2 id="china-plans">国内主流 AI 产品</h2>
+        </div>
+        <span>{chinaRows.length} 个套餐</span>
+      </div>
+      <div class="plan-grid">
+        {chinaRows.map((plan) => <PlanCard plan={plan} />)}
+      </div>
+    </section>
     <p class="method-note">
       页面价格以美元区官网公开信息为主，不同地区的税费、币种、试用活动及功能可能不同。个人订阅通常不包含开发接口（API）额度，程序调用成本请查看
       <a href="/models/">开发者 API 价格</a>。
@@ -101,6 +135,38 @@ const lowestPaidPlan = rows
     padding-bottom: 90px;
   }
 
+  .region-section + .region-section {
+    margin-top: 58px;
+  }
+
+  .region-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 20px;
+    padding-bottom: 17px;
+  }
+
+  .region-heading p {
+    margin: 0 0 9px;
+    color: var(--cyan);
+    font-family: "SFMono-Regular", Consolas, monospace;
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .region-heading h2 {
+    margin: 0;
+    font-size: 26px;
+  }
+
+  .region-heading > span {
+    color: var(--muted);
+    font-size: 12px;
+  }
+
   .plan-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -137,6 +203,12 @@ const lowestPaidPlan = rows
 
     .plain-note {
       display: grid;
+    }
+
+    .region-heading {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 8px;
     }
 
     .plan-grid {

@@ -78,5 +78,69 @@
     "website": "https://www.zhipuai.cn/",
     "pricingUrl": "https://docs.bigmodel.cn/cn/guide/models/overview",
     "accent": "#14b8a6"
+  },
+  {
+    "id": "perplexity",
+    "name": "Perplexity",
+    "region": "global",
+    "website": "https://www.perplexity.ai/",
+    "pricingUrl": "https://www.perplexity.ai/pro",
+    "accent": "#22d3ee"
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "region": "global",
+    "website": "https://github.com/",
+    "pricingUrl": "https://github.com/features/copilot/plans",
+    "accent": "#a5b4fc"
+  },
+  {
+    "id": "cursor",
+    "name": "Cursor",
+    "region": "global",
+    "website": "https://cursor.com/",
+    "pricingUrl": "https://cursor.com/pricing",
+    "accent": "#e5e7eb"
+  },
+  {
+    "id": "midjourney",
+    "name": "Midjourney",
+    "region": "global",
+    "website": "https://www.midjourney.com/",
+    "pricingUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+    "accent": "#c4b5fd"
+  },
+  {
+    "id": "runway",
+    "name": "Runway",
+    "region": "global",
+    "website": "https://runwayml.com/",
+    "pricingUrl": "https://runwayml.com/pricing",
+    "accent": "#fb7185"
+  },
+  {
+    "id": "suno",
+    "name": "Suno",
+    "region": "global",
+    "website": "https://suno.com/",
+    "pricingUrl": "https://suno.com/pricing",
+    "accent": "#facc15"
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs",
+    "region": "global",
+    "website": "https://elevenlabs.io/",
+    "pricingUrl": "https://elevenlabs.io/pricing",
+    "accent": "#f8fafc"
+  },
+  {
+    "id": "baidu-comate",
+    "name": "百度 Comate",
+    "region": "china",
+    "website": "https://comate.baidu.com/",
+    "pricingUrl": "https://cloud.baidu.com/doc/COMATE/s/rlnvnio4a",
+    "accent": "#60a5fa"
   }
 ]
