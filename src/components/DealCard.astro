@@ -29,7 +29,10 @@ const dateLabel = deal.endsAt
     : "长期有效，定期复核";
 ---
 
-<article class:list={["deal-card", `status-${deal.status}`, { compact }]}>
+<article
+  class:list={["deal-card", `status-${deal.status}`, { compact }]}
+  data-deal-end={deal.endsAt ?? undefined}
+>
   <div class="deal-topline">
     <span>{typeLabels[deal.type]}</span>
     <strong>{statusLabels[deal.status]}</strong>
