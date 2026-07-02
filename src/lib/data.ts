@@ -18,6 +18,7 @@ import {
   pricesSchema,
   providersSchema,
   type ModelPriceRow,
+  type PlanRow,
   type Deal,
   type DealStatus,
 } from "./schema";
@@ -82,6 +83,12 @@ export const modelPriceRows: ModelPriceRow[] = prices.map((price) => {
   if (!provider) throw new Error(`找不到厂商 ${model.providerId}`);
 
   return { ...model, ...price, provider };
+});
+
+export const planRows: PlanRow[] = plans.map((plan) => {
+  const provider = providersById.get(plan.providerId);
+  if (!provider) throw new Error(`找不到厂商 ${plan.providerId}`);
+  return { ...plan, provider };
 });
 
 export const latestVerifiedAt = modelPriceRows
