@@ -1,0 +1,109 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="隐私说明 | AI惠选"
+  description="了解 AI惠选当前如何处理本地关注数据、搜索内容、第三方链接和 GitHub 投稿。"
+>
+  <section class="page-head shell">
+    <p>PRIVACY NOTICE</p>
+    <h1>隐私说明</h1>
+    <span>更新日期：2026-07-02</span>
+  </section>
+
+  <article class="content shell">
+    <section>
+      <h2>当前不要求注册账号</h2>
+      <p>AI惠选目前是静态网站，不提供用户注册、登录或跨设备同步，也不在本站服务器保存姓名、手机号、邮箱或支付信息。</p>
+    </section>
+
+    <section>
+      <h2>关注列表保存在当前浏览器</h2>
+      <p>“我的关注”及目标价格使用浏览器本地存储保存，存储键为 <code>ai-sites-hub-watchlist-v1</code>。这些数据不会由本站上传，也不会在不同浏览器或设备之间自动同步。</p>
+      <p>清除该网站的浏览器数据会同时删除关注列表和目标价格。</p>
+    </section>
+
+    <section>
+      <h2>搜索内容</h2>
+      <p>站内搜索在浏览器中完成。搜索关键词会出现在页面网址参数中，但本站当前不建立用户搜索记录数据库。</p>
+    </section>
+
+    <section>
+      <h2>第三方网站</h2>
+      <p>点击厂商官网、官方价格、优惠或产品入口后，将访问对应第三方网站。第三方可能按其自身政策使用 Cookie、日志或账号信息，请查看其隐私政策。</p>
+    </section>
+
+    <section>
+      <h2>GitHub 投稿与反馈</h2>
+      <p>“提交产品、价格或优惠”和失效反馈会跳转到 GitHub。提交 Issue 前，GitHub 会显示将要公开发送的内容；提交后的账号名和文字由 GitHub 按其政策处理。</p>
+      <p>请勿在公开 Issue 中填写密码、密钥、支付信息或其他敏感内容。</p>
+    </section>
+
+    <section>
+      <h2>托管与基础日志</h2>
+      <p>网站由 Cloudflare Pages 托管。为提供网络传输、安全防护和故障排查，托管服务可能处理访问所必需的基础网络日志，具体以 Cloudflare 的隐私政策为准。</p>
+    </section>
+
+    <section>
+      <h2>后续变化</h2>
+      <p>若未来增加账号、邮件通知、统计分析或服务端数据存储，将在启用前更新本说明，并补充数据用途、保存期限和删除方式。</p>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 72px 38px;
+  }
+
+  .page-head > p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font: 800 11px "SFMono-Regular", Consolas, monospace;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+  }
+
+  .page-head > span {
+    display: block;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .content {
+    max-width: 900px;
+    padding-bottom: 90px;
+  }
+
+  section {
+    border-top: 1px solid var(--line);
+    padding-block: 26px;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 22px;
+  }
+
+  section p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  code {
+    color: var(--cyan);
+  }
+
+  @media (max-width: 620px) {
+    h1 {
+      font-size: 36px;
+    }
+  }
+</style>

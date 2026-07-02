@@ -1,0 +1,120 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="数据与比价说明 | AI惠选"
+  description="了解 AI惠选的价格来源、核实流程、订阅与 API 计价口径、汇率、优惠状态和推荐原则。"
+>
+  <section class="page-head shell">
+    <p>DATA METHODOLOGY</p>
+    <h1>数据与比价说明</h1>
+    <span>说明价格从哪里来、如何比较，以及哪些信息不能直接放在一起排名。</span>
+  </section>
+
+  <article class="content shell">
+    <section>
+      <h2>数据来源</h2>
+      <p>价格、套餐和优惠优先采用厂商官网、官方帮助中心、官方文档或官方公告。第三方文章只能作为发现线索，不能作为唯一依据。</p>
+      <p>每条公开价格保留官方来源和最近确认日期。需要登录后才能看到、仅商务询价或无法公开核实的价格，不填写猜测值。</p>
+    </section>
+
+    <section>
+      <h2>个人订阅套餐</h2>
+      <p>个人套餐优先展示月费、年付折算、公开额度和适用场景。厂商没有承诺固定 Token 数时，页面会写明“动态额度”，不会自行推算。</p>
+      <p>美元与人民币保留原币种，不混合生成最低价排名。地区税费、应用商店价格、限时试用和结算币种可能导致最终账单不同。</p>
+    </section>
+
+    <section>
+      <h2>开发接口价格</h2>
+      <p>文本模型统一展示每 100 万个文本单位（Token）的发送内容、重复内容优惠价和生成内容价格。图片、视频、音频等不同计费单位不与文本价格直接排名。</p>
+      <p>个人订阅通常不包含开发接口（API）额度。两类价格分别展示，避免把会员月费误认为程序调用成本。</p>
+    </section>
+
+    <section>
+      <h2>汇率与估算</h2>
+      <p>原始价格始终保留厂商公布的币种。人民币换算仅用于费用估算，并标注参考汇率及更新时间；支付渠道汇率、税费和银行费用以实际账单为准。</p>
+    </section>
+
+    <section>
+      <h2>优惠状态</h2>
+      <p>优惠分为即将开始、进行中、即将结束和已结束。自动巡检只负责发现页面变化和到期候选，不会自动发布未经人工确认的新优惠。</p>
+      <p>活动截止日按北京时间当天 23:59:59 处理。首页会在访问时再次判断截止日期，过期卡片不会继续展示。</p>
+    </section>
+
+    <section>
+      <h2>推荐与商业关系</h2>
+      <p>推荐依据价格、能力、适用场景、来源可信度和限制条件综合整理，不接受厂商付费改变自然排序。</p>
+      <p>当前官方来源链接均为非推广链接。未来若出现赞助、返佣或推广关系，必须在对应内容附近明确标注。</p>
+    </section>
+
+    <aside>
+      <strong>发现数据有误？</strong>
+      <p>价格可能随时变化。请以厂商结算页为准，也可以通过页脚的“反馈价格或优惠失效”提交线索。</p>
+    </aside>
+  </article>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: 72px 38px;
+  }
+
+  .page-head > p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font: 800 11px "SFMono-Regular", Consolas, monospace;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 46px;
+  }
+
+  .page-head > span {
+    display: block;
+    margin-top: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .content {
+    max-width: 900px;
+    padding-bottom: 90px;
+  }
+
+  section {
+    border-top: 1px solid var(--line);
+    padding-block: 26px;
+  }
+
+  h2 {
+    margin: 0 0 12px;
+    font-size: 22px;
+  }
+
+  section p,
+  aside p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.9;
+  }
+
+  aside {
+    border-left: 2px solid var(--cyan);
+    margin-top: 20px;
+    padding: 15px 18px;
+    background: rgba(103, 232, 249, 0.055);
+  }
+
+  aside strong {
+    font-size: 13px;
+  }
+
+  @media (max-width: 620px) {
+    h1 {
+      font-size: 36px;
+    }
+  }
+</style>

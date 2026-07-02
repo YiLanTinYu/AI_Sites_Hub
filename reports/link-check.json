@@ -2,1753 +2,2509 @@
   {
     "url": "https://chatgpt.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://chatgpt.com/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1375,
-    "checkedAt": "2026-06-16T22:12:58.820Z"
+    "durationMs": 2920,
+    "checkedAt": "2026-07-02T15:05:57.067Z"
   },
   {
     "url": "https://claude.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
-    "finalUrl": "https://claude.ai/login",
+    "finalUrl": "https://claude.ai/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 2011,
-    "checkedAt": "2026-06-16T22:12:59.533Z"
+    "durationMs": 2247,
+    "checkedAt": "2026-07-02T15:05:56.433Z"
+  },
+  {
+    "url": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+    "ok": false,
+    "status": 403,
+    "statusText": "Forbidden",
+    "durationMs": 2321,
+    "checkedAt": "2026-07-02T15:06:19.835Z"
   },
   {
     "url": "https://gamma.app/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://gamma.app/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1826,
-    "checkedAt": "2026-06-16T22:13:14.124Z"
+    "durationMs": 1223,
+    "checkedAt": "2026-07-02T15:06:11.606Z"
+  },
+  {
+    "url": "https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans",
+    "files": [
+      "src/data/plans.json"
+    ],
+    "finalUrl": "https://help.openai.com/en/articles/9793128-about-chatgpt-pro-plans",
+    "ok": false,
+    "status": 403,
+    "statusText": "Forbidden",
+    "durationMs": 3192,
+    "checkedAt": "2026-07-02T15:06:18.277Z"
   },
   {
     "url": "https://ideogram.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://ideogram.ai/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1553,
-    "checkedAt": "2026-06-16T22:13:14.860Z"
+    "durationMs": 2365,
+    "checkedAt": "2026-07-02T15:06:13.610Z"
   },
   {
     "url": "https://leonardo.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
-    "finalUrl": "https://leonardo.ai/",
+    "ok": false,
+    "status": null,
+    "statusText": "fetch failed",
+    "finalUrl": null,
+    "durationMs": 6215,
+    "checkedAt": "2026-07-02T15:06:17.804Z"
+  },
+  {
+    "url": "https://openai.com/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://openai.com/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1474,
-    "checkedAt": "2026-06-16T22:13:14.866Z"
+    "durationMs": 1340,
+    "checkedAt": "2026-07-02T15:06:22.062Z"
+  },
+  {
+    "url": "https://openai.com/api/pricing/",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://openai.com/api/pricing/",
+    "ok": false,
+    "status": 403,
+    "statusText": "Forbidden",
+    "durationMs": 2194,
+    "checkedAt": "2026-07-02T15:06:20.541Z"
+  },
+  {
+    "url": "https://openai.com/chatgpt/pricing",
+    "files": [
+      "src/data/plans.json"
+    ],
+    "finalUrl": "https://openai.com/chatgpt/pricing",
+    "ok": false,
+    "status": 403,
+    "statusText": "Forbidden",
+    "durationMs": 2622,
+    "checkedAt": "2026-07-02T15:06:17.608Z"
   },
   {
     "url": "https://openai.com/codex/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://openai.com/codex/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1243,
-    "checkedAt": "2026-06-16T22:13:11.173Z"
+    "durationMs": 1437,
+    "checkedAt": "2026-07-02T15:06:08.982Z"
   },
   {
     "url": "https://openai.com/models/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://openai.com/models/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1774,
-    "checkedAt": "2026-06-16T22:12:54.420Z"
+    "durationMs": 1614,
+    "checkedAt": "2026-07-02T15:05:50.718Z"
   },
   {
     "url": "https://poe.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://poe.com/login?redirect_url=%2F",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 2275,
-    "checkedAt": "2026-06-16T22:12:59.873Z"
+    "durationMs": 3508,
+    "checkedAt": "2026-07-02T15:05:57.810Z"
   },
   {
     "url": "https://scite.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://scite.ai/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1465,
-    "checkedAt": "2026-06-16T22:13:08.780Z"
+    "durationMs": 1846,
+    "checkedAt": "2026-07-02T15:06:06.413Z"
   },
   {
     "url": "https://typeset.io/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://scispace.com/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 3141,
-    "checkedAt": "2026-06-16T22:13:10.872Z"
+    "durationMs": 4078,
+    "checkedAt": "2026-07-02T15:06:09.201Z"
   },
   {
     "url": "https://www.adept.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.adept.ai/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1448,
-    "checkedAt": "2026-06-16T22:13:04.804Z"
+    "durationMs": 2057,
+    "checkedAt": "2026-07-02T15:06:02.701Z"
   },
   {
     "url": "https://www.canva.com/ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.canva.com/ai/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1801,
-    "checkedAt": "2026-06-16T22:13:14.126Z"
+    "durationMs": 1980,
+    "checkedAt": "2026-07-02T15:06:12.583Z"
   },
   {
     "url": "https://www.huaweicloud.com/product/pangu.html",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.huaweicloud.com/product/pangu.html",
     "ok": false,
     "status": 567,
     "statusText": "Unknown Status",
-    "durationMs": 113,
-    "checkedAt": "2026-06-16T22:12:57.522Z"
+    "durationMs": 46,
+    "checkedAt": "2026-07-02T15:05:54.186Z"
   },
   {
     "url": "https://www.make.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.make.com/en",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 3008,
-    "checkedAt": "2026-06-16T22:13:04.907Z"
+    "durationMs": 3405,
+    "checkedAt": "2026-07-02T15:06:02.028Z"
   },
   {
     "url": "https://www.meta.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.meta.ai/",
     "ok": false,
     "status": 403,
     "statusText": "Client challenge",
-    "durationMs": 1464,
-    "checkedAt": "2026-06-16T22:13:00.907Z"
+    "durationMs": 1846,
+    "checkedAt": "2026-07-02T15:05:58.094Z"
   },
   {
     "url": "https://www.midjourney.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json",
+      "src/data/providers.json"
     ],
     "finalUrl": "https://www.midjourney.com/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1737,
-    "checkedAt": "2026-06-16T22:13:13.307Z"
+    "durationMs": 2375,
+    "checkedAt": "2026-07-02T15:06:12.284Z"
   },
   {
     "url": "https://www.perplexity.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json",
+      "src/data/providers.json"
     ],
     "finalUrl": "https://www.perplexity.ai/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1465,
-    "checkedAt": "2026-06-16T22:13:07.004Z"
+    "durationMs": 1548,
+    "checkedAt": "2026-07-02T15:06:04.197Z"
+  },
+  {
+    "url": "https://www.perplexity.ai/pro",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://www.perplexity.ai/pro",
+    "ok": false,
+    "status": 403,
+    "statusText": "Forbidden",
+    "durationMs": 2514,
+    "checkedAt": "2026-07-02T15:06:18.225Z"
   },
   {
     "url": "https://www.phind.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.phind.com/",
     "ok": false,
     "status": 403,
     "statusText": "Forbidden",
-    "durationMs": 1400,
-    "checkedAt": "2026-06-16T22:13:08.182Z"
+    "durationMs": 1342,
+    "checkedAt": "2026-07-02T15:06:05.462Z"
   },
   {
     "url": "https://www.volcengine.com/product/doubao",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "ok": false,
     "status": null,
     "statusText": "Timeout",
     "finalUrl": null,
-    "durationMs": 12002,
-    "checkedAt": "2026-06-16T22:13:08.357Z"
+    "durationMs": 12003,
+    "checkedAt": "2026-07-02T15:06:05.252Z"
   },
   {
     "url": "https://agpt.co/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://agpt.co/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 840,
-    "checkedAt": "2026-06-16T22:13:02.067Z"
+    "durationMs": 648,
+    "checkedAt": "2026-07-02T15:05:58.782Z"
   },
   {
     "url": "https://ai.360.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://ai.360.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 304,
-    "checkedAt": "2026-06-16T22:12:57.354Z"
+    "durationMs": 187,
+    "checkedAt": "2026-07-02T15:05:54.118Z"
   },
   {
     "url": "https://ai.azure.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://ai.azure.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1087,
-    "checkedAt": "2026-06-16T22:12:56.562Z"
+    "durationMs": 787,
+    "checkedAt": "2026-07-02T15:05:52.396Z"
+  },
+  {
+    "url": "https://ai.google.dev/gemini-api/docs/pricing",
+    "files": [
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://ai.google.dev/gemini-api/docs/pricing?hl=fr",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 2425,
+    "checkedAt": "2026-07-02T15:06:20.867Z"
+  },
+  {
+    "url": "https://ai.google/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://ai.google/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 697,
+    "checkedAt": "2026-07-02T15:06:21.564Z"
   },
   {
     "url": "https://ai.meta.com/llama/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
-    "finalUrl": "https://www.llama.com/",
+    "finalUrl": "https://developer.meta.com/ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 2597,
-    "checkedAt": "2026-06-16T22:12:55.452Z"
+    "durationMs": 4490,
+    "checkedAt": "2026-07-02T15:05:53.725Z"
   },
   {
     "url": "https://ampcode.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://ampcode.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 825,
-    "checkedAt": "2026-06-16T22:13:11.510Z"
+    "durationMs": 1401,
+    "checkedAt": "2026-07-02T15:06:10.383Z"
   },
   {
     "url": "https://api-docs.deepseek.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://api-docs.deepseek.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 63,
-    "checkedAt": "2026-06-16T22:12:56.145Z"
+    "durationMs": 41,
+    "checkedAt": "2026-07-02T15:05:52.719Z"
+  },
+  {
+    "url": "https://api-docs.deepseek.com/quick_start/pricing",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://api-docs.deepseek.com/quick_start/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 46,
+    "checkedAt": "2026-07-02T15:06:14.775Z"
   },
   {
     "url": "https://aws.amazon.com/ai/generative-ai/nova/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://aws.amazon.com/nova/",
     "ok": true,
     "status": 200,
     "statusText": "",
-    "durationMs": 1593,
-    "checkedAt": "2026-06-16T22:12:54.450Z"
+    "durationMs": 1412,
+    "checkedAt": "2026-07-02T15:05:50.648Z"
   },
   {
     "url": "https://aws.amazon.com/q/developer/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://aws.amazon.com/q/developer/",
     "ok": true,
     "status": 200,
     "statusText": "",
-    "durationMs": 760,
-    "checkedAt": "2026-06-16T22:13:12.270Z"
+    "durationMs": 576,
+    "checkedAt": "2026-07-02T15:06:09.994Z"
+  },
+  {
+    "url": "https://bailian.console.aliyun.com/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://bailian.console.aliyun.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "",
+    "durationMs": 112,
+    "checkedAt": "2026-07-02T15:06:20.995Z"
   },
   {
     "url": "https://base44.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://base44.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1019,
-    "checkedAt": "2026-06-16T22:13:12.304Z"
+    "durationMs": 1463,
+    "checkedAt": "2026-07-02T15:06:10.603Z"
   },
   {
     "url": "https://bolt.new/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://bolt.new/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1131,
-    "checkedAt": "2026-06-16T22:13:12.369Z"
+    "durationMs": 1359,
+    "checkedAt": "2026-07-02T15:06:10.497Z"
   },
   {
     "url": "https://botpress.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://botpress.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 2590,
-    "checkedAt": "2026-06-16T22:13:05.208Z"
+    "durationMs": 1146,
+    "checkedAt": "2026-07-02T15:06:00.977Z"
   },
   {
     "url": "https://chatglm.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://chatglm.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 199,
-    "checkedAt": "2026-06-16T22:13:00.236Z"
+    "durationMs": 183,
+    "checkedAt": "2026-07-02T15:05:57.264Z"
   },
   {
     "url": "https://chatgpt.com/gpts",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://chatgpt.com/gpts",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 788,
-    "checkedAt": "2026-06-16T22:13:01.013Z"
+    "durationMs": 614,
+    "checkedAt": "2026-07-02T15:05:57.772Z"
   },
   {
     "url": "https://claude.com/blog/skills",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://claude.com/blog/skills",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 812,
-    "checkedAt": "2026-06-16T22:13:01.048Z"
+    "durationMs": 823,
+    "checkedAt": "2026-07-02T15:05:58.087Z"
+  },
+  {
+    "url": "https://claude.com/pricing",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/plans.json",
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://claude.com/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 960,
+    "checkedAt": "2026-07-02T15:06:15.680Z"
   },
   {
     "url": "https://cline.bot/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://cline.bot/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 830,
-    "checkedAt": "2026-06-16T22:13:11.285Z"
+    "durationMs": 1380,
+    "checkedAt": "2026-07-02T15:06:09.140Z"
   },
   {
-    "url": "https://cloud.baidu.com/product/wenxinworkshop",
+    "url": "https://cloud.baidu.com/doc/COMATE/s/rlnvnio4a",
     "files": [
-      "index.html"
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://cloud.baidu.com/doc/COMATE/s/rlnvnio4a",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 197,
+    "checkedAt": "2026-07-02T15:06:18.474Z"
+  },
+  {
+    "url": "https://cloud.baidu.com/doc/qianfan-docs/s/Jm8r1826a",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://cloud.baidu.com/doc/qianfan-docs/s/Jm8r1826a",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 164,
+    "checkedAt": "2026-07-02T15:06:14.942Z"
+  },
+  {
+    "url": "https://cloud.baidu.com/product-s/qianfan_home",
+    "files": [
+      "src/data/providers.json"
     ],
     "finalUrl": "https://cloud.baidu.com/product-s/qianfan_home",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 316,
-    "checkedAt": "2026-06-16T22:12:56.620Z"
+    "durationMs": 200,
+    "checkedAt": "2026-07-02T15:06:21.554Z"
+  },
+  {
+    "url": "https://cloud.baidu.com/product/wenxinworkshop",
+    "files": [
+      "index.html",
+      "src/data/directory-items.json"
+    ],
+    "finalUrl": "https://cloud.baidu.com/product-s/qianfan_home",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 312,
+    "checkedAt": "2026-07-02T15:05:53.330Z"
+  },
+  {
+    "url": "https://cloud.tencent.com/document/product/1729/97731",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://cloud.tencent.com/document/product/1729/97731",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 211,
+    "checkedAt": "2026-07-02T15:06:14.986Z"
+  },
+  {
+    "url": "https://cloud.tencent.com/product/hunyuan",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://cloud.tencent.com/product/tclm",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 207,
+    "checkedAt": "2026-07-02T15:06:21.202Z"
   },
   {
     "url": "https://cohere.com/models",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://cohere.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1582,
-    "checkedAt": "2026-06-16T22:12:54.448Z"
+    "durationMs": 1800,
+    "checkedAt": "2026-07-02T15:05:51.041Z"
+  },
+  {
+    "url": "https://comate.baidu.com/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://comate.baidu.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 130,
+    "checkedAt": "2026-07-02T15:06:21.684Z"
   },
   {
     "url": "https://consensus.app/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://consensus.app/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1511,
-    "checkedAt": "2026-06-16T22:13:07.312Z"
+    "durationMs": 3239,
+    "checkedAt": "2026-07-02T15:06:06.131Z"
   },
   {
     "url": "https://console.groq.com/docs/models",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://console.groq.com/docs/models",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 837,
-    "checkedAt": "2026-06-16T22:12:56.082Z"
+    "durationMs": 2084,
+    "checkedAt": "2026-07-02T15:05:53.463Z"
   },
   {
     "url": "https://copilot.microsoft.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://copilot.microsoft.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 884,
-    "checkedAt": "2026-06-16T22:12:59.704Z"
+    "durationMs": 822,
+    "checkedAt": "2026-07-02T15:05:56.324Z"
   },
   {
     "url": "https://cursor.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json",
+      "src/data/providers.json"
     ],
     "finalUrl": "https://cursor.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 781,
-    "checkedAt": "2026-06-16T22:13:09.696Z"
+    "durationMs": 927,
+    "checkedAt": "2026-07-02T15:06:07.204Z"
+  },
+  {
+    "url": "https://cursor.com/pricing",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://cursor.com/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 1570,
+    "checkedAt": "2026-07-02T15:06:17.785Z"
   },
   {
     "url": "https://deepmind.google/models/gemini/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://deepmind.google/models/gemini/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1045,
-    "checkedAt": "2026-06-16T22:12:53.898Z"
+    "durationMs": 976,
+    "checkedAt": "2026-07-02T15:05:50.210Z"
+  },
+  {
+    "url": "https://developers.openai.com/api/docs/pricing",
+    "files": [
+      "src/data/deal-sources.json"
+    ],
+    "finalUrl": "https://developers.openai.com/api/docs/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 1673,
+    "checkedAt": "2026-07-02T15:06:16.215Z"
   },
   {
     "url": "https://devin.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://devin.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 741,
-    "checkedAt": "2026-06-16T22:13:10.454Z"
+    "durationMs": 829,
+    "checkedAt": "2026-07-02T15:06:07.973Z"
   },
   {
     "url": "https://dify.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://dify.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 726,
-    "checkedAt": "2026-06-16T22:13:01.024Z"
+    "durationMs": 809,
+    "checkedAt": "2026-07-02T15:05:58.133Z"
   },
   {
     "url": "https://docs.anthropic.com/en/docs/about-claude/models/overview",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://platform.claude.com/docs/en/about-claude/models/overview",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 3146,
-    "checkedAt": "2026-06-16T22:12:55.997Z"
+    "durationMs": 4184,
+    "checkedAt": "2026-07-02T15:05:53.416Z"
+  },
+  {
+    "url": "https://docs.bigmodel.cn/cn/guide/models/text/glm-4-long",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://docs.bigmodel.cn/cn/guide/models/text/glm-4-long",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 143,
+    "checkedAt": "2026-07-02T15:06:15.085Z"
+  },
+  {
+    "url": "https://docs.bigmodel.cn/cn/guide/models/vlm/glm-4v-plus-0111",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://docs.bigmodel.cn/cn/guide/models/vlm/glm-4v-plus-0111",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 181,
+    "checkedAt": "2026-07-02T15:06:20.722Z"
   },
   {
     "url": "https://elevenlabs.io/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json",
+      "src/data/providers.json"
     ],
     "finalUrl": "https://elevenlabs.io/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1122,
-    "checkedAt": "2026-06-16T22:13:13.392Z"
+    "durationMs": 1355,
+    "checkedAt": "2026-07-02T15:06:11.589Z"
+  },
+  {
+    "url": "https://elevenlabs.io/pricing",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://elevenlabs.io/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 629,
+    "checkedAt": "2026-07-02T15:06:18.433Z"
   },
   {
     "url": "https://elicit.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://elicit.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 830,
-    "checkedAt": "2026-06-16T22:13:06.782Z"
+    "durationMs": 1214,
+    "checkedAt": "2026-07-02T15:06:04.120Z"
   },
   {
     "url": "https://felo.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://felo.ai/search",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1766,
-    "checkedAt": "2026-06-16T22:13:07.731Z"
+    "durationMs": 1955,
+    "checkedAt": "2026-07-02T15:06:05.123Z"
   },
   {
     "url": "https://fireworks.ai/models",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://fireworks.ai/models",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1116,
-    "checkedAt": "2026-06-16T22:12:55.566Z"
+    "durationMs": 1918,
+    "checkedAt": "2026-07-02T15:05:52.678Z"
   },
   {
     "url": "https://flowiseai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://flowiseai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 763,
-    "checkedAt": "2026-06-16T22:13:03.358Z"
+    "durationMs": 596,
+    "checkedAt": "2026-07-02T15:06:00.010Z"
   },
   {
     "url": "https://gemini.google.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://gemini.google.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 977,
-    "checkedAt": "2026-06-16T22:12:58.539Z"
+    "durationMs": 946,
+    "checkedAt": "2026-07-02T15:05:55.140Z"
+  },
+  {
+    "url": "https://github.com/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://github.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 853,
+    "checkedAt": "2026-07-02T15:06:22.310Z"
   },
   {
     "url": "https://github.com/features/copilot",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://github.com/features/copilot",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1022,
-    "checkedAt": "2026-06-16T22:13:09.930Z"
+    "durationMs": 1414,
+    "checkedAt": "2026-07-02T15:06:07.545Z"
+  },
+  {
+    "url": "https://github.com/features/copilot/plans",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://github.com/features/copilot/plans",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 3442,
+    "checkedAt": "2026-07-02T15:06:19.571Z"
   },
   {
     "url": "https://grok.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://grok.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 832,
-    "checkedAt": "2026-06-16T22:13:00.037Z"
+    "durationMs": 709,
+    "checkedAt": "2026-07-02T15:05:56.684Z"
   },
   {
     "url": "https://hailuoai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://hailuoai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 374,
-    "checkedAt": "2026-06-16T22:13:14.498Z"
+    "durationMs": 242,
+    "checkedAt": "2026-07-02T15:06:12.615Z"
   },
   {
     "url": "https://haystack.deepset.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://haystack.deepset.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1045,
-    "checkedAt": "2026-06-16T22:13:06.255Z"
+    "durationMs": 817,
+    "checkedAt": "2026-07-02T15:06:03.167Z"
+  },
+  {
+    "url": "https://help.aliyun.com/zh/model-studio/model-pricing",
+    "files": [
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://help.aliyun.com/zh/model-studio/model-pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "",
+    "durationMs": 726,
+    "checkedAt": "2026-07-02T15:06:20.297Z"
+  },
+  {
+    "url": "https://help.aliyun.com/zh/model-studio/new-free-quota",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/deals.json"
+    ],
+    "finalUrl": "https://help.aliyun.com/zh/model-studio/new-free-quota",
+    "ok": true,
+    "status": 200,
+    "statusText": "",
+    "durationMs": 456,
+    "checkedAt": "2026-07-02T15:06:14.729Z"
   },
   {
     "url": "https://huggingface.co/models",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://huggingface.co/models",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1055,
-    "checkedAt": "2026-06-16T22:12:55.475Z"
+    "durationMs": 908,
+    "checkedAt": "2026-07-02T15:05:51.556Z"
   },
   {
     "url": "https://hunyuan.tencent.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://hunyuan.tencent.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 149,
-    "checkedAt": "2026-06-16T22:12:56.582Z"
+    "durationMs": 138,
+    "checkedAt": "2026-07-02T15:05:53.554Z"
   },
   {
     "url": "https://internlm.intern-ai.org.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://internlm.intern-ai.org.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 268,
-    "checkedAt": "2026-06-16T22:12:57.445Z"
+    "durationMs": 149,
+    "checkedAt": "2026-07-02T15:05:54.147Z"
   },
   {
     "url": "https://kimi.moonshot.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.kimi.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 528,
-    "checkedAt": "2026-06-16T22:13:00.298Z"
+    "durationMs": 448,
+    "checkedAt": "2026-07-02T15:05:57.132Z"
   },
   {
     "url": "https://klingai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://klingai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 266,
-    "checkedAt": "2026-06-16T22:13:12.298Z"
+    "durationMs": 217,
+    "checkedAt": "2026-07-02T15:06:10.211Z"
   },
   {
     "url": "https://lovable.dev/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://lovable.dev/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1024,
-    "checkedAt": "2026-06-16T22:13:10.659Z"
+    "durationMs": 1128,
+    "checkedAt": "2026-07-02T15:06:07.760Z"
   },
   {
     "url": "https://lumalabs.ai/dream-machine",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://lumalabs.ai/app",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1809,
-    "checkedAt": "2026-06-16T22:13:14.212Z"
+    "durationMs": 1709,
+    "checkedAt": "2026-07-02T15:06:12.699Z"
   },
   {
     "url": "https://manus.im/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://manus.im/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1230,
-    "checkedAt": "2026-06-16T22:12:59.770Z"
+    "durationMs": 1108,
+    "checkedAt": "2026-07-02T15:05:56.248Z"
   },
   {
     "url": "https://metaso.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://metaso.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 245,
-    "checkedAt": "2026-06-16T22:13:06.500Z"
+    "durationMs": 205,
+    "checkedAt": "2026-07-02T15:06:03.515Z"
   },
   {
     "url": "https://microsoft.github.io/autogen/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://microsoft.github.io/autogen/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 872,
-    "checkedAt": "2026-06-16T22:13:01.920Z"
+    "durationMs": 1306,
+    "checkedAt": "2026-07-02T15:05:59.400Z"
   },
   {
     "url": "https://mistral.ai/technology/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://mistral.ai/products/studio/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 3569,
-    "checkedAt": "2026-06-16T22:12:56.433Z"
+    "durationMs": 3348,
+    "checkedAt": "2026-07-02T15:05:52.587Z"
   },
   {
     "url": "https://model-platform.tiangong.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.tiangong.cn/?source=model-platform",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 486,
-    "checkedAt": "2026-06-16T22:12:57.106Z"
+    "durationMs": 376,
+    "checkedAt": "2026-07-02T15:05:53.931Z"
   },
   {
     "url": "https://monica.im/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://monica.im/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1337,
-    "checkedAt": "2026-06-16T22:12:59.205Z"
+    "durationMs": 1197,
+    "checkedAt": "2026-07-02T15:05:55.502Z"
   },
   {
     "url": "https://n8n.io/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://n8n.io/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 810,
-    "checkedAt": "2026-06-16T22:13:02.595Z"
+    "durationMs": 620,
+    "checkedAt": "2026-07-02T15:05:59.196Z"
   },
   {
     "url": "https://notebooklm.google.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
-    "finalUrl": "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fnotebooklm.google.com%2Flogin%3Fcontinue%3Dhttps%3A%2F%2Fnotebooklm.google.com%2F&dsh=S-217007897%3A1781647988136383&followup=https%3A%2F%2Fnotebooklm.google.com%2Flogin%3Fcontinue%3Dhttps%3A%2F%2Fnotebooklm.google.com%2F&osid=1&passive=1209600&flowName=WebLiteSignIn&flowEntry=ServiceLogin&ifkv=AcDsRvy4DGtUyQhOMDJEeXkZSpZMFB50GJyfMVJN-hYoxmWllsugSUOWJm8qD0Nfmb_5lJyadWuWUg",
+    "finalUrl": "https://accounts.google.com/v3/signin/identifier?continue=https%3A%2F%2Fnotebooklm.google.com%2Flogin%3Fcontinue%3Dhttps%3A%2F%2Fnotebooklm.google.com%2F&dsh=S2014219246%3A1783004765634222&followup=https%3A%2F%2Fnotebooklm.google.com%2Flogin%3Fcontinue%3Dhttps%3A%2F%2Fnotebooklm.google.com%2F&osid=1&passive=1209600&flowName=WebLiteSignIn&flowEntry=ServiceLogin&ifkv=AcDsRvyZqiKAmrzoobp3WcTiBJ0UqeKg9OJHnJQiExY3_sLdAX95wm1hiMYCgyyBhzCrG7v3F1m1",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 3915,
-    "checkedAt": "2026-06-16T22:13:09.713Z"
+    "durationMs": 7533,
+    "checkedAt": "2026-07-02T15:06:10.234Z"
+  },
+  {
+    "url": "https://one.google.com/about/plans",
+    "files": [
+      "src/data/plans.json"
+    ],
+    "finalUrl": "https://one.google.com/about/plans",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 1833,
+    "checkedAt": "2026-07-02T15:06:17.514Z"
   },
   {
     "url": "https://open.bigmodel.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://open.bigmodel.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 258,
-    "checkedAt": "2026-06-16T22:12:56.820Z"
+    "durationMs": 110,
+    "checkedAt": "2026-07-02T15:05:53.573Z"
+  },
+  {
+    "url": "https://open.bigmodel.cn/glm-coding",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://open.bigmodel.cn/glm-coding",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 217,
+    "checkedAt": "2026-07-02T15:06:18.442Z"
   },
   {
     "url": "https://otter.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://otter.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1003,
-    "checkedAt": "2026-06-16T22:13:15.997Z"
+    "durationMs": 2519,
+    "checkedAt": "2026-07-02T15:06:16.129Z"
   },
   {
     "url": "https://pika.art/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://pika.art/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1096,
-    "checkedAt": "2026-06-16T22:13:13.465Z"
+    "durationMs": 1028,
+    "checkedAt": "2026-07-02T15:06:11.990Z"
   },
   {
     "url": "https://pipedream.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://pipedream.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 891,
-    "checkedAt": "2026-06-16T22:13:05.798Z"
+    "durationMs": 1512,
+    "checkedAt": "2026-07-02T15:06:03.310Z"
   },
   {
     "url": "https://pitch.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://pitch.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 857,
-    "checkedAt": "2026-06-16T22:13:15.717Z"
+    "durationMs": 929,
+    "checkedAt": "2026-07-02T15:06:14.447Z"
   },
   {
     "url": "https://pixverse.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://pixverse.ai/en",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1566,
-    "checkedAt": "2026-06-16T22:13:15.692Z"
+    "durationMs": 5500,
+    "checkedAt": "2026-07-02T15:06:17.973Z"
+  },
+  {
+    "url": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://platform.claude.com/docs/en/about-claude/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 1207,
+    "checkedAt": "2026-07-02T15:06:19.640Z"
+  },
+  {
+    "url": "https://platform.kimi.com/docs/pricing/chat",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://platform.kimi.com/docs/pricing/chat",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 523,
+    "checkedAt": "2026-07-02T15:06:21.786Z"
+  },
+  {
+    "url": "https://platform.kimi.com/docs/pricing/chat-k25",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://platform.kimi.com/docs/pricing/chat-k25",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 528,
+    "checkedAt": "2026-07-02T15:06:20.825Z"
+  },
+  {
+    "url": "https://platform.kimi.com/docs/pricing/chat-k26",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://platform.kimi.com/docs/pricing/chat-k26",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 3899,
+    "checkedAt": "2026-07-02T15:06:23.734Z"
+  },
+  {
+    "url": "https://platform.kimi.com/docs/pricing/chat-k27-code",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://platform.kimi.com/docs/pricing/chat-k27-code",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 758,
+    "checkedAt": "2026-07-02T15:06:20.398Z"
+  },
+  {
+    "url": "https://platform.kimi.com/docs/pricing/promotion",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/deals.json"
+    ],
+    "finalUrl": "https://platform.kimi.com/docs/pricing/promotion",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 542,
+    "checkedAt": "2026-07-02T15:06:14.273Z"
+  },
+  {
+    "url": "https://platform.minimaxi.com/docs/guides/pricing-paygo",
+    "files": [
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://platform.minimaxi.com/docs/guides/pricing-paygo",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 484,
+    "checkedAt": "2026-07-02T15:06:20.883Z"
+  },
+  {
+    "url": "https://platform.minimaxi.com/docs/token-plan/promotion",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/deals.json"
+    ],
+    "finalUrl": "https://platform.minimaxi.com/docs/token-plan/promotion",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 503,
+    "checkedAt": "2026-07-02T15:06:14.720Z"
   },
   {
     "url": "https://platform.moonshot.cn/docs",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://platform.kimi.com/docs/overview",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1491,
-    "checkedAt": "2026-06-16T22:12:57.868Z"
+    "durationMs": 4346,
+    "checkedAt": "2026-07-02T15:05:57.677Z"
+  },
+  {
+    "url": "https://platform.openai.com/docs/models",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://developers.openai.com/api/docs/models",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 2789,
+    "checkedAt": "2026-07-02T15:06:21.263Z"
+  },
+  {
+    "url": "https://platform.openai.com/docs/models/gpt-5.2-pro",
+    "files": [
+      "src/data/prices.json"
+    ],
+    "finalUrl": "https://developers.openai.com/api/docs/models/gpt-5.2-pro",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 2416,
+    "checkedAt": "2026-07-02T15:06:21.354Z"
+  },
+  {
+    "url": "https://platform.openai.com/docs/pricing/",
+    "files": [
+      "src/data/prices.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://developers.openai.com/api/docs/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 2960,
+    "checkedAt": "2026-07-02T15:06:21.457Z"
   },
   {
     "url": "https://platform.stepfun.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://platform.stepfun.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 139,
-    "checkedAt": "2026-06-16T22:12:57.177Z"
+    "durationMs": 113,
+    "checkedAt": "2026-07-02T15:05:54.027Z"
   },
   {
     "url": "https://qwenlm.github.io/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://qwenlm.github.io/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 789,
-    "checkedAt": "2026-06-16T22:12:56.934Z"
+    "durationMs": 754,
+    "checkedAt": "2026-07-02T15:05:53.473Z"
   },
   {
     "url": "https://relevanceai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://relevanceai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 793,
-    "checkedAt": "2026-06-16T22:13:03.702Z"
+    "durationMs": 575,
+    "checkedAt": "2026-07-02T15:06:00.856Z"
   },
   {
     "url": "https://replicate.com/explore",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://replicate.com/explore",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 2106,
-    "checkedAt": "2026-06-16T22:12:56.830Z"
+    "durationMs": 1025,
+    "checkedAt": "2026-07-02T15:05:52.066Z"
   },
   {
     "url": "https://replit.com/ai",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://replit.com/ai",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 729,
-    "checkedAt": "2026-06-16T22:13:09.928Z"
+    "durationMs": 572,
+    "checkedAt": "2026-07-02T15:06:06.985Z"
   },
   {
     "url": "https://runwayml.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json",
+      "src/data/providers.json"
     ],
     "finalUrl": "https://runwayml.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 745,
-    "checkedAt": "2026-06-16T22:13:12.403Z"
+    "durationMs": 1004,
+    "checkedAt": "2026-07-02T15:06:10.962Z"
+  },
+  {
+    "url": "https://runwayml.com/pricing",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://runwayml.com/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 889,
+    "checkedAt": "2026-07-02T15:06:18.497Z"
   },
   {
     "url": "https://siliconflow.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://siliconflow.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 208,
-    "checkedAt": "2026-06-16T22:12:57.562Z"
+    "durationMs": 187,
+    "checkedAt": "2026-07-02T15:05:54.305Z"
   },
   {
     "url": "https://stability.ai/stable-image",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://stability.ai/stable-image",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 876,
-    "checkedAt": "2026-06-16T22:13:14.375Z"
+    "durationMs": 1323,
+    "checkedAt": "2026-07-02T15:06:13.608Z"
   },
   {
     "url": "https://suno.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json",
+      "src/data/providers.json"
     ],
     "finalUrl": "https://suno.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1190,
-    "checkedAt": "2026-06-16T22:13:13.453Z"
+    "durationMs": 779,
+    "checkedAt": "2026-07-02T15:06:10.990Z"
+  },
+  {
+    "url": "https://suno.com/pricing",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://suno.com/pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 1153,
+    "checkedAt": "2026-07-02T15:06:18.938Z"
   },
   {
     "url": "https://v0.dev/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://v0.app/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1542,
-    "checkedAt": "2026-06-16T22:13:11.238Z"
+    "durationMs": 2090,
+    "checkedAt": "2026-07-02T15:06:09.075Z"
   },
   {
     "url": "https://windsurf.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://devin.ai/desktop",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1511,
-    "checkedAt": "2026-06-16T22:13:10.685Z"
+    "durationMs": 1910,
+    "checkedAt": "2026-07-02T15:06:08.279Z"
   },
   {
     "url": "https://www.01.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.01.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 2509,
-    "checkedAt": "2026-06-16T22:12:59.443Z"
+    "durationMs": 2127,
+    "checkedAt": "2026-07-02T15:05:55.974Z"
   },
   {
     "url": "https://www.adobe.com/products/firefly.html",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.adobe.com/products/firefly.html",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 754,
-    "checkedAt": "2026-06-16T22:13:14.207Z"
+    "durationMs": 867,
+    "checkedAt": "2026-07-02T15:06:12.473Z"
   },
   {
     "url": "https://www.ai21.com/jamba",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.ai21.com/jamba/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1652,
-    "checkedAt": "2026-06-16T22:12:55.551Z"
+    "durationMs": 1397,
+    "checkedAt": "2026-07-02T15:05:51.609Z"
+  },
+  {
+    "url": "https://www.aliyun.com/benefit/client/nightplan",
+    "files": [
+      "src/data/deal-sources.json",
+      "src/data/deals.json"
+    ],
+    "finalUrl": "https://www.aliyun.com/benefit/client/nightplan",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 95,
+    "checkedAt": "2026-07-02T15:06:14.542Z"
+  },
+  {
+    "url": "https://www.anthropic.com/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://www.anthropic.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 627,
+    "checkedAt": "2026-07-02T15:06:21.452Z"
   },
   {
     "url": "https://www.anthropic.com/claude-code",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://claude.com/product/claude-code",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1730,
-    "checkedAt": "2026-06-16T22:13:11.658Z"
+    "durationMs": 2214,
+    "checkedAt": "2026-07-02T15:06:09.418Z"
   },
   {
     "url": "https://www.automationanywhere.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.automationanywhere.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 956,
-    "checkedAt": "2026-06-16T22:13:05.539Z"
+    "durationMs": 845,
+    "checkedAt": "2026-07-02T15:06:02.350Z"
   },
   {
     "url": "https://www.baichuan-ai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.baichuan-ai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 199,
-    "checkedAt": "2026-06-16T22:12:57.038Z"
+    "durationMs": 182,
+    "checkedAt": "2026-07-02T15:05:53.998Z"
   },
   {
     "url": "https://www.beautiful.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.beautiful.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 830,
-    "checkedAt": "2026-06-16T22:13:15.697Z"
+    "durationMs": 609,
+    "checkedAt": "2026-07-02T15:06:14.217Z"
   },
   {
     "url": "https://www.cerebras.ai/inference",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.cerebras.ai/inference",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 903,
-    "checkedAt": "2026-06-16T22:12:56.355Z"
+    "durationMs": 1693,
+    "checkedAt": "2026-07-02T15:05:53.249Z"
   },
   {
     "url": "https://www.chatpdf.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.chatpdf.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 841,
-    "checkedAt": "2026-06-16T22:13:09.198Z"
+    "durationMs": 813,
+    "checkedAt": "2026-07-02T15:06:06.276Z"
   },
   {
     "url": "https://www.coderabbit.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.coderabbit.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1090,
-    "checkedAt": "2026-06-16T22:13:12.263Z"
+    "durationMs": 883,
+    "checkedAt": "2026-07-02T15:06:09.958Z"
   },
   {
     "url": "https://www.connectedpapers.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.connectedpapers.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 726,
-    "checkedAt": "2026-06-16T22:13:08.908Z"
+    "durationMs": 657,
+    "checkedAt": "2026-07-02T15:06:05.978Z"
   },
   {
     "url": "https://www.continue.dev/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.continue.dev/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1010,
-    "checkedAt": "2026-06-16T22:13:11.498Z"
+    "durationMs": 1165,
+    "checkedAt": "2026-07-02T15:06:09.138Z"
   },
   {
     "url": "https://www.coze.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.coze.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 875,
-    "checkedAt": "2026-06-16T22:13:01.226Z"
+    "durationMs": 1787,
+    "checkedAt": "2026-07-02T15:05:59.464Z"
   },
   {
     "url": "https://www.crewai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://crewai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1816,
-    "checkedAt": "2026-06-16T22:13:02.851Z"
+    "durationMs": 1744,
+    "checkedAt": "2026-07-02T15:05:59.831Z"
   },
   {
     "url": "https://www.databricks.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.databricks.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 737,
-    "checkedAt": "2026-06-16T22:12:56.303Z"
+    "durationMs": 622,
+    "checkedAt": "2026-07-02T15:05:53.018Z"
+  },
+  {
+    "url": "https://www.deepseek.com/",
+    "files": [
+      "src/data/plans.json",
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://www.deepseek.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 40,
+    "checkedAt": "2026-07-02T15:06:18.013Z"
   },
   {
     "url": "https://www.descript.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.descript.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 2510,
-    "checkedAt": "2026-06-16T22:13:17.008Z"
+    "durationMs": 2373,
+    "checkedAt": "2026-07-02T15:06:15.711Z"
   },
   {
     "url": "https://www.doubao.com/chat/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.doubao.com/chat/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
     "durationMs": 647,
-    "checkedAt": "2026-06-16T22:13:00.351Z"
+    "checkedAt": "2026-07-02T15:05:57.081Z"
   },
   {
     "url": "https://www.freepik.com/ai",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.magnific.com/ai",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1714,
-    "checkedAt": "2026-06-16T22:13:15.179Z"
+    "durationMs": 2787,
+    "checkedAt": "2026-07-02T15:06:14.777Z"
   },
   {
     "url": "https://www.genspark.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.genspark.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 2170,
-    "checkedAt": "2026-06-16T22:13:09.174Z"
+    "durationMs": 2172,
+    "checkedAt": "2026-07-02T15:06:06.369Z"
   },
   {
     "url": "https://www.gumloop.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.gumloop.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 698,
-    "checkedAt": "2026-06-16T22:13:02.618Z"
+    "durationMs": 632,
+    "checkedAt": "2026-07-02T15:05:59.414Z"
   },
   {
     "url": "https://www.heygen.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.heygen.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 782,
-    "checkedAt": "2026-06-16T22:13:14.994Z"
+    "durationMs": 903,
+    "checkedAt": "2026-07-02T15:06:13.518Z"
   },
   {
     "url": "https://www.humata.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.humata.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 855,
-    "checkedAt": "2026-06-16T22:13:09.635Z"
+    "durationMs": 654,
+    "checkedAt": "2026-07-02T15:06:06.632Z"
   },
   {
     "url": "https://www.ibm.com/granite",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.ibm.com/granite",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 826,
-    "checkedAt": "2026-06-16T22:12:56.377Z"
+    "durationMs": 2073,
+    "checkedAt": "2026-07-02T15:05:54.140Z"
+  },
+  {
+    "url": "https://www.kimi.com/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://www.kimi.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 248,
+    "checkedAt": "2026-07-02T15:06:21.450Z"
+  },
+  {
+    "url": "https://www.kimi.com/zh-cn/help/membership/membership-pricing",
+    "files": [
+      "src/data/plans.json"
+    ],
+    "finalUrl": "https://www.kimi.com/zh-cn/help/membership/membership-pricing",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 334,
+    "checkedAt": "2026-07-02T15:06:18.347Z"
   },
   {
     "url": "https://www.langchain.com/langgraph",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.langchain.com/langgraph",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 761,
-    "checkedAt": "2026-06-16T22:13:01.785Z"
+    "durationMs": 2626,
+    "checkedAt": "2026-07-02T15:06:00.644Z"
   },
   {
     "url": "https://www.langflow.org/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.langflow.org/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 758,
-    "checkedAt": "2026-06-16T22:13:03.356Z"
+    "durationMs": 817,
+    "checkedAt": "2026-07-02T15:06:00.281Z"
   },
   {
     "url": "https://www.lindy.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.lindy.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1468,
-    "checkedAt": "2026-06-16T22:13:02.481Z"
+    "durationMs": 766,
+    "checkedAt": "2026-07-02T15:05:58.576Z"
   },
   {
     "url": "https://www.llamaindex.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.llamaindex.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 744,
-    "checkedAt": "2026-06-16T22:13:05.952Z"
+    "durationMs": 664,
+    "checkedAt": "2026-07-02T15:06:02.906Z"
   },
   {
     "url": "https://www.microsoft.com/en-us/microsoft-copilot/microsoft-copilot-studio",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.microsoft.com/en-us/microsoft-365-copilot/microsoft-copilot-studio",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 878,
-    "checkedAt": "2026-06-16T22:13:04.583Z"
+    "durationMs": 882,
+    "checkedAt": "2026-07-02T15:06:01.798Z"
   },
   {
     "url": "https://www.mindstudio.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.mindstudio.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1039,
-    "checkedAt": "2026-06-16T22:13:04.397Z"
+    "durationMs": 617,
+    "checkedAt": "2026-07-02T15:06:01.466Z"
   },
   {
-    "url": "https://www.minimaxi.com/platform",
+    "url": "https://www.minimaxi.com/",
     "files": [
-      "index.html"
+      "src/data/providers.json"
     ],
     "finalUrl": "https://www.minimaxi.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 416,
-    "checkedAt": "2026-06-16T22:12:57.237Z"
+    "durationMs": 224,
+    "checkedAt": "2026-07-02T15:06:21.674Z"
+  },
+  {
+    "url": "https://www.minimaxi.com/platform",
+    "files": [
+      "index.html",
+      "src/data/directory-items.json"
+    ],
+    "finalUrl": "https://www.minimaxi.com/",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 420,
+    "checkedAt": "2026-07-02T15:05:53.993Z"
   },
   {
     "url": "https://www.modelscope.cn/models",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.modelscope.cn/models",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 303,
-    "checkedAt": "2026-06-16T22:12:57.409Z"
+    "durationMs": 201,
+    "checkedAt": "2026-07-02T15:05:54.194Z"
   },
   {
     "url": "https://www.notion.com/product/ai",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.notion.com/product/ai",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1195,
-    "checkedAt": "2026-06-16T22:13:13.499Z"
+    "durationMs": 1876,
+    "checkedAt": "2026-07-02T15:06:12.373Z"
   },
   {
     "url": "https://www.openbmb.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.openbmb.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 361,
-    "checkedAt": "2026-06-16T22:12:57.598Z"
+    "durationMs": 275,
+    "checkedAt": "2026-07-02T15:05:54.302Z"
   },
   {
     "url": "https://www.qodo.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.qodo.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1160,
-    "checkedAt": "2026-06-16T22:13:12.032Z"
+    "durationMs": 860,
+    "checkedAt": "2026-07-02T15:06:09.908Z"
   },
   {
     "url": "https://www.relay.app/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.relay.app/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 842,
-    "checkedAt": "2026-06-16T22:13:02.909Z"
+    "durationMs": 1720,
+    "checkedAt": "2026-07-02T15:06:00.916Z"
   },
   {
     "url": "https://www.researchrabbit.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.researchrabbit.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 817,
-    "checkedAt": "2026-06-16T22:13:08.915Z"
+    "durationMs": 1892,
+    "checkedAt": "2026-07-02T15:06:07.144Z"
   },
   {
     "url": "https://www.salesforce.com/agentforce/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.salesforce.com/agentforce/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 863,
-    "checkedAt": "2026-06-16T22:13:05.028Z"
+    "durationMs": 1304,
+    "checkedAt": "2026-07-02T15:06:02.242Z"
   },
   {
     "url": "https://www.semanticscholar.org/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.semanticscholar.org/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 786,
-    "checkedAt": "2026-06-16T22:13:08.098Z"
+    "durationMs": 868,
+    "checkedAt": "2026-07-02T15:06:05.321Z"
   },
   {
     "url": "https://www.sensetime.com/cn",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
-    "finalUrl": "https://www.sensetime.com/cn",
+    "finalUrl": "https://www.sensetime.com/cn/",
     "ok": true,
     "status": 200,
-    "statusText": "",
-    "durationMs": 257,
-    "checkedAt": "2026-06-16T22:12:56.839Z"
+    "statusText": "OK",
+    "durationMs": 342,
+    "checkedAt": "2026-07-02T15:05:53.816Z"
   },
   {
     "url": "https://www.servicenow.com/products/ai-agents.html",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.servicenow.com/products/ai-agents.html",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 819,
-    "checkedAt": "2026-06-16T22:13:05.210Z"
+    "durationMs": 798,
+    "checkedAt": "2026-07-02T15:06:01.775Z"
   },
   {
     "url": "https://www.snowflake.com/en/data-cloud/cortex/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.snowflake.com/en/product/features/cortex/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 6600,
-    "checkedAt": "2026-06-16T22:13:02.597Z"
+    "durationMs": 1260,
+    "checkedAt": "2026-07-02T15:05:53.847Z"
   },
   {
     "url": "https://www.stack-ai.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.stackai.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1683,
-    "checkedAt": "2026-06-16T22:13:04.165Z"
+    "durationMs": 1538,
+    "checkedAt": "2026-07-02T15:06:00.938Z"
   },
   {
     "url": "https://www.synthesia.io/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.synthesia.io/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1091,
-    "checkedAt": "2026-06-16T22:13:15.466Z"
+    "durationMs": 1032,
+    "checkedAt": "2026-07-02T15:06:13.731Z"
   },
   {
     "url": "https://www.tabnine.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.tabnine.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 911,
-    "checkedAt": "2026-06-16T22:13:11.570Z"
+    "durationMs": 769,
+    "checkedAt": "2026-07-02T15:06:09.048Z"
   },
   {
     "url": "https://www.together.ai/models",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.together.ai/models",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 797,
-    "checkedAt": "2026-06-16T22:12:55.245Z"
+    "durationMs": 661,
+    "checkedAt": "2026-07-02T15:05:51.379Z"
   },
   {
     "url": "https://www.trae.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.trae.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 826,
-    "checkedAt": "2026-06-16T22:13:12.324Z"
+    "durationMs": 2044,
+    "checkedAt": "2026-07-02T15:06:11.245Z"
   },
   {
     "url": "https://www.udio.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.udio.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 809,
-    "checkedAt": "2026-06-16T22:13:15.016Z"
+    "durationMs": 754,
+    "checkedAt": "2026-07-02T15:06:13.338Z"
   },
   {
     "url": "https://www.uipath.com/platform/agentic-automation",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.uipath.com/platform/agentic-automation",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 6091,
-    "checkedAt": "2026-06-16T22:13:10.488Z"
+    "durationMs": 3100,
+    "checkedAt": "2026-07-02T15:06:04.567Z"
   },
   {
     "url": "https://www.vellum.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.vellum.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 773,
-    "checkedAt": "2026-06-16T22:13:05.801Z"
+    "durationMs": 620,
+    "checkedAt": "2026-07-02T15:06:02.649Z"
   },
   {
     "url": "https://www.voiceflow.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.voiceflow.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 854,
-    "checkedAt": "2026-06-16T22:13:03.705Z"
+    "durationMs": 839,
+    "checkedAt": "2026-07-02T15:06:00.849Z"
   },
   {
     "url": "https://www.wordware.ai/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.wordware.ai/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 689,
-    "checkedAt": "2026-06-16T22:13:04.391Z"
+    "durationMs": 649,
+    "checkedAt": "2026-07-02T15:06:01.505Z"
   },
   {
     "url": "https://www.workato.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://www.workato.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1161,
-    "checkedAt": "2026-06-16T22:13:05.965Z"
+    "durationMs": 1116,
+    "checkedAt": "2026-07-02T15:06:02.891Z"
+  },
+  {
+    "url": "https://www.zhipuai.cn/",
+    "files": [
+      "src/data/providers.json"
+    ],
+    "finalUrl": "https://www.zhipuai.cn/zh",
+    "ok": true,
+    "status": 200,
+    "statusText": "OK",
+    "durationMs": 389,
+    "checkedAt": "2026-07-02T15:06:21.841Z"
   },
   {
     "url": "https://x.ai/grok",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://x.ai/grok",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1863,
-    "checkedAt": "2026-06-16T22:12:54.724Z"
+    "durationMs": 1522,
+    "checkedAt": "2026-07-02T15:05:50.760Z"
   },
   {
     "url": "https://xinghuo.xfyun.cn/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://xinghuo.xfyun.cn/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 220,
-    "checkedAt": "2026-06-16T22:12:57.050Z"
+    "durationMs": 189,
+    "checkedAt": "2026-07-02T15:05:53.914Z"
   },
   {
     "url": "https://yiyan.baidu.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://yiyan.baidu.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 175,
-    "checkedAt": "2026-06-16T22:13:00.225Z"
+    "durationMs": 192,
+    "checkedAt": "2026-07-02T15:05:57.324Z"
   },
   {
     "url": "https://you.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://you.com/home",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 1502,
-    "checkedAt": "2026-06-16T22:13:01.035Z"
+    "durationMs": 1694,
+    "checkedAt": "2026-07-02T15:05:58.018Z"
   },
   {
     "url": "https://you.com/search",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://you.com/search",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 815,
-    "checkedAt": "2026-06-16T22:13:07.315Z"
+    "durationMs": 938,
+    "checkedAt": "2026-07-02T15:06:04.453Z"
   },
   {
     "url": "https://yuanbao.tencent.com/",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://yuanbao.tencent.com/",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 177,
-    "checkedAt": "2026-06-16T22:13:00.050Z"
+    "durationMs": 91,
+    "checkedAt": "2026-07-02T15:05:57.158Z"
   },
   {
     "url": "https://zapier.com/agents",
     "files": [
-      "index.html"
+      "index.html",
+      "src/data/directory-items.json"
     ],
     "finalUrl": "https://zapier.com/agents",
     "ok": true,
     "status": 200,
     "statusText": "OK",
-    "durationMs": 992,
-    "checkedAt": "2026-06-16T22:13:01.899Z"
+    "durationMs": 851,
+    "checkedAt": "2026-07-02T15:05:58.623Z"
   }
 ]
