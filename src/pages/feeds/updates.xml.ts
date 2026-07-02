@@ -39,7 +39,7 @@ export const GET: APIRoute = () => {
     `<?xml version="1.0" encoding="UTF-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>urn:ai-sites-hub:price-updates</id>
-  <title>AI惠选价格更新</title>
+  <title>惠选AI价格更新</title>
   <updated>${updated}T00:00:00+08:00</updated>
   <link href="${siteUrl}"/>
   <link href="${siteUrl}/feeds/updates.xml" rel="self" type="application/atom+xml"/>${entries}
