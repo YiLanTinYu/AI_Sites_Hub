@@ -716,16 +716,16 @@ function renderShortlistMarkdown(candidates, errors, existingCount) {
   };
 
   const lines = [
-    "# AI Candidate Shortlist",
+    "# 新 AI 产品候选精简清单",
     "",
-    `- Generated at: ${now}`,
-    `- Existing site entries compared: ${existingCount}`,
-    `- New candidates reviewed by rules: ${fresh.length}`,
+    `- 生成时间：${now}`,
+    `- 已对比网站现有入口：${existingCount}`,
+    `- 本次规则审核的新候选：${fresh.length}`,
     `- 优先核验: ${counts["优先核验"]}`,
     `- 可考虑收录: ${counts["可考虑收录"]}`,
     `- 观察: ${counts["观察"]}`,
     `- 暂不收录: ${counts["暂不收录"]}`,
-    `- Source errors: ${errors.length}`,
+    `- 来源访问异常：${errors.length}`,
     "",
     "## 判断规则",
     "",

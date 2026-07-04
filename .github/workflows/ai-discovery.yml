@@ -1,0 +1,57 @@
+name: 新 AI 产品每周发现
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "23 2 * * 1"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  discover:
+    name: 生成中文候选清单
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: 读取网站现有收录
+        uses: actions/checkout@v4
+
+      - name: 准备运行环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装项目依赖
+        run: npm ci
+
+      - name: 检查并构建网站
+        run: npm run build
+
+      - name: 搜集并筛选新 AI 产品
+        run: npm run discover:ai
+
+      - name: 在运行首页显示中文清单
+        run: cat reports/new-ai-shortlist.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 创建中文审核提醒
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "新 AI 产品候选审核 · $(date -u +%F)" \
+            --body-file reports/new-ai-shortlist.md
+
+      - name: 上传完整候选报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: 新AI产品候选-${{ github.run_id }}
+          path: |
+            reports/new-ai-candidates.md
+            reports/new-ai-candidates.json
+            reports/new-ai-shortlist.md
+            reports/new-ai-shortlist.json
+          retention-days: 30
+
