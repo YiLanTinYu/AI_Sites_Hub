@@ -1,0 +1,75 @@
+name: 全站链接每周巡检
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "43 2 * * 3"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    name: 生成中文失效链接报告
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: 读取网站数据
+        uses: actions/checkout@v4
+
+      - name: 准备运行环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: 安装项目依赖
+        run: npm ci
+
+      - name: 检查并构建网站
+        run: npm run build
+
+      - name: 检查全部外部链接
+        id: link_check
+        continue-on-error: true
+        run: npm run check:links
+
+      - name: 在运行首页显示中文报告
+        run: cat reports/link-check.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 创建或关闭失效链接提醒
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          title="失效链接需要人工处理"
+          issue_number="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          failed_count="$(jq '[.[] | select(
+            (.status == 404 or .status == 410) or
+            (.status != null and .status >= 500 and .status != 567) or
+            (.status == null and .statusText != "Timeout")
+          )] | length' reports/link-check.json)"
+
+          if [ "$failed_count" -gt 0 ]; then
+            if [ -n "$issue_number" ]; then
+              gh issue edit "$issue_number" --title "$title" --body-file reports/link-check.md
+            else
+              gh issue create --title "$title" --body-file reports/link-check.md
+            fi
+          elif [ -n "$issue_number" ]; then
+            gh issue close "$issue_number" --comment "本周复查未发现确定失效的链接，自动关闭提醒。"
+          fi
+
+      - name: 上传完整巡检报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: 全站链接巡检-${{ github.run_id }}
+          path: |
+            reports/link-check.md
+            reports/link-check.json
+          retention-days: 30
+
+      - name: 标记确定失效的链接
+        if: steps.link_check.outcome == 'failure'
+        run: exit 1
+
