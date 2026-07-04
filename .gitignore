@@ -4,3 +4,5 @@ dist/
 .astro/
 npm-debug.log*
 *.log
+reports/market-monitor-*.md
+reports/market-snapshots.json

@@ -1,0 +1,58 @@
+name: Pricing and plan monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 1 * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate and build
+        run: npm run build
+
+      - name: Restore previous market snapshots
+        uses: actions/cache/restore@v4
+        with:
+          path: reports/market-snapshots.json
+          key: market-monitor-${{ github.run_id }}
+          restore-keys: |
+            market-monitor-
+
+      - name: Monitor official pricing and plan pages
+        run: npm run monitor:market
+
+      - name: Publish run summary
+        run: cat reports/market-monitor-$(date -u +%F).md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Save current market snapshots
+        uses: actions/cache/save@v4
+        with:
+          path: reports/market-snapshots.json
+          key: market-monitor-${{ github.run_id }}
+
+      - name: Upload review report
+        uses: actions/upload-artifact@v4
+        with:
+          name: market-monitor-report-${{ github.run_id }}
+          path: |
+            reports/market-monitor-*.md
+            reports/market-snapshots.json
+          retention-days: 30
