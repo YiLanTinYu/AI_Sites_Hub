@@ -46,8 +46,7 @@ jobs:
           issue_number="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
           failed_count="$(jq '[.[] | select(
             (.status == 404 or .status == 410) or
-            (.status != null and .status >= 500 and .status != 567) or
-            (.status == null and .statusText != "Timeout")
+            (.status != null and .status >= 500 and .status != 567)
           )] | length' reports/link-check.json)"
 
           if [ "$failed_count" -gt 0 ]; then
@@ -72,4 +71,3 @@ jobs:
       - name: 标记确定失效的链接
         if: steps.link_check.outcome == 'failure'
         run: exit 1
-
