@@ -320,9 +320,10 @@
     "billingOptions": ["monthly", "annual"],
     "usageSummary": "每月约 3.3 小时快速 GPU 时间",
     "bestFor": "轻量图片创作和初次体验",
-    "features": ["约 200 分钟快速生成", "商业使用权", "可购买额外 GPU 时间"],
+    "features": ["约 200 分钟快速生成", "SD 视频", "商业使用权", "额外 GPU 时间 4 美元/小时"],
     "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
-    "verifiedAt": "2026-07-02"
+    "verifiedAt": "2026-07-04",
+    "notes": "最多同时运行 3 个快速图片任务和 1 个快速视频任务；不提供 Relax 模式和 Stealth 隐私模式。"
   },
   {
     "id": "midjourney-standard",
@@ -336,9 +337,10 @@
     "billingOptions": ["monthly", "annual"],
     "usageSummary": "每月 15 小时快速 GPU，图片慢速模式不限量",
     "bestFor": "持续图片创作和设计探索",
-    "features": ["15 小时快速生成", "无限 Relax 图片", "商业使用权"],
+    "features": ["15 小时快速生成", "无限 Relax 图片", "SD 与 HD 视频", "额外 GPU 时间 4 美元/小时"],
     "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
-    "verifiedAt": "2026-07-02"
+    "verifiedAt": "2026-07-04",
+    "notes": "Relax 模式不限量仅适用于图片；不提供 Stealth 隐私模式。"
   },
   {
     "id": "midjourney-pro",
@@ -352,9 +354,10 @@
     "billingOptions": ["monthly", "annual"],
     "usageSummary": "每月 30 小时快速 GPU，支持隐私模式与 Relax 视频",
     "bestFor": "专业视觉生产和保密项目",
-    "features": ["30 小时快速生成", "无限 Relax 图片", "Relax 视频", "Stealth 隐私模式"],
+    "features": ["30 小时快速生成", "无限 Relax 图片与 SD 视频", "SD 与 HD 视频", "Stealth 隐私模式"],
     "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
-    "verifiedAt": "2026-07-02"
+    "verifiedAt": "2026-07-04",
+    "notes": "最多同时运行 12 个快速图片任务或 3 个 Relax 图片任务；额外 GPU 时间 4 美元/小时。"
   },
   {
     "id": "midjourney-mega",
@@ -368,9 +371,10 @@
     "billingOptions": ["monthly", "annual"],
     "usageSummary": "每月 60 小时快速 GPU，面向高产量创作",
     "bestFor": "高频商业图片与视频生产",
-    "features": ["60 小时快速生成", "无限 Relax 图片与视频", "Stealth 隐私模式"],
+    "features": ["60 小时快速生成", "无限 Relax 图片与 SD 视频", "SD 与 HD 视频", "Stealth 隐私模式"],
     "sourceUrl": "https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
-    "verifiedAt": "2026-07-02"
+    "verifiedAt": "2026-07-04",
+    "notes": "最多同时运行 12 个快速或 3 个 Relax 图片任务；视频最多 12 个快速或 3 个 Relax 任务；额外 GPU 时间 4 美元/小时。"
   },
   {
     "id": "runway-free",
