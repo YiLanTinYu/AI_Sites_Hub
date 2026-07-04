@@ -108,6 +108,90 @@
     "notes": "音频价格：输入 0.0053 美元/分钟，输出 0.0315 美元/分钟；按每秒 25 个音频 token 计算，输入与输出合计约 0.0368 美元/分钟。"
   },
   {
+    "id": "gemini-omni-flash-preview-standard",
+    "modelId": "gemini-omni-flash-preview",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 1.5,
+    "cachedInput": null,
+    "output": 9,
+    "batchInput": null,
+    "batchOutput": null,
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "verifiedAt": "2026-07-04",
+    "notes": "输入价格适用于文本、图片、视频和音频；主表输出采用文本口径，视频输出为 17.50 美元/百万 token。"
+  },
+  {
+    "id": "gemini-3.1-flash-live-preview-standard",
+    "modelId": "gemini-3.1-flash-live-preview",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 0.75,
+    "cachedInput": null,
+    "output": 4.5,
+    "batchInput": null,
+    "batchOutput": null,
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "verifiedAt": "2026-07-04",
+    "notes": "主表采用文本口径。音频输入 3.00 美元/百万 token 或 0.005 美元/分钟；图片和视频输入 1.00 美元/百万 token 或 0.002 美元/分钟；音频输出 12.00 美元/百万 token 或 0.018 美元/分钟。"
+  },
+  {
+    "id": "gemini-3.1-flash-image-standard",
+    "modelId": "gemini-3.1-flash-image",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 0.5,
+    "cachedInput": null,
+    "output": 3,
+    "batchInput": 0.25,
+    "batchOutput": 1.5,
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "verifiedAt": "2026-07-04",
+    "notes": "主表输出采用文本和思考 token 口径；图片输出 60.00 美元/百万 token，约为每张 0.5K 图片 0.045 美元、1K 0.067 美元、2K 0.101 美元、4K 0.151 美元。"
+  },
+  {
+    "id": "gemini-3.1-flash-lite-image-standard",
+    "modelId": "gemini-3.1-flash-lite-image",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 0.25,
+    "cachedInput": null,
+    "output": 1.5,
+    "batchInput": 0.125,
+    "batchOutput": 0.75,
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "verifiedAt": "2026-07-04",
+    "notes": "主表输出采用文本和思考 token 口径；图片输出 30.00 美元/百万 token，约为每张 1K 图片 0.0336 美元。"
+  },
+  {
+    "id": "gemini-3.1-flash-tts-preview-standard",
+    "modelId": "gemini-3.1-flash-tts-preview",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 1,
+    "cachedInput": null,
+    "output": 20,
+    "batchInput": 0.5,
+    "batchOutput": 10,
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "verifiedAt": "2026-07-04",
+    "notes": "输入为文本 token，输出为音频 token。"
+  },
+  {
+    "id": "gemini-3-pro-image-standard",
+    "modelId": "gemini-3-pro-image",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 2,
+    "cachedInput": null,
+    "output": 12,
+    "batchInput": 1,
+    "batchOutput": 6,
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "verifiedAt": "2026-07-04",
+    "notes": "主表输出采用文本和思考 token 口径；图片输出 120.00 美元/百万 token，约为每张 1K/2K 图片 0.134 美元、4K 图片 0.24 美元。"
+  },
+  {
     "id": "gemini-3.1-flash-lite-standard",
     "modelId": "gemini-3.1-flash-lite",
     "currency": "USD",
@@ -393,8 +477,8 @@
     "batchInput": null,
     "batchOutput": null,
     "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
-    "verifiedAt": "2026-07-01",
-    "notes": "适用于不超过 200K Tokens 的请求；超过 200K 时输入 $4、输出 $18。"
+    "verifiedAt": "2026-07-04",
+    "notes": "适用于不超过 200K token 的请求；超过 200K 时输入 4 美元、输出 18 美元、上下文缓存 0.40 美元。缓存存储为 4.50 美元/百万 token/小时。"
   },
   {
     "id": "gemini-3-flash-preview-standard",
@@ -407,8 +491,8 @@
     "batchInput": 0.25,
     "batchOutput": 1.5,
     "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
-    "verifiedAt": "2026-07-01",
-    "notes": "输入价格采用文本、图像和视频口径；音频输入价格为 $1。"
+    "verifiedAt": "2026-07-04",
+    "notes": "输入价格采用文本、图片和视频口径；音频输入 1.00 美元/百万 token，音频上下文缓存 0.10 美元/百万 token。缓存存储为 1.00 美元/百万 token/小时。"
   },
   {
     "id": "qwen3.7-max-standard-cn",
