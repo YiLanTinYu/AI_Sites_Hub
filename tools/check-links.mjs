@@ -159,14 +159,19 @@ function statusLabel(result) {
 }
 
 function shouldFail(result) {
-  return ["BROKEN", "SERVER", "ERROR"].includes(statusLabel(result));
+  return ["BROKEN", "SERVER"].includes(statusLabel(result));
 }
 
 function renderMarkdown(results) {
   const ok = results.filter((item) => statusLabel(item) === "OK");
   const blocked = results.filter((item) => statusLabel(item) === "BLOCKED");
   const failed = results.filter((item) => shouldFail(item));
-  const warned = results.filter((item) => !item.ok && !shouldFail(item));
+  const warned = results.filter(
+    (item) =>
+      !item.ok &&
+      !shouldFail(item) &&
+      statusLabel(item) !== "BLOCKED",
+  );
   const now = new Date().toISOString();
 
   const lines = [
@@ -201,6 +206,17 @@ function renderMarkdown(results) {
     lines.push("| --- | --- | --- | --- |");
     for (const item of blocked) {
       lines.push(`| ${item.status ?? "请求错误"} | [打开链接](${item.url}) | ${item.files.join(", ")} | ${item.statusText || ""} |`);
+    }
+    lines.push("");
+  }
+
+  if (warned.length) {
+    lines.push("## 超时与临时异常", "");
+    lines.push("这些链接本次未能稳定访问，但证据不足以认定失效，等待下次自动复查。", "");
+    lines.push("| 结果 | 链接 | 所在数据文件 | 具体情况 |");
+    lines.push("| --- | --- | --- | --- |");
+    for (const item of warned) {
+      lines.push(`| ${statusLabel(item)} | [打开链接](${item.url}) | ${item.files.join(", ")} | ${item.statusText || ""} |`);
     }
     lines.push("");
   }
