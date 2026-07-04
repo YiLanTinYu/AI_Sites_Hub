@@ -170,45 +170,42 @@ function renderMarkdown(results) {
   const now = new Date().toISOString();
 
   const lines = [
-    "# Link Check Report",
+    "# 全站外部链接巡检报告",
     "",
-    `- Checked at: ${now}`,
-    `- Total links: ${results.length}`,
-    `- OK: ${ok.length}`,
-    `- Blocked by site/bot protection: ${blocked.length}`,
-    `- Warnings: ${warned.length}`,
-    `- Failed: ${failed.length}`,
+    `- 检查时间：${now}`,
+    `- 外部链接总数：${results.length}`,
+    `- 正常：${ok.length}`,
+    `- 被登录或反爬保护拦截：${blocked.length}`,
+    `- 超时及其他警告：${warned.length}`,
+    `- 确定需要处理：${failed.length}`,
     "",
   ];
 
   if (failed.length) {
-    lines.push("## Failed Links", "");
-    lines.push("| Status | URL | Files | Detail |");
+    lines.push("## 确定需要处理", "");
+    lines.push("| 状态码 | 链接 | 所在数据文件 | 具体情况 |");
     lines.push("| --- | --- | --- | --- |");
     for (const item of failed) {
-      lines.push(`| ${item.status ?? "ERROR"} | ${item.url} | ${item.files.join(", ")} | ${item.statusText || ""} |`);
+      lines.push(`| ${item.status ?? "请求错误"} | [打开链接](${item.url}) | ${item.files.join(", ")} | ${item.statusText || ""} |`);
     }
     lines.push("");
+  } else {
+    lines.push("## 确定需要处理", "", "暂无。", "");
   }
 
   if (blocked.length) {
-    lines.push("## Blocked / Needs Manual Check", "");
-    lines.push("These links returned 401, 403, or 429. They may still work in a normal browser.");
+    lines.push("## 需要人工打开确认", "");
+    lines.push("这些链接返回 401、403 或 429，通常是登录要求或反爬保护，不能直接判定为失效。");
     lines.push("");
-    lines.push("| Status | URL | Files | Detail |");
+    lines.push("| 状态码 | 链接 | 所在数据文件 | 具体情况 |");
     lines.push("| --- | --- | --- | --- |");
     for (const item of blocked) {
-      lines.push(`| ${item.status ?? "ERROR"} | ${item.url} | ${item.files.join(", ")} | ${item.statusText || ""} |`);
+      lines.push(`| ${item.status ?? "请求错误"} | [打开链接](${item.url}) | ${item.files.join(", ")} | ${item.statusText || ""} |`);
     }
     lines.push("");
   }
 
-  lines.push("## All Links", "");
-  lines.push("| Result | Status | URL | Files | Final URL |");
-  lines.push("| --- | --- | --- | --- | --- |");
-  for (const item of results) {
-    lines.push(`| ${statusLabel(item)} | ${item.status ?? ""} | ${item.url} | ${item.files.join(", ")} | ${item.finalUrl || ""} |`);
-  }
+  lines.push("完整检查结果保存在同次运行的 `link-check.json` 附件中。", "");
 
   return `${lines.join("\n")}\n`;
 }
