@@ -684,5 +684,19 @@
     "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
     "changeType": "initial",
     "notes": "Phase 3 初始价格基线。"
+  },
+  {
+    "id": "gemini-3.1-flash-lite-standard-2026-07-04",
+    "priceId": "gemini-3.1-flash-lite-standard",
+    "modelId": "gemini-3.1-flash-lite",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 0.25,
+    "cachedInput": 0.025,
+    "output": 1.5,
+    "recordedAt": "2026-07-04",
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "changeType": "unchanged",
+    "notes": "根据当前价格数据生成的复核快照。"
   }
 ]
