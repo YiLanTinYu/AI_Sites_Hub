@@ -281,6 +281,13 @@ const report = [
           `- ${source.providers.join(" / ")}：${source.status ?? source.error ?? "请求失败"} · ${source.url}`,
       )),
   "",
+  "## 固定人工核查",
+  "",
+  "- Google Gemini API 定价：https://ai.google.dev/gemini-api/docs/pricing",
+  "- Perplexity Pro 套餐：https://www.perplexity.ai/pro",
+  "- Midjourney 套餐：https://docs.midjourney.com/hc/en-us/articles/27870484040333-Comparing-Midjourney-Plans",
+  "- 核查频率与记录：见仓库根目录 `人工核查.md`。",
+  "",
   `## 超过 ${staleDays} 天未人工复核`,
   "",
   ...(staleRecords.length === 0
