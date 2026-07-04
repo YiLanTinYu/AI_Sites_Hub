@@ -1,4 +1,4 @@
-name: Pricing and plan monitor
+name: 价格与套餐每日核查
 
 on:
   workflow_dispatch:
@@ -10,25 +10,26 @@ permissions:
 
 jobs:
   monitor:
+    name: 生成中文核查报告
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Checkout repository
+      - name: 读取网站数据
         uses: actions/checkout@v4
 
-      - name: Set up Node.js
+      - name: 准备运行环境
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
 
-      - name: Install dependencies
+      - name: 安装项目依赖
         run: npm ci
 
-      - name: Validate and build
+      - name: 检查并构建网站
         run: npm run build
 
-      - name: Restore previous market snapshots
+      - name: 读取上一次核查记录
         uses: actions/cache/restore@v4
         with:
           path: reports/market-snapshots.json
@@ -36,22 +37,22 @@ jobs:
           restore-keys: |
             market-monitor-
 
-      - name: Monitor official pricing and plan pages
+      - name: 检查官方价格与套餐页面
         run: npm run monitor:market
 
-      - name: Publish run summary
+      - name: 在运行首页显示中文报告
         run: cat reports/market-monitor-$(date -u +%F).md >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Save current market snapshots
+      - name: 保存本次核查记录
         uses: actions/cache/save@v4
         with:
           path: reports/market-snapshots.json
           key: market-monitor-${{ github.run_id }}
 
-      - name: Upload review report
+      - name: 上传可填写的中文报告
         uses: actions/upload-artifact@v4
         with:
-          name: market-monitor-report-${{ github.run_id }}
+          name: 中文核查报告-${{ github.run_id }}
           path: |
             reports/market-monitor-*.md
             reports/market-snapshots.json
