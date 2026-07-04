@@ -40,9 +40,13 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh issue create \
-            --title "新 AI 产品候选审核 · $(date -u +%F)" \
-            --body-file reports/new-ai-shortlist.md
+          title="新 AI 产品候选审核 · $(date -u +%F)"
+          issue_number="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number // empty')"
+          if [ -n "$issue_number" ]; then
+            gh issue edit "$issue_number" --title "$title" --body-file reports/new-ai-shortlist.md
+          else
+            gh issue create --title "$title" --body-file reports/new-ai-shortlist.md
+          fi
 
       - name: 上传完整候选报告
         uses: actions/upload-artifact@v4
@@ -54,4 +58,3 @@ jobs:
             reports/new-ai-shortlist.md
             reports/new-ai-shortlist.json
           retention-days: 30
-

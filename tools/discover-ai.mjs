@@ -710,9 +710,9 @@ function renderShortlistMarkdown(candidates, errors, existingCount) {
     "社区线索": 4,
   };
   const displayLimits = {
-    优先核验: 30,
-    可考虑收录: 25,
-    观察: 15,
+    优先核验: 8,
+    可考虑收录: 4,
+    观察: 0,
   };
 
   const lines = [
@@ -733,7 +733,7 @@ function renderShortlistMarkdown(candidates, errors, existingCount) {
     "- 可考虑收录：有一定热度或用途明确，但需要确认是否主流、是否仍活跃、是否和站内已有入口重复。",
     "- 观察：可能代表趋势或新方向，但目前更像新闻、模型条目、社区线索或早期项目。",
     "- 暂不收录：教程、文章、资料集合、个人经验、新闻报道、低相关项目，通常不适合作为导航入口。",
-    "- 每档只展示最靠前的一部分；完整候选仍保存在 `new-ai-candidates.md/json`。",
+    "- 精简清单只展示约 12 条最高分候选；完整候选仍保存在报告附件中。",
     "",
   ];
 
@@ -755,22 +755,6 @@ function renderShortlistMarkdown(candidates, errors, existingCount) {
     lines.push("| --- | --- | --- | --- | --- | --- |");
     for (const item of items) {
       lines.push(`| ${item.curation.score} | ${item.kind} | ${item.name} | ${item.suggestedSectionLabel} | ${item.curation.reason} | ${item.url} |`);
-    }
-    lines.push("");
-  }
-
-  const skipped = fresh
-    .filter((item) => item.curation.tier === "暂不收录")
-    .sort((a, b) => b.curation.score - a.curation.score)
-    .slice(0, 20);
-
-  if (skipped.length) {
-    lines.push("## 暂不收录样例", "");
-    lines.push(`展示 ${skipped.length} / ${counts["暂不收录"]} 条。`, "");
-    lines.push("| 收录分 | 类型 | 名称 | 理由 | URL |");
-    lines.push("| --- | --- | --- | --- | --- |");
-    for (const item of skipped) {
-      lines.push(`| ${item.curation.score} | ${item.kind} | ${item.name} | ${item.curation.reason} | ${item.url} |`);
     }
     lines.push("");
   }
