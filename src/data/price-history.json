@@ -656,5 +656,33 @@
     "sourceUrl": "https://docs.bigmodel.cn/cn/guide/models/vlm/glm-4v-plus-0111",
     "changeType": "initial",
     "notes": "Phase 3 初始价格基线。"
+  },
+  {
+    "id": "gemini-3.5-flash-standard-2026-07-04",
+    "priceId": "gemini-3.5-flash-standard",
+    "modelId": "gemini-3.5-flash",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 1.5,
+    "cachedInput": 0.15,
+    "output": 9,
+    "recordedAt": "2026-07-04",
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "changeType": "unchanged",
+    "notes": "根据当前价格数据生成的复核快照。"
+  },
+  {
+    "id": "gemini-3.5-live-translate-preview-standard-2026-07-04",
+    "priceId": "gemini-3.5-live-translate-preview-standard",
+    "modelId": "gemini-3.5-live-translate-preview",
+    "currency": "USD",
+    "unit": "1M_tokens",
+    "input": 3.5,
+    "cachedInput": null,
+    "output": 21,
+    "recordedAt": "2026-07-04",
+    "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
+    "changeType": "initial",
+    "notes": "Phase 3 初始价格基线。"
   }
 ]
