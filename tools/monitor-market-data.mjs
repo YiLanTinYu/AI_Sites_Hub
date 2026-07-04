@@ -250,18 +250,14 @@ const report = [
   "",
   ...(changed.length === 0
     ? ["暂无。"]
-    : changed.flatMap((source) => [
-        `### ${source.providers.join(" / ")}`,
-        "",
-        `- 官方来源：${source.finalUrl}`,
-        `- 当前状态：HTTP ${source.status}`,
-        `- 影响记录：${source.records.map((record) => `${record.kind === "api" ? "API" : "套餐"} · ${record.name}`).join("；")}`,
-        `- 上次检查：${previous[source.url]?.checkedAt ?? "未知"}`,
-        "- 处理建议：打开官方页面，核对价格、币种、计费单位、套餐名称和权益；确认后再修改数据并提交 PR。",
-        "",
-        source.excerpt.slice(0, 2600),
-        "",
-      ])),
+    : [
+        "| 厂商 | 影响记录 | 官方来源 | 核查结果 | 官方最新内容 | 是否更新网站 |",
+        "| --- | --- | --- | --- | --- | --- |",
+        ...changed.map(
+          (source) =>
+            `| ${source.providers.join(" / ")} | ${source.records.map((record) => `${record.kind === "api" ? "API" : "套餐"} · ${record.name}`).join("；")} | [打开页面](${source.finalUrl}) | 待核查 |  |  |`,
+        ),
+      ]),
   "",
   "## 首次建立快照",
   "",
@@ -276,10 +272,14 @@ const report = [
   "",
   ...(failed.length === 0
     ? ["暂无。"]
-    : failed.map(
-        (source) =>
-          `- ${source.providers.join(" / ")}：${source.status ?? source.error ?? "请求失败"} · ${source.url}`,
-      )),
+    : [
+        "| 厂商 | 异常情况 | 官方来源 | 人工访问结果 | 备注 |",
+        "| --- | --- | --- | --- | --- |",
+        ...failed.map(
+          (source) =>
+            `| ${source.providers.join(" / ")} | ${source.status ?? source.error ?? "请求失败"} | [打开页面](${source.url}) | 待核查 |  |`,
+        ),
+      ]),
   "",
   "## 固定人工核查",
   "",
