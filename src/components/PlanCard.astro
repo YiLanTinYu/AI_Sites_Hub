@@ -9,7 +9,9 @@ interface Props {
 const { plan, compact = false } = Astro.props;
 const symbol = plan.currency === "USD" ? "$" : "¥";
 const isFree = plan.monthlyPrice === 0;
-const isContactSales = plan.monthlyPrice === null;
+const isAnnualOnly =
+  plan.monthlyPrice === null && plan.annualMonthlyEquivalent !== null;
+const isContactSales = plan.monthlyPrice === null && !isAnnualOnly;
 ---
 
 <article class:list={["plan-card", { compact, free: isFree }]}>
@@ -22,13 +24,15 @@ const isContactSales = plan.monthlyPrice === null;
     {
       isFree
         ? <strong>免费</strong>
+        : isAnnualOnly
+          ? <><strong>{symbol}{plan.annualMonthlyEquivalent}</strong><span>/ 月（按年计费）</span></>
         : isContactSales
           ? <strong class="contact">联系厂商</strong>
           : <><strong>{symbol}{plan.monthlyPrice}</strong><span>/ 月</span></>
     }
   </div>
   {
-    plan.annualMonthlyEquivalent !== null && (
+    plan.annualMonthlyEquivalent !== null && plan.annualPrice !== null && (
       <p class="annual">
         年付 {symbol}{plan.annualPrice}，折合 {symbol}{plan.annualMonthlyEquivalent}/月
       </p>

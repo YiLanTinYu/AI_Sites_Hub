@@ -175,7 +175,7 @@
     "bestFor": "日常查资料、快速核对来源",
     "features": ["带来源的搜索回答", "基础文件上传", "有限高级搜索"],
     "sourceUrl": "https://www.perplexity.ai/pro",
-    "verifiedAt": "2026-07-02"
+    "verifiedAt": "2026-07-04"
   },
   {
     "id": "perplexity-pro",
@@ -187,11 +187,29 @@
     "annualPrice": 200,
     "annualMonthlyEquivalent": 16.67,
     "billingOptions": ["monthly", "annual"],
-    "usageSummary": "高级搜索、研究报告与主流模型的更高使用额度",
+    "usageSummary": "高级回答、Computer、主流模型与专业数据来源的日常使用额度",
     "bestFor": "高频研究、资料检索和报告生成",
-    "features": ["高级模型选择", "Deep Research", "专业数据来源", "文件与应用生成"],
+    "features": ["Perplexity Computer", "4,000 奖励积分", "高级模型选择", "专业金融与科学数据"],
     "sourceUrl": "https://www.perplexity.ai/pro",
-    "verifiedAt": "2026-07-02"
+    "verifiedAt": "2026-07-04",
+    "notes": "官网当前显示年付折合 17 美元/月；限时赠送 40 美元 Computer 积分，不作为永久权益。"
+  },
+  {
+    "id": "perplexity-max",
+    "providerId": "perplexity",
+    "name": "Perplexity Max",
+    "audience": "individual",
+    "currency": "USD",
+    "monthlyPrice": null,
+    "annualPrice": null,
+    "annualMonthlyEquivalent": 167,
+    "billingOptions": ["annual"],
+    "usageSummary": "无限使用量、最高性能模型和更高的 Computer 与研究额度",
+    "bestFor": "重度研究、大型文件与多模型对比",
+    "features": ["Perplexity Computer", "35,000 奖励积分", "每月 10,000 积分", "优先使用新功能"],
+    "sourceUrl": "https://www.perplexity.ai/pro",
+    "verifiedAt": "2026-07-04",
+    "notes": "官网当前只明确展示年付折合 167 美元/月；限时赠送 450 美元 Computer 积分，不作为永久权益。"
   },
   {
     "id": "github-copilot-free",
