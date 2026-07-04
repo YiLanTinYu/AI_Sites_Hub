@@ -70,6 +70,16 @@
     "status": "stable"
   },
   {
+    "id": "gemini-3.5-live-translate-preview",
+    "providerId": "google",
+    "name": "Gemini 3.5 实时翻译",
+    "description": "支持 70 多种语言的低延迟实时语音转语音翻译预览模型。",
+    "modalities": ["audio"],
+    "capabilities": [],
+    "contextWindow": null,
+    "status": "preview"
+  },
+  {
     "id": "gemini-3.1-flash-lite",
     "providerId": "google",
     "name": "Gemini 3.1 Flash-Lite",
