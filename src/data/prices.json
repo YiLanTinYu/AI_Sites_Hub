@@ -118,8 +118,8 @@
     "batchInput": 0.125,
     "batchOutput": 0.75,
     "sourceUrl": "https://ai.google.dev/gemini-api/docs/pricing",
-    "verifiedAt": "2026-06-30",
-    "notes": "输入与缓存价格采用文本、图像和视频口径；音频输入价格不同。"
+    "verifiedAt": "2026-07-04",
+    "notes": "主表采用文本、图片和视频口径。音频输入 0.50 美元/百万 token，音频上下文缓存 0.05 美元/百万 token；缓存存储 1.00 美元/百万 token/小时。Google 搜索与地图接地每月共享 5,000 条免费提示，超出后每 1,000 次搜索查询 14 美元。"
   },
   {
     "id": "deepseek-v4-flash-standard",
