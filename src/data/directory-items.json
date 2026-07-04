@@ -2434,6 +2434,25 @@
     "rank": 18
   },
   {
+    "id": "coding-20",
+    "categoryId": "coding",
+    "name": "Termi Protocol",
+    "provider": "Termi Protocol",
+    "description": "AI 编程智能体的本地 3D 控制台，可观察文件、命令、Token 与成本，并管理任务、检查点和多智能体协作；当前为 6.99 美元一次性终身使用。",
+    "url": "https://termiprotocol.com/",
+    "domain": "termiprotocol.com",
+    "logoText": "TP",
+    "tags": [
+      "code",
+      "agent"
+    ],
+    "badges": [
+      "开发者"
+    ],
+    "accent": "#34d399",
+    "rank": 19
+  },
+  {
     "id": "creative-01",
     "categoryId": "creative",
     "name": "Midjourney",
