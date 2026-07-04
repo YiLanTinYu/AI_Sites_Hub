@@ -87,6 +87,20 @@ const featuredDeals = publishedDealRows
     </div>
   </section>
 
+  <section class="section shell" aria-labelledby="plan-heading">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">MONTHLY PLANS</p>
+        <h2 id="plan-heading">个人订阅套餐</h2>
+        <p>先看每月实际支出，再比较使用额度和适合场景。</p>
+      </div>
+      <a href="/plans/">查看全部</a>
+    </div>
+    <div class="plan-grid">
+      {featuredPlans.map((plan) => <PlanCard plan={plan} compact />)}
+    </div>
+  </section>
+
   <section id="directory" class="section shell">
     <div class="section-heading">
       <div>
@@ -114,20 +128,6 @@ const featuredDeals = publishedDealRows
         );
       })
     }
-  </section>
-
-  <section class="section shell" aria-labelledby="plan-heading">
-    <div class="section-heading">
-      <div>
-        <p class="eyebrow">MONTHLY PLANS</p>
-        <h2 id="plan-heading">个人订阅套餐</h2>
-        <p>先看每月实际支出，再比较使用额度和适合场景。</p>
-      </div>
-      <a href="/plans/">查看全部</a>
-    </div>
-    <div class="plan-grid">
-      {featuredPlans.map((plan) => <PlanCard plan={plan} compact />)}
-    </div>
   </section>
 
   <section id="deals" class="section shell">
