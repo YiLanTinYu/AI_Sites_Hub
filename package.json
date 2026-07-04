@@ -11,6 +11,7 @@
     "check:links": "node tools/check-links.mjs",
     "discover:ai": "node tools/discover-ai.mjs",
     "discover:deals": "node tools/discover-deals.mjs",
+    "monitor:market": "node tools/monitor-market-data.mjs",
     "notify:deals": "node tools/notify-deals.mjs",
     "seed:price-history": "node tools/seed-price-history.mjs",
     "update:rates": "node tools/update-exchange-rate.mjs",
