@@ -80,6 +80,66 @@
     "status": "preview"
   },
   {
+    "id": "gemini-omni-flash-preview",
+    "providerId": "google",
+    "name": "Gemini Omni Flash Preview",
+    "description": "支持文本、图片、视频和音频输入，并可生成文本与视频的多模态预览模型。",
+    "modalities": ["text", "image", "audio", "video"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": null,
+    "status": "preview"
+  },
+  {
+    "id": "gemini-3.1-flash-live-preview",
+    "providerId": "google",
+    "name": "Gemini 3.1 Flash Live Preview",
+    "description": "面向低延迟实时文本、音频和视频交互的 Flash 预览模型。",
+    "modalities": ["text", "image", "audio", "video"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": null,
+    "status": "preview"
+  },
+  {
+    "id": "gemini-3.1-flash-image",
+    "providerId": "google",
+    "name": "Gemini 3.1 Flash Image",
+    "description": "又称 Nano Banana 2，面向图像生成与多模态编辑。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gemini-3.1-flash-lite-image",
+    "providerId": "google",
+    "name": "Gemini 3.1 Flash Lite Image",
+    "description": "面向高性价比图像生成任务的轻量多模态模型。",
+    "modalities": ["text", "image", "video"],
+    "capabilities": ["reasoning", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
+    "id": "gemini-3.1-flash-tts-preview",
+    "providerId": "google",
+    "name": "Gemini 3.1 Flash TTS Preview",
+    "description": "将文本转换为音频的低延迟语音生成预览模型。",
+    "modalities": ["text", "audio"],
+    "capabilities": [],
+    "contextWindow": null,
+    "status": "preview"
+  },
+  {
+    "id": "gemini-3-pro-image",
+    "providerId": "google",
+    "name": "Gemini 3 Pro Image",
+    "description": "又称 Nano Banana Pro，面向高质量图像生成和复杂多模态任务。",
+    "modalities": ["text", "image"],
+    "capabilities": ["reasoning", "tools", "vision"],
+    "contextWindow": null,
+    "status": "stable"
+  },
+  {
     "id": "gemini-3.1-flash-lite",
     "providerId": "google",
     "name": "Gemini 3.1 Flash-Lite",
