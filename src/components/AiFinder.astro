@@ -72,8 +72,8 @@ const priceLabel = (plan: PlanRow) => {
       <legend>产品偏好</legend>
       <div class="segments region">
         <button type="button" data-value="any" aria-pressed="true">都可以</button>
-        <button type="button" data-value="china" aria-pressed="false">国内优先</button>
-        <button type="button" data-value="global" aria-pressed="false">全球优先</button>
+        <button type="button" data-value="china" aria-pressed="false">只看国内</button>
+        <button type="button" data-value="global" aria-pressed="false">只看海外</button>
       </div>
     </fieldset>
   </div>
@@ -87,7 +87,7 @@ const priceLabel = (plan: PlanRow) => {
 
   <div class="finder-results" aria-live="polite" hidden>
     <div class="result-heading">
-      <strong>更适合你的 3 个选择</strong>
+      <strong data-result-title>更适合你的选择</strong>
       <button type="button" data-reset>重新选择</button>
     </div>
     <div class="result-list">
@@ -115,6 +115,9 @@ const priceLabel = (plan: PlanRow) => {
         ))
       }
     </div>
+    <p class="result-empty" hidden>
+      暂时没有同时符合这些条件的产品，请放宽预算或选择“都可以”。
+    </p>
     <a class="result-more" href="/plans/">继续比较全部订阅套餐</a>
   </div>
 </section>
@@ -192,6 +195,8 @@ const priceLabel = (plan: PlanRow) => {
     const fields = finder.querySelector<HTMLElement>(".finder-fields");
     const submit = finder.querySelector<HTMLButtonElement>(".finder-submit");
     const results = finder.querySelector<HTMLElement>(".finder-results");
+    const resultTitle = finder.querySelector<HTMLElement>("[data-result-title]");
+    const empty = finder.querySelector<HTMLElement>(".result-empty");
     const cards = [...finder.querySelectorAll<HTMLElement>(".result")];
 
     submit?.addEventListener("click", () => {
@@ -200,12 +205,11 @@ const priceLabel = (plan: PlanRow) => {
       const eligible = cards
         .filter((card) => {
           const uses = card.dataset.uses?.split(",") ?? [];
-          return uses.includes(selections.use) && Number(card.dataset.budget) <= budget;
+          const regionMatches = selections.region === "any" || card.dataset.region === selections.region;
+          return uses.includes(selections.use) && Number(card.dataset.budget) <= budget && regionMatches;
         })
         .sort((a, b) => {
-          const aRegion = selections.region === "any" || a.dataset.region === selections.region ? 0 : 1;
-          const bRegion = selections.region === "any" || b.dataset.region === selections.region ? 0 : 1;
-          return aRegion - bRegion || priority.indexOf(a.dataset.id ?? "") - priority.indexOf(b.dataset.id ?? "");
+          return priority.indexOf(a.dataset.id ?? "") - priority.indexOf(b.dataset.id ?? "");
         })
         .slice(0, 3);
 
@@ -217,6 +221,10 @@ const priceLabel = (plan: PlanRow) => {
         card.hidden = false;
         card.querySelector(".result-rank")?.replaceChildren(String(index + 1).padStart(2, "0"));
       });
+      if (resultTitle) {
+        resultTitle.textContent = eligible.length > 0 ? `更适合你的 ${eligible.length} 个选择` : "没有找到匹配产品";
+      }
+      if (empty) empty.hidden = eligible.length > 0;
       if (fields) fields.hidden = true;
       submit.hidden = true;
       if (results) results.hidden = false;
@@ -440,6 +448,15 @@ const priceLabel = (plan: PlanRow) => {
     color: var(--cyan);
     font-size: 11px;
     font-weight: 800;
+  }
+
+  .result-empty {
+    margin: 0;
+    padding: 24px 4px;
+    border-bottom: 1px solid var(--line);
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
   }
 
   @media (max-width: 520px) {
