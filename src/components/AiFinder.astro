@@ -4,6 +4,8 @@ import type { PlanRow } from "../lib/schema";
 interface Candidate {
   plan: PlanRow;
   uses: string[];
+  quality: number;
+  ease: number;
   reason: string;
 }
 
@@ -13,17 +15,10 @@ interface Props {
 
 const { candidates } = Astro.props;
 
-const budgetLevel = (plan: PlanRow) => {
-  if (plan.monthlyPrice === 0) return 0;
-  if (plan.monthlyPrice === null) return 3;
-  if (plan.currency === "USD") {
-    if (plan.monthlyPrice <= 10) return 1;
-    if (plan.monthlyPrice <= 20) return 2;
-    return 3;
-  }
-  if (plan.monthlyPrice <= 60) return 1;
-  if (plan.monthlyPrice <= 150) return 2;
-  return 3;
+const estimatedCny = (plan: PlanRow) => {
+  const monthly = plan.monthlyPrice ?? plan.annualMonthlyEquivalent;
+  if (monthly === null) return 99999;
+  return plan.currency === "USD" ? monthly * 7 : monthly;
 };
 
 const priceLabel = (plan: PlanRow) => {
@@ -53,7 +48,9 @@ const priceLabel = (plan: PlanRow) => {
         <button type="button" data-value="chat" aria-pressed="true">日常问答</button>
         <button type="button" data-value="research" aria-pressed="false">搜索研究</button>
         <button type="button" data-value="coding" aria-pressed="false">编程开发</button>
-        <button type="button" data-value="creative" aria-pressed="false">图片影音</button>
+        <button type="button" data-value="image" aria-pressed="false">图片生成</button>
+        <button type="button" data-value="video" aria-pressed="false">视频生成</button>
+        <button type="button" data-value="audio" aria-pressed="false">音乐音频</button>
         <button type="button" data-value="office" aria-pressed="false">写作办公</button>
       </div>
     </fieldset>
@@ -62,9 +59,9 @@ const priceLabel = (plan: PlanRow) => {
       <legend>每月预算多少？</legend>
       <div class="segments budget">
         <button type="button" data-value="0" aria-pressed="false">只看免费</button>
-        <button type="button" data-value="1" aria-pressed="false">约 ¥70 内</button>
-        <button type="button" data-value="2" aria-pressed="true">约 ¥150 内</button>
-        <button type="button" data-value="3" aria-pressed="false">效果优先</button>
+        <button type="button" data-value="70" aria-pressed="false">约 ¥70 内</button>
+        <button type="button" data-value="150" aria-pressed="true">约 ¥150 内</button>
+        <button type="button" data-value="unlimited" aria-pressed="false">预算不限</button>
       </div>
     </fieldset>
 
@@ -74,6 +71,15 @@ const priceLabel = (plan: PlanRow) => {
         <button type="button" data-value="any" aria-pressed="true">都可以</button>
         <button type="button" data-value="china" aria-pressed="false">只看国内</button>
         <button type="button" data-value="global" aria-pressed="false">只看海外</button>
+      </div>
+    </fieldset>
+
+    <fieldset data-field="priority">
+      <legend>你最看重什么？</legend>
+      <div class="segments priority">
+        <button type="button" data-value="value" aria-pressed="true">性价比</button>
+        <button type="button" data-value="quality" aria-pressed="false">能力效果</button>
+        <button type="button" data-value="ease" aria-pressed="false">简单易用</button>
       </div>
     </fieldset>
   </div>
@@ -92,7 +98,7 @@ const priceLabel = (plan: PlanRow) => {
     </div>
     <div class="result-list">
       {
-        candidates.map(({ plan, uses, reason }) => (
+        candidates.map(({ plan, uses, quality, ease, reason }) => (
           <a
             class="result"
             href={plan.sourceUrl}
@@ -100,8 +106,10 @@ const priceLabel = (plan: PlanRow) => {
             rel="noopener noreferrer"
             data-id={plan.id}
             data-uses={uses.join(",")}
-            data-budget={budgetLevel(plan)}
+            data-price-cny={estimatedCny(plan)}
             data-region={plan.provider.region}
+            data-quality={quality}
+            data-ease={ease}
             hidden
           >
             <span class="result-rank"></span>
@@ -128,57 +136,9 @@ const priceLabel = (plan: PlanRow) => {
   if (finder) {
     const selections: Record<string, string> = {
       use: "chat",
-      budget: "2",
+      budget: "150",
       region: "any",
-    };
-
-    const priorities: Record<string, string[]> = {
-      chat: [
-        "chatgpt-plus",
-        "claude-pro",
-        "google-ai-pro",
-        "kimi-andante",
-        "chatgpt-free",
-        "claude-free",
-        "gemini-free",
-        "kimi-adagio",
-      ],
-      research: [
-        "perplexity-pro",
-        "google-ai-pro",
-        "chatgpt-plus",
-        "kimi-moderato",
-        "perplexity-free",
-        "gemini-free",
-        "kimi-adagio",
-      ],
-      coding: [
-        "github-copilot-pro",
-        "cursor-pro",
-        "claude-pro",
-        "glm-coding-lite",
-        "github-copilot-free",
-        "cursor-hobby",
-        "baidu-comate-standard",
-      ],
-      creative: [
-        "midjourney-basic",
-        "runway-standard",
-        "suno-pro",
-        "runway-free",
-        "suno-free",
-        "elevenlabs-free",
-      ],
-      office: [
-        "google-ai-pro",
-        "chatgpt-plus",
-        "claude-pro",
-        "kimi-andante",
-        "chatgpt-free",
-        "claude-free",
-        "gemini-free",
-        "kimi-adagio",
-      ],
+      priority: "value",
     };
 
     finder.querySelectorAll<HTMLFieldSetElement>("fieldset").forEach((field) => {
@@ -197,20 +157,27 @@ const priceLabel = (plan: PlanRow) => {
     const results = finder.querySelector<HTMLElement>(".finder-results");
     const resultTitle = finder.querySelector<HTMLElement>("[data-result-title]");
     const empty = finder.querySelector<HTMLElement>(".result-empty");
+    const resultList = finder.querySelector<HTMLElement>(".result-list");
     const cards = [...finder.querySelectorAll<HTMLElement>(".result")];
 
     submit?.addEventListener("click", () => {
-      const budget = Number(selections.budget);
-      const priority = priorities[selections.use] ?? [];
+      const budget = selections.budget === "unlimited" ? Number.POSITIVE_INFINITY : Number(selections.budget);
+      const scoreCard = (card: HTMLElement) => {
+        const quality = Number(card.dataset.quality);
+        const ease = Number(card.dataset.ease);
+        const price = Number(card.dataset.priceCny);
+
+        if (selections.priority === "quality") return quality * 10 + ease * 2 - Math.min(price, 300) * 0.015;
+        if (selections.priority === "ease") return ease * 10 + quality * 2 - Math.min(price, 300) * 0.025;
+        return quality * 7 + ease * 3 - Math.min(price, 300) * 0.12 + (price === 0 ? 8 : 0);
+      };
       const eligible = cards
         .filter((card) => {
           const uses = card.dataset.uses?.split(",") ?? [];
           const regionMatches = selections.region === "any" || card.dataset.region === selections.region;
-          return uses.includes(selections.use) && Number(card.dataset.budget) <= budget && regionMatches;
+          return uses.includes(selections.use) && Number(card.dataset.priceCny) <= budget && regionMatches;
         })
-        .sort((a, b) => {
-          return priority.indexOf(a.dataset.id ?? "") - priority.indexOf(b.dataset.id ?? "");
-        })
+        .sort((a, b) => scoreCard(b) - scoreCard(a))
         .slice(0, 3);
 
       cards.forEach((card) => {
@@ -220,6 +187,7 @@ const priceLabel = (plan: PlanRow) => {
       eligible.forEach((card, index) => {
         card.hidden = false;
         card.querySelector(".result-rank")?.replaceChildren(String(index + 1).padStart(2, "0"));
+        resultList?.append(card);
       });
       if (resultTitle) {
         resultTitle.textContent = eligible.length > 0 ? `更适合你的 ${eligible.length} 个选择` : "没有找到匹配产品";
@@ -311,7 +279,7 @@ const priceLabel = (plan: PlanRow) => {
 
   .segments {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 8px;
   }
 
@@ -319,7 +287,8 @@ const priceLabel = (plan: PlanRow) => {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .segments.region {
+  .segments.region,
+  .segments.priority {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
