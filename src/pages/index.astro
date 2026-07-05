@@ -8,7 +8,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   directoryCategories,
   directoryItemsFor,
-  latestVerifiedAt,
   modelPriceRows,
   planRows,
   publishedDealRows,
@@ -79,15 +78,6 @@ const finderCandidates = finderMeta
       <p class="lead">
         告诉我们你想做什么、预算多少，先找到更适合的产品，再比较价格、额度和官方优惠。
       </p>
-      <div class="hero-actions">
-        <a class="primary-button" href="#ai-finder">
-          开始选择
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M5 12h14M13 6l6 6-6 6" />
-          </svg>
-        </a>
-        <span>价格最近确认于 {latestVerifiedAt}</span>
-      </div>
     </div>
     <div id="ai-finder"><AiFinder candidates={finderCandidates} /></div>
   </section>
@@ -222,44 +212,6 @@ const finderCandidates = finderMeta
     font-size: 17px;
     line-height: 1.8;
     white-space: nowrap;
-  }
-
-  .hero-actions {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    margin-top: 34px;
-  }
-
-  .hero-actions > span {
-    color: var(--muted);
-    font-size: 12px;
-  }
-
-  .primary-button {
-    display: inline-flex;
-    align-items: center;
-    gap: 9px;
-    border-radius: 6px;
-    padding: 13px 17px;
-    background: var(--cyan);
-    color: #031018;
-    font-size: 14px;
-    font-weight: 900;
-  }
-
-  .primary-button:hover {
-    background: #a5f3fc;
-  }
-
-  .primary-button svg {
-    width: 17px;
-    height: 17px;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2;
   }
 
   .pulse {
@@ -412,11 +364,6 @@ const finderCandidates = finderMeta
   }
 
   @media (max-width: 560px) {
-    .hero-actions {
-      align-items: start;
-      flex-direction: column;
-    }
-
     h1 {
       font-size: 40px;
     }
