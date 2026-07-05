@@ -240,11 +240,21 @@ const priceLabel = (plan: PlanRow) => {
 
 <style>
   .finder {
-    border: 1px solid rgba(103, 232, 249, 0.3);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(103, 232, 249, 0.58);
     border-radius: 8px;
-    padding: 28px;
-    background: rgba(10, 18, 32, 0.84);
-    box-shadow: var(--shadow), inset 0 0 48px rgba(103, 232, 249, 0.025);
+    padding: 34px;
+    background: rgba(10, 20, 36, 0.94);
+    box-shadow: 0 20px 55px rgba(0, 0, 0, 0.34), inset 0 0 70px rgba(103, 232, 249, 0.045);
+  }
+
+  .finder::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--cyan), var(--green), #facc15);
+    content: "";
   }
 
   .finder-head,
@@ -257,22 +267,23 @@ const priceLabel = (plan: PlanRow) => {
 
   .finder-head {
     border-bottom: 1px solid var(--line);
-    padding-bottom: 16px;
+    padding-bottom: 22px;
   }
 
   .finder-head span {
     color: var(--cyan);
-    font: 800 12px "SFMono-Regular", Consolas, monospace;
+    font: 900 14px "SFMono-Regular", Consolas, monospace;
   }
 
   .finder-head h2 {
-    margin: 7px 0 0;
-    font-size: 26px;
+    margin: 8px 0 0;
+    font-size: 32px;
+    line-height: 1.2;
   }
 
   .finder-head i {
-    width: 9px;
-    height: 9px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: var(--green);
     box-shadow: 0 0 12px rgba(134, 239, 172, 0.65);
@@ -294,7 +305,7 @@ const priceLabel = (plan: PlanRow) => {
   legend {
     margin-bottom: 11px;
     color: #d9e6f5;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 800;
   }
 
@@ -313,14 +324,15 @@ const priceLabel = (plan: PlanRow) => {
   }
 
   .segments button {
-    min-height: 48px;
-    border: 1px solid var(--line);
+    min-height: 54px;
+    border: 1px solid rgba(148, 163, 184, 0.3);
     border-radius: 5px;
     padding: 9px 8px;
-    background: #07101c;
-    color: var(--muted);
+    background: #07111f;
+    color: #cbd7e7;
     font: inherit;
-    font-size: 14px;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
   }
 
@@ -331,15 +343,16 @@ const priceLabel = (plan: PlanRow) => {
 
   .segments button[aria-pressed="true"] {
     border-color: var(--cyan);
-    background: rgba(103, 232, 249, 0.11);
-    color: var(--cyan);
+    background: var(--cyan);
+    color: #031018;
     font-weight: 900;
+    box-shadow: 0 0 22px rgba(103, 232, 249, 0.2);
   }
 
   .finder-submit {
     display: flex;
     width: 100%;
-    min-height: 50px;
+    min-height: 58px;
     align-items: center;
     justify-content: center;
     gap: 8px;
@@ -349,7 +362,7 @@ const priceLabel = (plan: PlanRow) => {
     background: var(--cyan);
     color: #031018;
     font: inherit;
-    font-size: 15px;
+    font-size: 17px;
     font-weight: 900;
     cursor: pointer;
   }
@@ -461,7 +474,15 @@ const priceLabel = (plan: PlanRow) => {
 
   @media (max-width: 520px) {
     .finder {
-      padding: 16px;
+      padding: 22px 16px;
+    }
+
+    .finder-head h2 {
+      font-size: 26px;
+    }
+
+    legend {
+      font-size: 15px;
     }
 
     .segments {
@@ -473,7 +494,8 @@ const priceLabel = (plan: PlanRow) => {
     }
 
     .segments button {
-      font-size: 13px;
+      min-height: 50px;
+      font-size: 14px;
     }
 
     .result {
