@@ -184,7 +184,7 @@ const finderCandidates = finderMeta
   }
 
   .hero-copy {
-    max-width: 880px;
+    width: 100%;
   }
 
   #ai-finder {
@@ -200,12 +200,13 @@ const finderCandidates = finderMeta
   }
 
   h1 {
-    max-width: 700px;
+    max-width: none;
     margin: 0;
     color: var(--text);
     font-size: clamp(48px, 6vw, 78px);
     line-height: 1.08;
     letter-spacing: 0;
+    white-space: nowrap;
   }
 
   h1 em {
@@ -393,6 +394,7 @@ const finderCandidates = finderMeta
 
     h1 {
       font-size: 48px;
+      white-space: normal;
     }
 
     .section-heading {
