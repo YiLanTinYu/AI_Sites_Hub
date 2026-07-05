@@ -216,11 +216,12 @@ const finderCandidates = finderMeta
   }
 
   .lead {
-    max-width: 630px;
+    max-width: none;
     margin: 25px 0 0;
     color: var(--muted);
     font-size: 17px;
     line-height: 1.8;
+    white-space: nowrap;
   }
 
   .hero-actions {
@@ -394,6 +395,10 @@ const finderCandidates = finderMeta
 
     h1 {
       font-size: 48px;
+      white-space: normal;
+    }
+
+    .lead {
       white-space: normal;
     }
 
