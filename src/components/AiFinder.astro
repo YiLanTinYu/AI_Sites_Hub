@@ -1,0 +1,466 @@
+---
+import type { PlanRow } from "../lib/schema";
+
+interface Candidate {
+  plan: PlanRow;
+  uses: string[];
+  reason: string;
+}
+
+interface Props {
+  candidates: Candidate[];
+}
+
+const { candidates } = Astro.props;
+
+const budgetLevel = (plan: PlanRow) => {
+  if (plan.monthlyPrice === 0) return 0;
+  if (plan.monthlyPrice === null) return 3;
+  if (plan.currency === "USD") {
+    if (plan.monthlyPrice <= 10) return 1;
+    if (plan.monthlyPrice <= 20) return 2;
+    return 3;
+  }
+  if (plan.monthlyPrice <= 60) return 1;
+  if (plan.monthlyPrice <= 150) return 2;
+  return 3;
+};
+
+const priceLabel = (plan: PlanRow) => {
+  if (plan.monthlyPrice === 0) return "免费";
+  const symbol = plan.currency === "USD" ? "$" : "¥";
+  if (plan.monthlyPrice !== null) return `${symbol}${plan.monthlyPrice}/月`;
+  if (plan.annualMonthlyEquivalent !== null) {
+    return `${symbol}${plan.annualMonthlyEquivalent}/月（年付）`;
+  }
+  return "联系厂商";
+};
+---
+
+<section class="finder" aria-labelledby="finder-title">
+  <div class="finder-head">
+    <div>
+      <span>30 秒选 AI</span>
+      <h2 id="finder-title">找到适合你的产品</h2>
+    </div>
+    <i aria-hidden="true"></i>
+  </div>
+
+  <div class="finder-fields">
+    <fieldset data-field="use">
+      <legend>主要用来做什么？</legend>
+      <div class="segments">
+        <button type="button" data-value="chat" aria-pressed="true">日常问答</button>
+        <button type="button" data-value="research" aria-pressed="false">搜索研究</button>
+        <button type="button" data-value="coding" aria-pressed="false">编程开发</button>
+        <button type="button" data-value="creative" aria-pressed="false">图片影音</button>
+        <button type="button" data-value="office" aria-pressed="false">写作办公</button>
+      </div>
+    </fieldset>
+
+    <fieldset data-field="budget">
+      <legend>每月预算多少？</legend>
+      <div class="segments budget">
+        <button type="button" data-value="0" aria-pressed="false">只看免费</button>
+        <button type="button" data-value="1" aria-pressed="false">约 ¥70 内</button>
+        <button type="button" data-value="2" aria-pressed="true">约 ¥150 内</button>
+        <button type="button" data-value="3" aria-pressed="false">效果优先</button>
+      </div>
+    </fieldset>
+
+    <fieldset data-field="region">
+      <legend>产品偏好</legend>
+      <div class="segments region">
+        <button type="button" data-value="any" aria-pressed="true">都可以</button>
+        <button type="button" data-value="china" aria-pressed="false">国内优先</button>
+        <button type="button" data-value="global" aria-pressed="false">全球优先</button>
+      </div>
+    </fieldset>
+  </div>
+
+  <button class="finder-submit" type="button">
+    帮我选
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M5 12h14M13 6l6 6-6 6"></path>
+    </svg>
+  </button>
+
+  <div class="finder-results" aria-live="polite" hidden>
+    <div class="result-heading">
+      <strong>更适合你的 3 个选择</strong>
+      <button type="button" data-reset>重新选择</button>
+    </div>
+    <div class="result-list">
+      {
+        candidates.map(({ plan, uses, reason }) => (
+          <a
+            class="result"
+            href={plan.sourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-id={plan.id}
+            data-uses={uses.join(",")}
+            data-budget={budgetLevel(plan)}
+            data-region={plan.provider.region}
+            hidden
+          >
+            <span class="result-rank"></span>
+            <div>
+              <small>{plan.provider.name}</small>
+              <strong>{plan.name}</strong>
+              <p>{reason}</p>
+            </div>
+            <b>{priceLabel(plan)}</b>
+          </a>
+        ))
+      }
+    </div>
+    <a class="result-more" href="/plans/">继续比较全部订阅套餐</a>
+  </div>
+</section>
+
+<script>
+  const finder = document.querySelector<HTMLElement>(".finder");
+
+  if (finder) {
+    const selections: Record<string, string> = {
+      use: "chat",
+      budget: "2",
+      region: "any",
+    };
+
+    const priorities: Record<string, string[]> = {
+      chat: [
+        "chatgpt-plus",
+        "claude-pro",
+        "google-ai-pro",
+        "kimi-andante",
+        "chatgpt-free",
+        "claude-free",
+        "gemini-free",
+        "kimi-adagio",
+      ],
+      research: [
+        "perplexity-pro",
+        "google-ai-pro",
+        "chatgpt-plus",
+        "kimi-moderato",
+        "perplexity-free",
+        "gemini-free",
+        "kimi-adagio",
+      ],
+      coding: [
+        "github-copilot-pro",
+        "cursor-pro",
+        "claude-pro",
+        "glm-coding-lite",
+        "github-copilot-free",
+        "cursor-hobby",
+        "baidu-comate-standard",
+      ],
+      creative: [
+        "midjourney-basic",
+        "runway-standard",
+        "suno-pro",
+        "runway-free",
+        "suno-free",
+        "elevenlabs-free",
+      ],
+      office: [
+        "google-ai-pro",
+        "chatgpt-plus",
+        "claude-pro",
+        "kimi-andante",
+        "chatgpt-free",
+        "claude-free",
+        "gemini-free",
+        "kimi-adagio",
+      ],
+    };
+
+    finder.querySelectorAll<HTMLFieldSetElement>("fieldset").forEach((field) => {
+      field.querySelectorAll<HTMLButtonElement>("button[data-value]").forEach((button) => {
+        button.addEventListener("click", () => {
+          field.querySelectorAll<HTMLButtonElement>("button[data-value]").forEach((item) => {
+            item.setAttribute("aria-pressed", String(item === button));
+          });
+          selections[field.dataset.field ?? ""] = button.dataset.value ?? "";
+        });
+      });
+    });
+
+    const fields = finder.querySelector<HTMLElement>(".finder-fields");
+    const submit = finder.querySelector<HTMLButtonElement>(".finder-submit");
+    const results = finder.querySelector<HTMLElement>(".finder-results");
+    const cards = [...finder.querySelectorAll<HTMLElement>(".result")];
+
+    submit?.addEventListener("click", () => {
+      const budget = Number(selections.budget);
+      const priority = priorities[selections.use] ?? [];
+      const eligible = cards
+        .filter((card) => {
+          const uses = card.dataset.uses?.split(",") ?? [];
+          return uses.includes(selections.use) && Number(card.dataset.budget) <= budget;
+        })
+        .sort((a, b) => {
+          const aRegion = selections.region === "any" || a.dataset.region === selections.region ? 0 : 1;
+          const bRegion = selections.region === "any" || b.dataset.region === selections.region ? 0 : 1;
+          return aRegion - bRegion || priority.indexOf(a.dataset.id ?? "") - priority.indexOf(b.dataset.id ?? "");
+        })
+        .slice(0, 3);
+
+      cards.forEach((card) => {
+        card.hidden = true;
+        card.querySelector(".result-rank")?.replaceChildren();
+      });
+      eligible.forEach((card, index) => {
+        card.hidden = false;
+        card.querySelector(".result-rank")?.replaceChildren(String(index + 1).padStart(2, "0"));
+      });
+      if (fields) fields.hidden = true;
+      submit.hidden = true;
+      if (results) results.hidden = false;
+    });
+
+    finder.querySelector<HTMLButtonElement>("[data-reset]")?.addEventListener("click", () => {
+      if (results) results.hidden = true;
+      if (fields) fields.hidden = false;
+      if (submit) submit.hidden = false;
+    });
+  }
+</script>
+
+<style>
+  .finder {
+    border: 1px solid rgba(103, 232, 249, 0.3);
+    border-radius: 8px;
+    padding: 20px;
+    background: rgba(10, 18, 32, 0.84);
+    box-shadow: var(--shadow), inset 0 0 48px rgba(103, 232, 249, 0.025);
+  }
+
+  .finder-head,
+  .result-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .finder-head {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 16px;
+  }
+
+  .finder-head span {
+    color: var(--cyan);
+    font: 800 10px "SFMono-Regular", Consolas, monospace;
+  }
+
+  .finder-head h2 {
+    margin: 5px 0 0;
+    font-size: 20px;
+  }
+
+  .finder-head i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 12px rgba(134, 239, 172, 0.65);
+  }
+
+  .finder-fields {
+    display: grid;
+    gap: 17px;
+    padding-top: 18px;
+  }
+
+  fieldset {
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  legend {
+    margin-bottom: 9px;
+    color: #d9e6f5;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .segments {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 5px;
+  }
+
+  .segments.budget {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .segments.region {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .segments button {
+    min-height: 35px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 6px 5px;
+    background: #07101c;
+    color: var(--muted);
+    font: inherit;
+    font-size: 10px;
+    cursor: pointer;
+  }
+
+  .segments button:hover {
+    border-color: rgba(103, 232, 249, 0.48);
+    color: var(--text);
+  }
+
+  .segments button[aria-pressed="true"] {
+    border-color: var(--cyan);
+    background: rgba(103, 232, 249, 0.11);
+    color: var(--cyan);
+    font-weight: 900;
+  }
+
+  .finder-submit {
+    display: flex;
+    width: 100%;
+    min-height: 42px;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+    border: 0;
+    border-radius: 6px;
+    background: var(--cyan);
+    color: #031018;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 900;
+    cursor: pointer;
+  }
+
+  .finder-submit:hover {
+    background: #a5f3fc;
+  }
+
+  .finder-submit svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+
+  .finder-results {
+    padding-top: 17px;
+  }
+
+  .result-heading strong {
+    font-size: 13px;
+  }
+
+  .result-heading button {
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--cyan);
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .result-list {
+    margin-top: 10px;
+    border-block: 1px solid var(--line);
+  }
+
+  .result {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--line);
+    padding: 13px 3px;
+  }
+
+  .result[hidden] {
+    display: none;
+  }
+
+  .result:last-child {
+    border-bottom: 0;
+  }
+
+  .result:hover strong {
+    color: var(--cyan);
+  }
+
+  .result-rank {
+    color: var(--cyan);
+    font: 800 10px "SFMono-Regular", Consolas, monospace;
+  }
+
+  .result small {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+  }
+
+  .result strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 13px;
+  }
+
+  .result p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 9px;
+    line-height: 1.4;
+  }
+
+  .result b {
+    color: var(--green);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .result-more {
+    display: inline-block;
+    margin-top: 13px;
+    color: var(--cyan);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  @media (max-width: 520px) {
+    .finder {
+      padding: 16px;
+    }
+
+    .segments {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .segments.budget {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .result {
+      grid-template-columns: 24px minmax(0, 1fr);
+    }
+
+    .result b {
+      grid-column: 2;
+    }
+  }
+</style>

@@ -1,6 +1,7 @@
 ---
 import DirectoryCard from "../components/DirectoryCard.astro";
 import DealCard from "../components/DealCard.astro";
+import AiFinder from "../components/AiFinder.astro";
 import PlanCard from "../components/PlanCard.astro";
 import PriceTable from "../components/PriceTable.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -30,28 +31,57 @@ const featuredPlanIds = [
 const featuredPlans = featuredPlanIds
   .map((id) => planRows.find((plan) => plan.id === id))
   .filter((plan) => plan !== undefined);
-const freePlanCount = planRows.filter((plan) => plan.monthlyPrice === 0).length;
-const planProviderCount = new Set(planRows.map((plan) => plan.providerId)).size;
 const featuredDeals = publishedDealRows
   .filter((deal) => deal.featured && deal.status !== "ended")
   .sort((a, b) => (a.endsAt ?? "9999-12-31").localeCompare(b.endsAt ?? "9999-12-31"))
   .slice(0, 3);
+const finderMeta = [
+  { id: "chatgpt-plus", uses: ["chat", "office"], reason: "综合能力均衡，适合多数人的第一款付费 AI" },
+  { id: "chatgpt-free", uses: ["chat", "office"], reason: "免费体验通用问答、写作和基础工具能力" },
+  { id: "claude-free", uses: ["chat", "office"], reason: "免费体验长文写作、分析和基础代码能力" },
+  { id: "gemini-free", uses: ["chat", "research", "office"], reason: "免费体验 Google 生态、多模态和研究能力" },
+  { id: "claude-pro", uses: ["chat", "coding", "office"], reason: "长文写作、代码理解和复杂分析表现突出" },
+  { id: "google-ai-pro", uses: ["chat", "research", "office"], reason: "适合 Google 生态、资料整理和多模态任务" },
+  { id: "perplexity-pro", uses: ["research"], reason: "强调来源引用，适合查资料和研究报告" },
+  { id: "perplexity-free", uses: ["research"], reason: "免费获得带来源的搜索回答和基础研究能力" },
+  { id: "github-copilot-pro", uses: ["coding"], reason: "价格较低，适合日常 IDE 编程和 Agent 工作流" },
+  { id: "github-copilot-free", uses: ["coding"], reason: "适合低频代码补全和初次体验 AI 编程" },
+  { id: "baidu-comate-standard", uses: ["coding"], reason: "国内免费使用的代码补全与编程助手" },
+  { id: "cursor-pro", uses: ["coding"], reason: "适合多文件修改、代码库理解和高频开发" },
+  { id: "cursor-hobby", uses: ["coding"], reason: "免费体验 AI 原生编辑器和有限 Agent 能力" },
+  { id: "midjourney-basic", uses: ["creative"], reason: "适合高质量图片生成和视觉风格探索" },
+  { id: "runway-standard", uses: ["creative"], reason: "适合 AI 视频生成、编辑和持续创作" },
+  { id: "runway-free", uses: ["creative"], reason: "免费体验视频生成和基础创作工具" },
+  { id: "suno-pro", uses: ["creative"], reason: "适合歌曲、配乐和高频音乐生成" },
+  { id: "suno-free", uses: ["creative"], reason: "免费体验完整歌曲和音乐创作" },
+  { id: "elevenlabs-free", uses: ["creative"], reason: "免费体验 AI 配音、语音生成和音频工具" },
+  { id: "kimi-andante", uses: ["chat", "office"], reason: "中文体验友好，适合文档、写作和 Agent 任务" },
+  { id: "kimi-moderato", uses: ["research"], reason: "适合中文深度研究、长文档和复杂任务" },
+  { id: "kimi-adagio", uses: ["chat", "research", "office"], reason: "免费体验中文 Agent、文档和研究能力" },
+  { id: "glm-coding-lite", uses: ["coding"], reason: "国内可用的轻量 AI 编程套餐" },
+];
+const finderCandidates = finderMeta
+  .map((meta) => {
+    const plan = planRows.find((item) => item.id === meta.id);
+    return plan ? { plan, uses: meta.uses, reason: meta.reason } : undefined;
+  })
+  .filter((item) => item !== undefined);
 ---
 
 <BaseLayout
-  title="惠选AI | 模型价格与优惠指南"
-  description="比较 ChatGPT、Claude、Gemini 等主流 AI 产品的每月订阅价格、使用额度、官方优惠与开发接口价格。"
+  title="惠选AI | 帮你选到更适合的 AI"
+  description="按用途、预算和偏好选择适合你的 AI 产品，并比较主流 AI 的订阅价格、使用额度和官方优惠。"
 >
   <section class="hero shell">
     <div class="hero-copy">
-      <p class="eyebrow">AI SUBSCRIPTION & DEAL GUIDE</p>
-      <h1>每月多少钱，<br /><em>一眼看清</em></h1>
+      <p class="eyebrow">CHOOSE SMARTER · SPEND BETTER</p>
+      <h1>选对 AI，<br /><em>钱花得更值</em></h1>
       <p class="lead">
-        比较主流 AI 的免费方案、个人月费、使用额度和官方优惠。每条数据都保留官方来源和最近确认时间。
+        告诉我们你想做什么、预算多少，先找到更适合的产品，再比较价格、额度和官方优惠。
       </p>
       <div class="hero-actions">
-        <a class="primary-button" href="/plans/">
-          查看订阅套餐
+        <a class="primary-button" href="#ai-finder">
+          开始选择
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M5 12h14M13 6l6 6-6 6" />
           </svg>
@@ -59,32 +89,7 @@ const featuredDeals = publishedDealRows
         <span>价格最近确认于 {latestVerifiedAt}</span>
       </div>
     </div>
-    <div class="signal-panel" aria-label="数据概览">
-      <div class="signal-head">
-        <span>SUBSCRIPTION SNAPSHOT</span>
-        <i></i>
-      </div>
-      <div class="signal-grid">
-        <article>
-          <span>个人套餐</span>
-          <strong>{planRows.length}</strong>
-        </article>
-        <article>
-          <span>主流厂商</span>
-          <strong>{planProviderCount}</strong>
-        </article>
-        <article class="wide">
-          <span>免费方案</span>
-          <strong>{freePlanCount}<small> 个</small></strong>
-          <p>ChatGPT、Claude、Gemini</p>
-        </article>
-        <article class="wide">
-          <span>主流个人付费档</span>
-          <strong>$20<small> / 月左右</small></strong>
-          <p>适合日常高频使用</p>
-        </article>
-      </div>
-    </div>
+    <div id="ai-finder"><AiFinder candidates={finderCandidates} /></div>
   </section>
 
   <section class="section shell" aria-labelledby="plan-heading">
@@ -248,41 +253,12 @@ const featuredDeals = publishedDealRows
     stroke-width: 2;
   }
 
-  .signal-panel {
-    border: 1px solid rgba(103, 232, 249, 0.26);
-    border-radius: 8px;
-    padding: 18px;
-    background: rgba(10, 18, 32, 0.78);
-    box-shadow: var(--shadow), inset 0 0 50px rgba(103, 232, 249, 0.025);
-  }
-
-  .signal-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--line);
-    padding: 0 2px 14px;
-    color: var(--muted);
-    font-family: "SFMono-Regular", Consolas, monospace;
-    font-size: 11px;
-    font-weight: 800;
-  }
-
-  .signal-head i,
   .pulse {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     background: var(--green);
     box-shadow: 0 0 14px var(--green);
-  }
-
-  .signal-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1px;
-    margin-top: 1px;
-    background: var(--line);
   }
 
   .deal-grid {
@@ -297,12 +273,6 @@ const featuredDeals = publishedDealRows
     gap: 16px;
   }
 
-  .signal-grid article {
-    min-height: 125px;
-    padding: 20px;
-    background: #0a1220;
-  }
-
   @media (max-width: 900px) {
     .plan-grid,
     .deal-grid {
@@ -315,33 +285,6 @@ const featuredDeals = publishedDealRows
     .deal-grid {
       grid-template-columns: 1fr;
     }
-  }
-
-  .signal-grid .wide {
-    min-height: 136px;
-  }
-
-  .signal-grid span {
-    color: var(--muted);
-    font-size: 12px;
-  }
-
-  .signal-grid strong {
-    display: block;
-    margin-top: 10px;
-    color: var(--text);
-    font-size: 30px;
-  }
-
-  .signal-grid small {
-    color: var(--muted);
-    font-size: 11px;
-  }
-
-  .signal-grid p {
-    margin: 8px 0 0;
-    color: var(--cyan);
-    font-size: 12px;
   }
 
   .section {
@@ -468,10 +411,6 @@ const featuredDeals = publishedDealRows
 
     .lead {
       font-size: 15px;
-    }
-
-    .signal-grid {
-      grid-template-columns: 1fr;
     }
 
     .section {
