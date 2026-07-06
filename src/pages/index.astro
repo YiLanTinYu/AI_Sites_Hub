@@ -5,6 +5,7 @@ import AiFinder from "../components/AiFinder.astro";
 import PlanCard from "../components/PlanCard.astro";
 import PriceTable from "../components/PriceTable.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { productRecommendationCandidates } from "../lib/product-recommendations";
 import {
   directoryCategories,
   directoryItemsFor,
@@ -34,27 +35,7 @@ const featuredDeals = publishedDealRows
   .filter((deal) => deal.featured && deal.status !== "ended")
   .sort((a, b) => (a.endsAt ?? "9999-12-31").localeCompare(b.endsAt ?? "9999-12-31"))
   .slice(0, 3);
-const finderProductMeta = [
-  { providerId: "openai", uses: ["chat", "research", "office"], quality: 9, ease: 9, reason: "综合能力均衡，适合问答、写作和多种日常任务" },
-  { providerId: "anthropic", uses: ["chat", "coding", "office"], quality: 9, ease: 8, reason: "长文写作、代码理解和复杂分析表现突出" },
-  { providerId: "google", uses: ["chat", "research", "image", "office"], quality: 8, ease: 8, reason: "适合 Google 生态、资料整理和多模态任务" },
-  { providerId: "perplexity", uses: ["research"], quality: 10, ease: 9, reason: "强调来源引用，适合查资料和研究报告" },
-  { providerId: "github", uses: ["coding"], quality: 8, ease: 9, reason: "适合日常 IDE 编程、代码补全和 Agent 工作流" },
-  { providerId: "cursor", uses: ["coding"], quality: 9, ease: 7, reason: "适合多文件修改、代码库理解和高频开发" },
-  { providerId: "midjourney", uses: ["image"], quality: 10, ease: 7, reason: "适合高质量图片生成和视觉风格探索" },
-  { providerId: "runway", uses: ["video"], quality: 10, ease: 7, reason: "适合 AI 视频生成、编辑和持续创作" },
-  { providerId: "suno", uses: ["audio"], quality: 9, ease: 9, reason: "适合歌曲、配乐和音乐生成" },
-  { providerId: "elevenlabs", uses: ["audio"], quality: 9, ease: 8, reason: "适合配音、自然语音和专业音频内容" },
-  { providerId: "deepseek", uses: ["chat", "coding"], quality: 8, ease: 8, reason: "免费中文问答与代码能力突出" },
-  { providerId: "moonshot", uses: ["chat", "research", "coding", "office"], quality: 8, ease: 9, reason: "中文体验友好，适合文档、研究和 Agent 任务" },
-  { providerId: "zhipu", uses: ["coding"], quality: 8, ease: 7, reason: "国内可用的专业 AI 编程套餐" },
-  { providerId: "baidu-comate", uses: ["coding"], quality: 7, ease: 8, reason: "国内代码补全、代码问答和研发智能体工具" },
-];
-const finderCandidates = finderProductMeta.flatMap((meta) =>
-  planRows
-    .filter((plan) => plan.providerId === meta.providerId)
-    .map((plan) => ({ plan, ...meta })),
-);
+const finderCandidates = productRecommendationCandidates;
 ---
 
 <BaseLayout

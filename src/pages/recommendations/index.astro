@@ -1,86 +1,211 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { recommendationsFor, scenarios, type ScenarioId } from "../../lib/recommendations";
+import {
+  estimatedMonthlyCny,
+  productRecommendationCandidates,
+  productScenarios,
+} from "../../lib/product-recommendations";
 
-const scenarioEntries = Object.entries(scenarios) as [ScenarioId, (typeof scenarios)[ScenarioId]][];
-const money = (value: number, currency: "USD" | "CNY") =>
-  new Intl.NumberFormat("zh-CN", { style: "currency", currency, maximumFractionDigits: 3 }).format(value);
+const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: number | null) => {
+  const value = price ?? annual;
+  if (value === 0) return "免费";
+  if (value === null) return "联系厂商";
+  return `${currency === "USD" ? "$" : "¥"}${value}/月${price === null ? "（年付）" : ""}`;
+};
 ---
 
 <BaseLayout
-  title="AI 模型场景推荐 | 惠选AI"
-  description="基于公开价格、能力、上下文和稳定性的透明规则，为常见 AI 使用场景推荐模型。"
+  title="AI 产品场景推荐 | 惠选AI"
+  description="按实际用途和每月预算继续比较适合你的 AI 产品、订阅套餐与替代选择。"
 >
   <section class="page-head shell">
-    <p>SCENARIO RECOMMENDATIONS</p>
-    <h1>按场景选择模型</h1>
-    <span>推荐由透明规则计算，不接受厂商付费干预；美元和人民币价格分别标准化。</span>
+    <p>PRODUCT RECOMMENDATIONS</p>
+    <h1>按场景继续挑选</h1>
+    <span>从首页带入用途和预算，查看更多不同厂商的合适套餐。每家厂商只展示一个主流选择。</span>
   </section>
-  <section class="scenario-list shell">
-    {scenarioEntries.map(([id, scenario]) => (
-      <section class="scenario" aria-labelledby={`scenario-${id}`}>
-        <div class="scenario-head">
+
+  <section class="recommend-tool shell" aria-labelledby="recommend-heading">
+    <div class="tool-head">
+      <div>
+        <p>继续调整条件</p>
+        <h2 id="recommend-heading">找到更适合你的产品</h2>
+      </div>
+      <a href="/models/scenarios/">查看开发者 API 场景评分</a>
+    </div>
+
+    <fieldset>
+      <legend>主要用来做什么？</legend>
+      <div class="segments scenes">
+        {Object.entries(productScenarios).map(([id, scenario]) => (
+          <button type="button" data-scene={id}>{scenario.name}</button>
+        ))}
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>每月预算多少？</legend>
+      <div class="segments budgets">
+        <button type="button" data-budget="0">只看免费</button>
+        <button type="button" data-budget="70">约 ¥70 内</button>
+        <button type="button" data-budget="150">约 ¥150 内</button>
+        <button type="button" data-budget="unlimited">预算不限</button>
+      </div>
+    </fieldset>
+
+    <div class="result-summary" aria-live="polite">
+      <strong data-result-title></strong>
+      <span data-result-note></span>
+    </div>
+
+    <div class="product-grid">
+      {productRecommendationCandidates.map(({ plan, uses, quality, ease, reason }) => (
+        <a
+          class="product-rec"
+          href={plan.sourceUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-provider={plan.providerId}
+          data-uses={uses.join(",")}
+          data-price-cny={estimatedMonthlyCny(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}
+          data-quality={quality}
+          data-ease={ease}
+          hidden
+        >
           <div>
-            <h2 id={`scenario-${id}`}>{scenario.name}</h2>
-            <p>{scenario.description}</p>
+            <span>{plan.provider.name}</span>
+            <b>{priceLabel(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}</b>
           </div>
-          <span>评分参考：价格 {scenario.weights.cost}% · 场景能力 {scenario.weights.capability}% · 单次处理量 {scenario.weights.context}% · 稳定程度 {scenario.weights.stability}%</span>
-        </div>
-        <div class="recommendation-grid">
-          {recommendationsFor(id).map(({ row, score, components }, index) => (
-            <article>
-              <div class="rank"><span>#{index + 1}</span><strong>{score}</strong></div>
-              <p>{row.provider.name}</p>
-              <h3><a href={`/models/${row.modelId}/`}>{row.name}</a></h3>
-              <div class="price">{money(row.input, row.currency)} 输入 · {money(row.output, row.currency)} 输出</div>
-              <dl>
-                <div><dt>成本</dt><dd>{components.cost}</dd></div>
-                <div><dt>能力</dt><dd>{components.capability}</dd></div>
-                <div><dt title="一次最多可以处理多少内容">处理量</dt><dd>{components.context}</dd></div>
-                <div><dt>稳定性</dt><dd>{components.stability}</dd></div>
-              </dl>
-            </article>
-          ))}
-        </div>
-      </section>
-    ))}
+          <h3>{plan.name}</h3>
+          <p>{reason}</p>
+          <small>查看官方套餐 →</small>
+        </a>
+      ))}
+    </div>
+    <div class="empty" hidden>当前收录中没有同时符合用途和预算的产品，请放宽预算后再试。</div>
   </section>
 </BaseLayout>
 
+<script>
+  const tool = document.querySelector<HTMLElement>(".recommend-tool");
+  if (tool) {
+    const validScenes = ["chat", "research", "coding", "image", "video", "audio", "office"];
+    const validBudgets = ["0", "70", "150", "unlimited"];
+    const params = new URLSearchParams(window.location.search);
+    let scene = validScenes.includes(params.get("scenario") ?? "") ? params.get("scenario")! : "chat";
+    let budgetValue = validBudgets.includes(params.get("budget") ?? "") ? params.get("budget")! : "0";
+    const cards = [...tool.querySelectorAll<HTMLElement>(".product-rec")];
+    const title = tool.querySelector<HTMLElement>("[data-result-title]");
+    const note = tool.querySelector<HTMLElement>("[data-result-note]");
+    const empty = tool.querySelector<HTMLElement>(".empty");
+
+    const metrics = (card: HTMLElement) => ({
+      price: Number(card.dataset.priceCny),
+      quality: Number(card.dataset.quality),
+      ease: Number(card.dataset.ease),
+    });
+
+    const render = () => {
+      const budget = budgetValue === "unlimited" ? Number.POSITIVE_INFINITY : Number(budgetValue);
+      tool.querySelectorAll<HTMLButtonElement>("[data-scene]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.scene === scene));
+      });
+      tool.querySelectorAll<HTMLButtonElement>("[data-budget]").forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.budget === budgetValue));
+      });
+
+      const eligible = cards.filter((card) => {
+        const uses = card.dataset.uses?.split(",") ?? [];
+        return uses.includes(scene) && metrics(card).price <= budget;
+      });
+      const byProvider = new Map<string, HTMLElement[]>();
+      eligible.forEach((card) => {
+        const provider = card.dataset.provider ?? "";
+        byProvider.set(provider, [...(byProvider.get(provider) ?? []), card]);
+      });
+      const ceiling = Number.isFinite(budget) ? budget : 150;
+      const selected = [...byProvider.values()]
+        .map((providerCards) => {
+          const mainstream = providerCards.filter((card) => metrics(card).price <= ceiling);
+          return [...(mainstream.length > 0 ? mainstream : providerCards)]
+            .sort((a, b) => metrics(b).price - metrics(a).price)[0];
+        })
+        .sort(
+          (a, b) =>
+            metrics(b).quality * 10 +
+            metrics(b).ease * 3 -
+            metrics(b).price * 0.02 -
+            (metrics(a).quality * 10 + metrics(a).ease * 3 - metrics(a).price * 0.02),
+        )
+        .slice(0, 8);
+
+      cards.forEach((card) => (card.hidden = true));
+      selected.forEach((card) => {
+        card.hidden = false;
+        tool.querySelector(".product-grid")?.append(card);
+      });
+      if (title) title.textContent = `${selected.length} 家不同厂商符合条件`;
+      if (note) note.textContent = selected.length < 3 ? "候选较少时不会用同一家不同套餐凑数。" : "已按场景适配、易用程度和预算综合排序。";
+      if (empty) empty.hidden = selected.length > 0;
+
+      const next = new URL(window.location.href);
+      next.searchParams.set("scenario", scene);
+      next.searchParams.set("budget", budgetValue);
+      history.replaceState(null, "", next);
+    };
+
+    tool.querySelectorAll<HTMLButtonElement>("[data-scene]").forEach((button) => {
+      button.addEventListener("click", () => {
+        scene = button.dataset.scene ?? "chat";
+        render();
+      });
+    });
+    tool.querySelectorAll<HTMLButtonElement>("[data-budget]").forEach((button) => {
+      button.addEventListener("click", () => {
+        budgetValue = button.dataset.budget ?? "0";
+        render();
+      });
+    });
+    render();
+  }
+</script>
+
 <style>
-  .page-head { padding-block: 68px 42px; }
-  .page-head > p {
-    margin: 0 0 12px; color: var(--cyan); font: 800 11px "SFMono-Regular", Consolas, monospace;
-  }
-  h1 { margin: 0; font-size: 46px; }
-  .page-head > span { display: block; margin-top: 16px; color: var(--muted); line-height: 1.7; }
-  .scenario-list { padding-bottom: 90px; }
-  .scenario { border-top: 1px solid var(--line); padding-block: 32px; }
-  .scenario-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
-  h2 { margin: 0; font-size: 25px; }
-  .scenario-head p { margin: 8px 0 0; color: var(--muted); font-size: 12px; }
-  .scenario-head > span { max-width: 440px; color: var(--muted); font-size: 10px; text-align: right; }
-  .recommendation-grid {
-    display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px;
-  }
-  article { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: rgba(10,18,32,.76); }
-  .rank { display: flex; align-items: center; justify-content: space-between; }
-  .rank span { color: var(--muted); font: 800 11px "SFMono-Regular", Consolas, monospace; }
-  .rank strong { color: var(--cyan); font-size: 25px; }
-  article > p { margin: 18px 0 5px; color: var(--muted); font-size: 10px; }
-  h3 { margin: 0; font-size: 17px; }
-  h3 a:hover { color: var(--cyan); }
-  .price { margin-top: 12px; color: #d8fff0; font-size: 11px; }
-  dl { display: grid; grid-template-columns: repeat(4, 1fr); margin: 16px 0 0; }
-  dl div { border-left: 1px solid var(--line); padding-left: 8px; }
-  dl div:first-child { border-left: 0; padding-left: 0; }
-  dt { color: var(--muted); font-size: 9px; }
-  dd { margin: 4px 0 0; font-size: 12px; font-weight: 800; }
-  @media (max-width: 900px) { .recommendation-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 600px) {
-    h1 { font-size: 36px; }
-    .scenario-head { align-items: flex-start; flex-direction: column; }
-    .scenario-head > span { text-align: left; }
-    .recommendation-grid { grid-template-columns: 1fr; }
+  .page-head { padding-block: 68px 36px; }
+  .page-head > p, .tool-head p { margin: 0 0 10px; color: var(--cyan); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  h1 { margin: 0; font-size: 44px; }
+  .page-head > span { display: block; max-width: 780px; margin-top: 15px; color: var(--muted); line-height: 1.7; }
+  .recommend-tool { padding-bottom: 90px; }
+  .tool-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; border-top: 1px solid var(--line); padding-top: 28px; }
+  .tool-head h2 { margin: 0; font-size: 25px; }
+  .tool-head a { color: var(--cyan); font-size: 13px; font-weight: 800; }
+  fieldset { margin: 25px 0 0; border: 0; padding: 0; }
+  legend { margin-bottom: 10px; color: var(--text); font-size: 14px; font-weight: 800; }
+  .segments { display: grid; gap: 8px; }
+  .scenes { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .budgets { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .segments button { min-height: 46px; border: 1px solid var(--line); border-radius: 5px; background: #07111f; color: #cbd7e7; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .segments button[aria-pressed="true"] { border-color: var(--cyan); background: var(--cyan); color: #031018; font-weight: 900; }
+  .result-summary { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; margin-top: 32px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+  .result-summary strong { font-size: 18px; }
+  .result-summary span { color: var(--muted); font-size: 12px; }
+  .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+  .product-rec { min-height: 190px; border: 1px solid var(--line); border-radius: 8px; padding: 19px; background: rgba(10,18,32,.78); }
+  .product-rec[hidden] { display: none; }
+  .product-rec:hover { border-color: rgba(103,232,249,.55); }
+  .product-rec > div { display: flex; justify-content: space-between; gap: 12px; }
+  .product-rec span { color: var(--muted); font-size: 11px; }
+  .product-rec b { color: var(--green); font-size: 13px; }
+  .product-rec h3 { margin: 24px 0 0; font-size: 19px; }
+  .product-rec p { margin: 9px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+  .product-rec small { display: block; margin-top: 18px; color: var(--cyan); font-size: 12px; font-weight: 800; }
+  .empty { margin-top: 18px; border: 1px solid var(--line); padding: 34px; color: var(--muted); text-align: center; }
+  @media (max-width: 900px) { .scenes { grid-template-columns: repeat(4, 1fr); } .product-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) {
+    .page-head { padding-block: 52px 28px; }
+    h1 { font-size: 35px; }
+    .tool-head, .result-summary { align-items: flex-start; flex-direction: column; }
+    .scenes { grid-template-columns: repeat(2, 1fr); }
+    .budgets { grid-template-columns: repeat(2, 1fr); }
+    .product-grid { grid-template-columns: 1fr; }
   }
 </style>

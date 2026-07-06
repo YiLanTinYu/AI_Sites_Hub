@@ -1,0 +1,79 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { recommendationsFor, scenarios, type ScenarioId } from "../../lib/recommendations";
+
+const entries = Object.entries(scenarios) as [ScenarioId, (typeof scenarios)[ScenarioId]][];
+const money = (value: number, currency: "USD" | "CNY") =>
+  new Intl.NumberFormat("zh-CN", { style: "currency", currency, maximumFractionDigits: 3 }).format(value);
+---
+
+<BaseLayout
+  title="开发者 API 场景评分 | 惠选AI"
+  description="基于价格、能力、上下文和稳定性，为开发者 API 使用场景提供透明模型评分。"
+>
+  <section class="page-head shell">
+    <p>API SCENARIO SCORES</p>
+    <h1>开发者 API 场景评分</h1>
+    <span>这里比较按量计费的模型接口；普通用户订阅产品请前往<a href="/recommendations/">产品场景推荐</a>。</span>
+  </section>
+  <section class="scenario-list shell">
+    {entries.map(([id, scenario]) => (
+      <section class="scenario">
+        <div class="scenario-head">
+          <div><h2>{scenario.name}</h2><p>{scenario.description}</p></div>
+          <span>价格 {scenario.weights.cost}% · 能力 {scenario.weights.capability}% · 处理量 {scenario.weights.context}% · 稳定性 {scenario.weights.stability}%</span>
+        </div>
+        <div class="grid">
+          {recommendationsFor(id).map(({ row, score, components }, index) => (
+            <article>
+              <div class="rank"><span>#{index + 1}</span><strong>{score}</strong></div>
+              <p>{row.provider.name}</p>
+              <h3><a href={`/models/${row.modelId}/`}>{row.name}</a></h3>
+              <div class="price">{money(row.input, row.currency)} 输入 · {money(row.output, row.currency)} 输出</div>
+              <dl>
+                <div><dt>成本</dt><dd>{components.cost}</dd></div>
+                <div><dt>能力</dt><dd>{components.capability}</dd></div>
+                <div><dt>处理量</dt><dd>{components.context}</dd></div>
+                <div><dt>稳定性</dt><dd>{components.stability}</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      </section>
+    ))}
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head { padding-block: 68px 42px; }
+  .page-head > p { margin: 0 0 12px; color: var(--cyan); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  h1 { margin: 0; font-size: 44px; }
+  .page-head > span { display: block; margin-top: 15px; color: var(--muted); }
+  .page-head a { margin-left: 5px; color: var(--cyan); }
+  .scenario-list { padding-bottom: 90px; }
+  .scenario { border-top: 1px solid var(--line); padding-block: 32px; }
+  .scenario-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+  h2 { margin: 0; font-size: 25px; }
+  .scenario-head p { margin: 8px 0 0; color: var(--muted); font-size: 13px; }
+  .scenario-head > span { max-width: 470px; color: var(--muted); font-size: 11px; text-align: right; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+  article { border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: rgba(10,18,32,.76); }
+  .rank { display: flex; align-items: center; justify-content: space-between; }
+  .rank span { color: var(--muted); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  .rank strong { color: var(--cyan); font-size: 25px; }
+  article > p { margin: 18px 0 5px; color: var(--muted); font-size: 11px; }
+  h3 { margin: 0; font-size: 17px; }
+  .price { margin-top: 12px; color: #d8fff0; font-size: 11px; }
+  dl { display: grid; grid-template-columns: repeat(4, 1fr); margin: 16px 0 0; }
+  dl div { border-left: 1px solid var(--line); padding-left: 8px; }
+  dl div:first-child { border-left: 0; padding-left: 0; }
+  dt { color: var(--muted); font-size: 9px; }
+  dd { margin: 4px 0 0; font-size: 12px; font-weight: 800; }
+  @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) {
+    h1 { font-size: 35px; }
+    .scenario-head { align-items: flex-start; flex-direction: column; }
+    .scenario-head > span { text-align: left; }
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
