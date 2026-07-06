@@ -116,7 +116,10 @@ const priceLabel = (plan: PlanRow) => {
     <p class="result-empty" hidden>
       暂时没有同时符合这些条件的产品，请放宽预算或选择“都可以”。
     </p>
-    <a class="result-more" href="/plans/">继续比较全部订阅套餐</a>
+    <div class="result-actions">
+      <a class="scenario-more" data-scenario-more href="/recommendations/">没找到满意的？按场景继续选</a>
+      <a class="result-more" href="/plans/">查看全部订阅套餐</a>
+    </div>
   </div>
 </section>
 
@@ -164,6 +167,7 @@ const priceLabel = (plan: PlanRow) => {
     const results = finder.querySelector<HTMLElement>(".finder-results");
     const resultTitle = finder.querySelector<HTMLElement>("[data-result-title]");
     const resultNote = finder.querySelector<HTMLElement>("[data-result-note]");
+    const scenarioMore = finder.querySelector<HTMLAnchorElement>("[data-scenario-more]");
     const empty = finder.querySelector<HTMLElement>(".result-empty");
     const resultList = finder.querySelector<HTMLElement>(".result-list");
     const cards = [...finder.querySelectorAll<HTMLElement>(".result")];
@@ -260,6 +264,9 @@ const priceLabel = (plan: PlanRow) => {
           recommendations.length < 3
             ? `当前收录中只有 ${recommendations.length} 家不同厂商符合条件，不用同一家不同套餐凑数。`
             : "三个位置分别侧重综合体验、免费省钱和能力表现，每家厂商最多出现一次。";
+      }
+      if (scenarioMore) {
+        scenarioMore.href = `/recommendations/?scenario=${encodeURIComponent(selections.use)}&budget=${encodeURIComponent(selections.budget)}`;
       }
       if (empty) empty.hidden = recommendations.length > 0;
       if (fields) fields.hidden = true;
@@ -525,12 +532,24 @@ const priceLabel = (plan: PlanRow) => {
     white-space: nowrap;
   }
 
-  .result-more {
-    display: inline-block;
+  .result-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
     margin-top: 16px;
+  }
+
+  .scenario-more,
+  .result-more {
     color: var(--cyan);
     font-size: 13px;
     font-weight: 800;
+  }
+
+  .result-more {
+    color: var(--muted);
+    font-weight: 700;
   }
 
   .result-empty {
@@ -580,6 +599,12 @@ const priceLabel = (plan: PlanRow) => {
       align-items: stretch;
       flex-direction: column;
       gap: 14px;
+    }
+
+    .result-actions {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 10px;
     }
 
     .result {

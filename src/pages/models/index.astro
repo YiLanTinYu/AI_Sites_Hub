@@ -24,6 +24,7 @@ const rows = [...modelPriceRows].sort(
       <strong>怎么看价格？</strong>
       <span>“发送内容”是你交给模型的文字；“生成内容”是模型回复的文字；文本单位（Token）是厂商计算文字量的方式，不等同于汉字数。</span>
     </div>
+    <a class="scenario-link" href="/models/scenarios/">按开发场景查看模型评分 →</a>
   </section>
   <section class="shell table-section">
     <div class="filter-bar" aria-label="模型价格筛选">
@@ -114,6 +115,14 @@ const rows = [...modelPriceRows].sort(
 
   .table-section {
     padding-bottom: 90px;
+  }
+
+  .scenario-link {
+    display: inline-block;
+    margin-top: 2px;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 800;
   }
 
   .plain-note {
