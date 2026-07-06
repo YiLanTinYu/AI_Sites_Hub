@@ -72,12 +72,12 @@ const isContactSales = plan.monthlyPrice === null && !isAnnualOnly;
     left: 22px;
     height: 2px;
     content: "";
-    background: var(--cyan);
+    background: var(--card-accent, var(--cyan));
     opacity: 0.72;
   }
 
   .plan-card.free::before {
-    background: var(--green);
+    background: var(--card-accent, var(--green));
   }
 
   .topline {

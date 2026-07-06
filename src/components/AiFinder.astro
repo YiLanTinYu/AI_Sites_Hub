@@ -297,7 +297,13 @@ const priceLabel = (plan: PlanRow) => {
     position: absolute;
     inset: 0 0 auto;
     height: 3px;
-    background: linear-gradient(90deg, var(--cyan), var(--green), #facc15);
+    background: linear-gradient(
+      90deg,
+      var(--cyan) 0 25%,
+      var(--coral) 25% 50%,
+      var(--green) 50% 75%,
+      var(--amber) 75%
+    );
     content: "";
   }
 
