@@ -85,6 +85,7 @@ const priceLabel = (plan: PlanRow) => {
       <strong data-result-title>更适合你的选择</strong>
       <button type="button" data-reset>重新选择</button>
     </div>
+    <p class="result-note" data-result-note></p>
     <div class="result-list">
       {
         candidates.map(({ plan, uses, quality, ease, reason }) => (
@@ -94,6 +95,7 @@ const priceLabel = (plan: PlanRow) => {
             target="_blank"
             rel="noopener noreferrer"
             data-id={plan.id}
+            data-provider={plan.providerId}
             data-uses={uses.join(",")}
             data-price-cny={estimatedCny(plan)}
             data-quality={quality}
@@ -161,40 +163,105 @@ const priceLabel = (plan: PlanRow) => {
     const submit = finder.querySelector<HTMLButtonElement>(".finder-submit");
     const results = finder.querySelector<HTMLElement>(".finder-results");
     const resultTitle = finder.querySelector<HTMLElement>("[data-result-title]");
+    const resultNote = finder.querySelector<HTMLElement>("[data-result-note]");
     const empty = finder.querySelector<HTMLElement>(".result-empty");
     const resultList = finder.querySelector<HTMLElement>(".result-list");
     const cards = [...finder.querySelectorAll<HTMLElement>(".result")];
 
     submit?.addEventListener("click", () => {
       const budget = selections.budget === "unlimited" ? Number.POSITIVE_INFINITY : Number(selections.budget);
-      const scoreCard = (card: HTMLElement) => {
+      const metrics = (card: HTMLElement) => {
         const quality = Number(card.dataset.quality);
         const ease = Number(card.dataset.ease);
         const price = Number(card.dataset.priceCny);
-
-        return quality * 7 + ease * 3 - Math.min(price, 300) * 0.12 + (price === 0 ? 8 : 0);
+        return { quality, ease, price };
       };
-      const eligible = cards
-        .filter((card) => {
-          const uses = card.dataset.uses?.split(",") ?? [];
-          return uses.includes(selections.use) && Number(card.dataset.priceCny) <= budget;
-        })
-        .sort((a, b) => scoreCard(b) - scoreCard(a))
-        .slice(0, 3);
+      const eligible = cards.filter((card) => {
+        const uses = card.dataset.uses?.split(",") ?? [];
+        return uses.includes(selections.use) && metrics(card).price <= budget;
+      });
+      const byProvider = new Map<string, HTMLElement[]>();
+      eligible.forEach((card) => {
+        const provider = card.dataset.provider ?? "";
+        byProvider.set(provider, [...(byProvider.get(provider) ?? []), card]);
+      });
+
+      const planCeiling = Number.isFinite(budget) ? budget : 150;
+      const providerChoices = [...byProvider.values()].map((providerCards) => {
+        const mainstream = providerCards.filter((card) => metrics(card).price <= planCeiling);
+        return [...(mainstream.length > 0 ? mainstream : providerCards)]
+          .sort((a, b) => metrics(b).price - metrics(a).price)[0];
+      });
+      const freeChoices = [...byProvider.values()]
+        .map((providerCards) => providerCards.find((card) => metrics(card).price === 0))
+        .filter((card): card is HTMLElement => card !== undefined);
+      const chosenProviders = new Set<string>();
+      const recommendations: { card: HTMLElement; role: string }[] = [];
+      const take = (
+        choices: HTMLElement[],
+        role: string,
+        score: (card: HTMLElement) => number,
+      ) => {
+        const card = [...choices]
+          .filter((item) => !chosenProviders.has(item.dataset.provider ?? ""))
+          .sort((a, b) => score(b) - score(a))[0];
+        if (!card) return;
+        chosenProviders.add(card.dataset.provider ?? "");
+        recommendations.push({ card, role });
+      };
+
+      take(
+        providerChoices,
+        "综合首选",
+        (card) => metrics(card).quality * 10 + metrics(card).ease * 3 - metrics(card).price * 0.02,
+      );
+      take(
+        freeChoices,
+        "免费省钱",
+        (card) => metrics(card).quality * 8 + metrics(card).ease * 4,
+      );
+      if (recommendations.length < 2) {
+        take(
+          providerChoices,
+          "价格更低",
+          (card) => 1000 - metrics(card).price + metrics(card).quality,
+        );
+      }
+      take(
+        providerChoices,
+        "能力更强",
+        (card) => metrics(card).quality * 12 + metrics(card).ease - metrics(card).price * 0.005,
+      );
+      if (recommendations.length < 3) {
+        take(
+          providerChoices,
+          "更多选择",
+          (card) => metrics(card).quality * 8 + metrics(card).ease * 3,
+        );
+      }
 
       cards.forEach((card) => {
         card.hidden = true;
         card.querySelector(".result-rank")?.replaceChildren();
       });
-      eligible.forEach((card, index) => {
+      recommendations.forEach(({ card, role }) => {
         card.hidden = false;
-        card.querySelector(".result-rank")?.replaceChildren(String(index + 1).padStart(2, "0"));
+        card.querySelector(".result-rank")?.replaceChildren(role);
         resultList?.append(card);
       });
       if (resultTitle) {
-        resultTitle.textContent = eligible.length > 0 ? `更适合你的 ${eligible.length} 个选择` : "没有找到匹配产品";
+        resultTitle.textContent =
+          recommendations.length > 0
+            ? `为你挑出的 ${recommendations.length} 个不同产品`
+            : "没有找到匹配产品";
       }
-      if (empty) empty.hidden = eligible.length > 0;
+      if (resultNote) {
+        resultNote.textContent =
+          recommendations.length < 3
+            ? `当前收录中只有 ${recommendations.length} 家不同厂商符合条件，不用同一家不同套餐凑数。`
+            : "三个位置分别侧重综合体验、免费省钱和能力表现，每家厂商最多出现一次。";
+      }
+      if (empty) empty.hidden = recommendations.length > 0;
       if (fields) fields.hidden = true;
       if (footer) footer.hidden = true;
       if (results) results.hidden = false;
@@ -395,6 +462,13 @@ const priceLabel = (plan: PlanRow) => {
     cursor: pointer;
   }
 
+  .result-note {
+    margin: 7px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
   .result-list {
     margin-top: 14px;
     border-block: 1px solid var(--line);
@@ -402,7 +476,7 @@ const priceLabel = (plan: PlanRow) => {
 
   .result {
     display: grid;
-    grid-template-columns: 34px minmax(0, 1fr) auto;
+    grid-template-columns: 72px minmax(0, 1fr) auto;
     align-items: center;
     gap: 12px;
     border-bottom: 1px solid var(--line);
@@ -423,7 +497,7 @@ const priceLabel = (plan: PlanRow) => {
 
   .result-rank {
     color: var(--cyan);
-    font: 800 12px "SFMono-Regular", Consolas, monospace;
+    font: 800 11px "SFMono-Regular", Consolas, monospace;
   }
 
   .result small {
@@ -509,7 +583,7 @@ const priceLabel = (plan: PlanRow) => {
     }
 
     .result {
-      grid-template-columns: 24px minmax(0, 1fr);
+      grid-template-columns: 68px minmax(0, 1fr);
     }
 
     .result b {
