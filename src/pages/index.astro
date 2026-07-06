@@ -205,6 +205,18 @@ const finderCandidates = productRecommendationCandidates;
     gap: 16px;
   }
 
+  .plan-grid > :nth-child(4n + 2) {
+    --card-accent: var(--coral);
+  }
+
+  .plan-grid > :nth-child(4n + 3) {
+    --card-accent: var(--green);
+  }
+
+  .plan-grid > :nth-child(4n + 4) {
+    --card-accent: var(--amber);
+  }
+
   @media (max-width: 900px) {
     .plan-grid,
     .deal-grid {
@@ -247,6 +259,19 @@ const finderCandidates = productRecommendationCandidates;
     color: var(--cyan);
     font-size: 14px;
     font-weight: 800;
+  }
+
+  #directory > .section-heading .eyebrow {
+    color: var(--green);
+  }
+
+  #deals > .section-heading .eyebrow,
+  #deals > .section-heading > a {
+    color: var(--coral);
+  }
+
+  .section[aria-labelledby="api-price-heading"] .eyebrow {
+    color: var(--amber);
   }
 
   .directory-section {
