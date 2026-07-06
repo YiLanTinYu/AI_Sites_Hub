@@ -58,21 +58,27 @@ const priceLabel = (plan: PlanRow) => {
     <fieldset data-field="budget">
       <legend>每月预算多少？</legend>
       <div class="segments budget">
-        <button type="button" data-value="0" aria-pressed="false">只看免费</button>
+        <button type="button" data-value="0" aria-pressed="true">只看免费</button>
         <button type="button" data-value="70" aria-pressed="false">约 ¥70 内</button>
-        <button type="button" data-value="150" aria-pressed="true">约 ¥150 内</button>
+        <button type="button" data-value="150" aria-pressed="false">约 ¥150 内</button>
         <button type="button" data-value="unlimited" aria-pressed="false">预算不限</button>
       </div>
     </fieldset>
 
   </div>
 
-  <button class="finder-submit" type="button">
-    帮我选
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h14M13 6l6 6-6 6"></path>
-    </svg>
-  </button>
+  <div class="finder-footer">
+    <p class="finder-tip" aria-live="polite">
+      <strong>日常问答</strong>
+      <span>聊天答疑、解释概念、生活建议和灵感整理。</span>
+    </p>
+    <button class="finder-submit" type="button">
+      帮我选
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M5 12h14M13 6l6 6-6 6"></path>
+      </svg>
+    </button>
+  </div>
 
   <div class="finder-results" aria-live="polite" hidden>
     <div class="result-heading">
@@ -118,8 +124,19 @@ const priceLabel = (plan: PlanRow) => {
   if (finder) {
     const selections: Record<string, string> = {
       use: "chat",
-      budget: "150",
+      budget: "0",
     };
+    const useDescriptions: Record<string, { title: string; text: string }> = {
+      chat: { title: "日常问答", text: "聊天答疑、解释概念、生活建议和灵感整理。" },
+      research: { title: "搜索研究", text: "联网查资料、核对来源、市场调研和报告整理。" },
+      coding: { title: "编程开发", text: "代码补全、排查错误、理解项目和开发自动化。" },
+      image: { title: "图片生成", text: "制作插画、海报、商品图和视觉创意。" },
+      video: { title: "视频生成", text: "生成短视频、动态画面、素材和辅助剪辑。" },
+      audio: { title: "音乐音频", text: "创作歌曲、配乐、配音和自然语音。" },
+      office: { title: "写作办公", text: "写作润色、文档总结、方案和办公内容整理。" },
+    };
+    const tipTitle = finder.querySelector<HTMLElement>(".finder-tip strong");
+    const tipText = finder.querySelector<HTMLElement>(".finder-tip span");
 
     finder.querySelectorAll<HTMLFieldSetElement>("fieldset").forEach((field) => {
       field.querySelectorAll<HTMLButtonElement>("button[data-value]").forEach((button) => {
@@ -128,11 +145,19 @@ const priceLabel = (plan: PlanRow) => {
             item.setAttribute("aria-pressed", String(item === button));
           });
           selections[field.dataset.field ?? ""] = button.dataset.value ?? "";
+          if (field.dataset.field === "use") {
+            const description = useDescriptions[button.dataset.value ?? ""];
+            if (description && tipTitle && tipText) {
+              tipTitle.textContent = description.title;
+              tipText.textContent = description.text;
+            }
+          }
         });
       });
     });
 
     const fields = finder.querySelector<HTMLElement>(".finder-fields");
+    const footer = finder.querySelector<HTMLElement>(".finder-footer");
     const submit = finder.querySelector<HTMLButtonElement>(".finder-submit");
     const results = finder.querySelector<HTMLElement>(".finder-results");
     const resultTitle = finder.querySelector<HTMLElement>("[data-result-title]");
@@ -171,14 +196,14 @@ const priceLabel = (plan: PlanRow) => {
       }
       if (empty) empty.hidden = eligible.length > 0;
       if (fields) fields.hidden = true;
-      submit.hidden = true;
+      if (footer) footer.hidden = true;
       if (results) results.hidden = false;
     });
 
     finder.querySelector<HTMLButtonElement>("[data-reset]")?.addEventListener("click", () => {
       if (results) results.hidden = true;
       if (fields) fields.hidden = false;
-      if (submit) submit.hidden = false;
+      if (footer) footer.hidden = false;
     });
   }
 </script>
@@ -293,6 +318,33 @@ const priceLabel = (plan: PlanRow) => {
     box-shadow: 0 0 22px rgba(103, 232, 249, 0.2);
   }
 
+  .finder-footer {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 28px;
+    margin-top: 18px;
+  }
+
+  .finder-footer[hidden] {
+    display: none;
+  }
+
+  .finder-tip {
+    min-width: 0;
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .finder-tip strong {
+    display: block;
+    margin-bottom: 2px;
+    color: var(--text);
+    font-size: 14px;
+  }
+
   .finder-submit {
     display: flex;
     width: 180px;
@@ -300,7 +352,7 @@ const priceLabel = (plan: PlanRow) => {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    margin: 18px 0 0 auto;
+    margin: 0;
     border: 0;
     border-radius: 6px;
     background: var(--cyan);
@@ -448,6 +500,12 @@ const priceLabel = (plan: PlanRow) => {
 
     .finder-submit {
       width: 100%;
+    }
+
+    .finder-footer {
+      align-items: stretch;
+      flex-direction: column;
+      gap: 14px;
     }
 
     .result {
