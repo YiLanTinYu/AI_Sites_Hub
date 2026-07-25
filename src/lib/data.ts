@@ -19,9 +19,8 @@ import {
   providersSchema,
   type ModelPriceRow,
   type PlanRow,
-  type Deal,
-  type DealStatus,
 } from "./schema";
+import { dealStatus } from "./deal-status.ts";
 
 export const directoryCategories = directoryCategoriesSchema.parse(directoryCategoriesJson);
 export const directoryItems = directoryItemsSchema.parse(directoryItemsJson);
@@ -106,24 +105,7 @@ export function priceHistoryFor(modelId: string) {
     .sort((a, b) => a.recordedAt.localeCompare(b.recordedAt));
 }
 
-function dateAtChinaMidnight(value: string) {
-  return new Date(`${value}T00:00:00+08:00`);
-}
-
-function dateAtChinaDayEnd(value: string) {
-  return new Date(`${value}T23:59:59+08:00`);
-}
-
-export function dealStatus(deal: Deal, now = new Date()): DealStatus {
-  if (deal.reviewStatus !== "approved") return "pending";
-  if (deal.startsAt && now < dateAtChinaMidnight(deal.startsAt)) return "upcoming";
-  if (deal.endsAt && now > dateAtChinaDayEnd(deal.endsAt)) return "ended";
-  if (deal.endsAt) {
-    const daysLeft = (dateAtChinaDayEnd(deal.endsAt).getTime() - now.getTime()) / 86_400_000;
-    if (daysLeft <= 7) return "ending_soon";
-  }
-  return "active";
-}
+export { dealStatus };
 
 export const dealRows = deals.map((deal) => {
   const provider = providersById.get(deal.providerId);

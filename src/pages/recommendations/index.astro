@@ -4,6 +4,7 @@ import {
   estimatedMonthlyCny,
   productRecommendationCandidates,
   productScenarios,
+  scenarioGuides,
 } from "../../lib/product-recommendations";
 
 const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: number | null) => {
@@ -82,6 +83,24 @@ const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: numbe
       ))}
     </div>
     <div class="empty" hidden>当前收录中没有同时符合用途和预算的产品，请放宽预算后再试。</div>
+  </section>
+
+  <section class="scenario-guides shell" aria-labelledby="scenario-guides-title">
+    <div class="guide-headline">
+      <div>
+        <p>SCENARIO GUIDES</p>
+        <h2 id="scenario-guides-title">按具体问题继续看</h2>
+      </div>
+      <span>这些页面更适合收藏、转发和搜索，也会连接到对应套餐。</span>
+    </div>
+    <div class="guide-grid">
+      {Object.entries(scenarioGuides).map(([id, guide]) => (
+        <a href={`/recommendations/${id}/`}>
+          <strong>{guide.title}</strong>
+          <span>{guide.intro}</span>
+        </a>
+      ))}
+    </div>
   </section>
 </BaseLayout>
 
@@ -199,13 +218,24 @@ const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: numbe
   .product-rec p { margin: 9px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
   .product-rec small { display: block; margin-top: 18px; color: var(--cyan); font-size: 12px; font-weight: 800; }
   .empty { margin-top: 18px; border: 1px solid var(--line); padding: 34px; color: var(--muted); text-align: center; }
+  .scenario-guides { padding-bottom: 90px; }
+  .guide-headline { display: flex; align-items: end; justify-content: space-between; gap: 22px; border-top: 1px solid var(--line); padding-top: 30px; }
+  .guide-headline p { margin: 0 0 10px; color: var(--green); font: 800 11px "SFMono-Regular", Consolas, monospace; }
+  .guide-headline h2 { margin: 0; font-size: 26px; }
+  .guide-headline > span { max-width: 420px; color: var(--muted); font-size: 12px; line-height: 1.7; text-align: right; }
+  .guide-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 18px; }
+  .guide-grid a { min-height: 150px; border: 1px solid var(--line); border-radius: 8px; padding: 18px; background: rgba(10,18,32,.72); }
+  .guide-grid a:hover { border-color: rgba(134,239,172,.5); }
+  .guide-grid strong { display: block; font-size: 18px; }
+  .guide-grid span { display: block; margin-top: 10px; color: var(--muted); font-size: 13px; line-height: 1.65; }
   @media (max-width: 900px) { .scenes { grid-template-columns: repeat(4, 1fr); } .product-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 560px) {
     .page-head { padding-block: 52px 28px; }
     h1 { font-size: 35px; }
-    .tool-head, .result-summary { align-items: flex-start; flex-direction: column; }
+    .tool-head, .result-summary, .guide-headline { align-items: flex-start; flex-direction: column; }
     .scenes { grid-template-columns: repeat(2, 1fr); }
     .budgets { grid-template-columns: repeat(2, 1fr); }
-    .product-grid { grid-template-columns: 1fr; }
+    .product-grid, .guide-grid { grid-template-columns: 1fr; }
+    .guide-headline > span { text-align: left; }
   }
 </style>

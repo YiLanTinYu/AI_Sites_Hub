@@ -1,0 +1,260 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+  estimatedMonthlyCny,
+  productRecommendationCandidates,
+  productScenarios,
+  scenarioGuides,
+  type ProductScenarioId,
+} from "../../lib/product-recommendations";
+
+export function getStaticPaths() {
+  return Object.keys(productScenarios).map((scenario) => ({
+    params: { scenario },
+  }));
+}
+
+const scenario = Astro.params.scenario as ProductScenarioId;
+const guide = scenarioGuides[scenario];
+const scenarioName = productScenarios[scenario].name;
+const candidates = productRecommendationCandidates
+  .filter((candidate) => (candidate.uses as readonly ProductScenarioId[]).includes(scenario))
+  .sort(
+    (a, b) =>
+      b.quality * 10 +
+      b.ease * 3 -
+      estimatedMonthlyCny(b.plan.currency, b.plan.monthlyPrice, b.plan.annualMonthlyEquivalent) * 0.018 -
+      (a.quality * 10 +
+        a.ease * 3 -
+        estimatedMonthlyCny(a.plan.currency, a.plan.monthlyPrice, a.plan.annualMonthlyEquivalent) * 0.018),
+  )
+  .slice(0, 6);
+
+const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: number | null) => {
+  const value = price ?? annual;
+  if (value === 0) return "免费";
+  if (value === null) return "联系厂商";
+  return `${currency === "USD" ? "$" : "¥"}${value}/月${price === null ? "（年付）" : ""}`;
+};
+---
+
+<BaseLayout
+  title={`${guide.title} | 惠选AI`}
+  description={`${guide.intro} 查看适合${scenarioName}的 AI 产品、订阅价格和选择建议。`}
+>
+  <section class="guide-head shell">
+    <p>AI SCENARIO GUIDE</p>
+    <h1>{guide.title}</h1>
+    <span>{guide.intro}</span>
+    <div class="guide-actions">
+      <a href={`/recommendations/?scenario=${scenario}&budget=150`}>打开交互筛选</a>
+      <a href="/plans/">查看全部套餐</a>
+    </div>
+  </section>
+
+  <section class="guide-grid shell">
+    <article>
+      <h2>适合这些情况</h2>
+      <ul>
+        {guide.bestFor.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+    <article>
+      <h2>怎么选更稳</h2>
+      <ul>
+        {guide.selectionTips.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+  </section>
+
+  <section class="shell picks" aria-labelledby="scenario-picks">
+    <div class="section-title">
+      <div>
+        <p>RECOMMENDED PICKS</p>
+        <h2 id="scenario-picks">{scenarioName}推荐产品</h2>
+      </div>
+      <a href={`/recommendations/?scenario=${scenario}&budget=unlimited`}>查看更多</a>
+    </div>
+    <div class="pick-grid">
+      {candidates.map(({ plan, reason }) => (
+        <a class="pick-card" href={plan.sourceUrl} target="_blank" rel="noopener noreferrer">
+          <span>{plan.provider.name}</span>
+          <h3>{plan.name}</h3>
+          <b>{priceLabel(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}</b>
+          <p>{reason}</p>
+          <small>查看官方套餐 →</small>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .guide-head {
+    padding-block: 72px 36px;
+  }
+
+  .guide-head > p,
+  .section-title p {
+    margin: 0 0 12px;
+    color: var(--cyan);
+    font: 800 11px "SFMono-Regular", Consolas, monospace;
+  }
+
+  h1 {
+    max-width: 880px;
+    margin: 0;
+    font-size: 46px;
+    line-height: 1.14;
+  }
+
+  .guide-head > span {
+    display: block;
+    max-width: 860px;
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.75;
+  }
+
+  .guide-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .guide-actions a,
+  .section-title > a {
+    border: 1px solid rgba(103, 232, 249, 0.45);
+    border-radius: 6px;
+    padding: 10px 14px;
+    color: var(--cyan);
+    font-size: 13px;
+    font-weight: 850;
+  }
+
+  .guide-actions a:hover,
+  .section-title > a:hover {
+    background: rgba(103, 232, 249, 0.12);
+  }
+
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .guide-grid article,
+  .pick-card {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(10, 18, 32, 0.74);
+  }
+
+  .guide-grid article {
+    padding: 24px;
+  }
+
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  .guide-grid h2 {
+    font-size: 22px;
+  }
+
+  ul {
+    margin: 16px 0 0;
+    padding-left: 20px;
+  }
+
+  li {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .picks {
+    padding-block: 54px 90px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+  }
+
+  .section-title h2 {
+    font-size: 28px;
+  }
+
+  .pick-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  .pick-card {
+    min-height: 220px;
+    padding: 20px;
+  }
+
+  .pick-card:hover {
+    border-color: rgba(103, 232, 249, 0.55);
+  }
+
+  .pick-card span {
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 750;
+  }
+
+  .pick-card h3 {
+    margin-top: 18px;
+    font-size: 20px;
+  }
+
+  .pick-card b {
+    display: block;
+    margin-top: 10px;
+    color: var(--green);
+    font-size: 16px;
+  }
+
+  .pick-card p {
+    margin: 12px 0 0;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .pick-card small {
+    display: block;
+    margin-top: 18px;
+    color: var(--cyan);
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  @media (max-width: 820px) {
+    h1 {
+      font-size: 36px;
+    }
+
+    .guide-grid,
+    .pick-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-title {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+</style>
