@@ -2,6 +2,12 @@
 import PlanCard from "../../components/PlanCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { planRows } from "../../lib/data";
+import {
+  estimatedMonthlyCny,
+  productProfiles,
+  productScenarios,
+  type ProductScenarioId,
+} from "../../lib/product-recommendations";
 
 const providerOrder = new Map(
   [
@@ -31,6 +37,10 @@ const rows = [...planRows].sort(
 const providerCount = new Set(rows.map((row) => row.providerId)).size;
 const globalRows = rows.filter((row) => row.provider.region === "global");
 const chinaRows = rows.filter((row) => row.provider.region === "china");
+const profileByProvider = new Map(productProfiles.map((profile) => [profile.providerId, profile]));
+const scenarioEntries = Object.entries(productScenarios) as Array<
+  [ProductScenarioId, (typeof productScenarios)[ProductScenarioId]]
+>;
 ---
 
 <BaseLayout
@@ -66,6 +76,41 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
     </a>
   </nav>
 
+  <section class="plan-controls shell" aria-label="筛选和排序订阅套餐">
+    <div>
+      <span>主要用途</span>
+      <div class="control-group" data-plan-control="scenario">
+        <button type="button" data-scenario="all" aria-pressed="true">全部场景</button>
+        {scenarioEntries.map(([id, scenario]) => (
+          <button type="button" data-scenario={id}>{scenario.name}</button>
+        ))}
+      </div>
+    </div>
+    <div>
+      <span>预算范围</span>
+      <div class="control-group" data-plan-control="budget">
+        <button type="button" data-budget="all" aria-pressed="true">不限预算</button>
+        <button type="button" data-budget="0">免费</button>
+        <button type="button" data-budget="70">约 ¥70 内</button>
+        <button type="button" data-budget="150">约 ¥150 内</button>
+      </div>
+    </div>
+    <label class="free-toggle">
+      <input type="checkbox" data-free-only />
+      <span>只看免费套餐</span>
+    </label>
+    <label class="sort-control">
+      <span>排序</span>
+      <select data-sort-plans>
+        <option value="recommended">综合推荐</option>
+        <option value="price-asc">价格从低到高</option>
+        <option value="price-desc">价格从高到低</option>
+        <option value="verified-desc">最近核实优先</option>
+      </select>
+    </label>
+    <p class="filter-status" data-filter-status aria-live="polite"></p>
+  </section>
+
   <section class="shell plan-section" data-plan-sections>
     <section class="region-section" data-plan-region="global" aria-labelledby="global-plans">
       <div class="region-heading">
@@ -76,7 +121,25 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
         <span>{globalRows.length} 个套餐</span>
       </div>
       <div class="plan-grid">
-        {globalRows.map((plan) => <PlanCard plan={plan} />)}
+        {globalRows.map((plan) => {
+          const profile = profileByProvider.get(plan.providerId);
+          return (
+            <div
+              class="plan-item"
+              data-plan-card
+              data-region="global"
+              data-provider={plan.providerId}
+              data-scenarios={profile?.uses.join(",") ?? ""}
+              data-price-cny={estimatedMonthlyCny(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}
+              data-free={String(plan.monthlyPrice === 0 || plan.billingOptions.includes("free"))}
+              data-verified={plan.verifiedAt}
+              data-quality={profile?.quality ?? 5}
+              data-ease={profile?.ease ?? 5}
+            >
+              <PlanCard plan={plan} />
+            </div>
+          );
+        })}
       </div>
     </section>
 
@@ -89,9 +152,28 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
         <span>{chinaRows.length} 个套餐</span>
       </div>
       <div class="plan-grid">
-        {chinaRows.map((plan) => <PlanCard plan={plan} />)}
+        {chinaRows.map((plan) => {
+          const profile = profileByProvider.get(plan.providerId);
+          return (
+            <div
+              class="plan-item"
+              data-plan-card
+              data-region="china"
+              data-provider={plan.providerId}
+              data-scenarios={profile?.uses.join(",") ?? ""}
+              data-price-cny={estimatedMonthlyCny(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}
+              data-free={String(plan.monthlyPrice === 0 || plan.billingOptions.includes("free"))}
+              data-verified={plan.verifiedAt}
+              data-quality={profile?.quality ?? 5}
+              data-ease={profile?.ease ?? 5}
+            >
+              <PlanCard plan={plan} />
+            </div>
+          );
+        })}
       </div>
     </section>
+    <div class="empty-state" data-plan-empty hidden>当前没有符合条件的套餐，可以放宽预算或切换用途再看。</div>
     <p class="method-note">
       页面价格以美元区官网公开信息为主，不同地区的税费、币种、试用活动及功能可能不同。个人订阅通常不包含开发接口（API）额度，程序调用成本请查看
       <a href="/models/">开发者 API 价格</a>。
@@ -101,10 +183,54 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
   <script>
     const filters = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-region-filter]"));
     const planSections = Array.from(document.querySelectorAll<HTMLElement>("[data-plan-region]"));
+    const planCards = Array.from(document.querySelectorAll<HTMLElement>("[data-plan-card]"));
+    const scenarioButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-scenario]"));
+    const budgetButtons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-budget]"));
+    const freeOnly = document.querySelector<HTMLInputElement>("[data-free-only]");
+    const sortSelect = document.querySelector<HTMLSelectElement>("[data-sort-plans]");
+    const filterStatus = document.querySelector<HTMLElement>("[data-filter-status]");
+    const emptyState = document.querySelector<HTMLElement>("[data-plan-empty]");
     const validRegions = new Set(["all", "china", "global"]);
+    const validBudgets = new Set(["all", "0", "70", "150"]);
+    const validScenarios = new Set(["all", "chat", "research", "coding", "image", "video", "audio", "office"]);
+    const validSorts = new Set(["recommended", "price-asc", "price-desc", "verified-desc"]);
 
-    function applyRegion(region: string) {
-      const activeRegion = validRegions.has(region) ? region : "all";
+    let activeRegion = regionFromUrl();
+    let activeScenario = new URL(window.location.href).searchParams.get("scenario") ?? "all";
+    let activeBudget = new URL(window.location.href).searchParams.get("budget") ?? "all";
+    let activeSort = new URL(window.location.href).searchParams.get("sort") ?? "recommended";
+
+    function normalizeState() {
+      activeRegion = validRegions.has(activeRegion) ? activeRegion : "all";
+      activeScenario = validScenarios.has(activeScenario) ? activeScenario : "all";
+      activeBudget = validBudgets.has(activeBudget) ? activeBudget : "all";
+      activeSort = validSorts.has(activeSort) ? activeSort : "recommended";
+    }
+
+    function priceOf(card: HTMLElement) {
+      return Number(card.dataset.priceCny ?? "99999");
+    }
+
+    function scoreOf(card: HTMLElement) {
+      const quality = Number(card.dataset.quality ?? "5");
+      const ease = Number(card.dataset.ease ?? "5");
+      const price = priceOf(card);
+      return quality * 10 + ease * 3 - price * 0.018;
+    }
+
+    function cardVisible(card: HTMLElement) {
+      if (activeRegion !== "all" && card.dataset.region !== activeRegion) return false;
+      if (activeScenario !== "all") {
+        const scenarios = card.dataset.scenarios?.split(",") ?? [];
+        if (!scenarios.includes(activeScenario)) return false;
+      }
+      if (activeBudget !== "all" && priceOf(card) > Number(activeBudget)) return false;
+      if (freeOnly?.checked && card.dataset.free !== "true") return false;
+      return true;
+    }
+
+    function applyFilters() {
+      normalizeState();
       planSections.forEach((section) => {
         section.hidden = activeRegion !== "all" && section.dataset.planRegion !== activeRegion;
       });
@@ -115,30 +241,101 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
           filter.removeAttribute("aria-current");
         }
       });
+      scenarioButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.scenario === activeScenario));
+      });
+      budgetButtons.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.budget === activeBudget));
+      });
+      if (sortSelect) sortSelect.value = activeSort;
+
+      const visibleCards = planCards.filter(cardVisible);
+      planCards.forEach((card) => {
+        card.hidden = !visibleCards.includes(card);
+      });
+
+      const sortedCards = [...visibleCards].sort((a, b) => {
+        if (activeSort === "price-asc") return priceOf(a) - priceOf(b);
+        if (activeSort === "price-desc") return priceOf(b) - priceOf(a);
+        if (activeSort === "verified-desc") return (b.dataset.verified ?? "").localeCompare(a.dataset.verified ?? "");
+        return scoreOf(b) - scoreOf(a);
+      });
+      sortedCards.forEach((card) => {
+        const grid = card.closest(".plan-grid");
+        grid?.append(card);
+      });
+
+      planSections.forEach((section) => {
+        const hasVisibleCard = !!section.querySelector<HTMLElement>("[data-plan-card]:not([hidden])");
+        if (activeRegion === "all") section.hidden = !hasVisibleCard;
+      });
+      if (emptyState) emptyState.hidden = visibleCards.length > 0;
+      if (filterStatus) {
+        filterStatus.textContent = `当前显示 ${visibleCards.length} 个套餐`;
+      }
     }
 
     function regionFromUrl() {
       return new URL(window.location.href).searchParams.get("region") ?? "all";
     }
 
-    applyRegion(regionFromUrl());
+    applyFilters();
 
     filters.forEach((filter) => {
       filter.addEventListener("click", (event) => {
         event.preventDefault();
-        const region = filter.dataset.regionFilter ?? "all";
+        activeRegion = filter.dataset.regionFilter ?? "all";
         const url = new URL(window.location.href);
-        if (region === "all") {
+        if (activeRegion === "all") {
           url.searchParams.delete("region");
         } else {
-          url.searchParams.set("region", region);
+          url.searchParams.set("region", activeRegion);
         }
         window.history.pushState({}, "", url);
-        applyRegion(region);
+        applyFilters();
       });
     });
 
-    window.addEventListener("popstate", () => applyRegion(regionFromUrl()));
+    scenarioButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeScenario = button.dataset.scenario ?? "all";
+        const url = new URL(window.location.href);
+        if (activeScenario === "all") url.searchParams.delete("scenario");
+        else url.searchParams.set("scenario", activeScenario);
+        window.history.pushState({}, "", url);
+        applyFilters();
+      });
+    });
+
+    budgetButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        activeBudget = button.dataset.budget ?? "all";
+        const url = new URL(window.location.href);
+        if (activeBudget === "all") url.searchParams.delete("budget");
+        else url.searchParams.set("budget", activeBudget);
+        window.history.pushState({}, "", url);
+        applyFilters();
+      });
+    });
+
+    freeOnly?.addEventListener("change", applyFilters);
+    sortSelect?.addEventListener("change", () => {
+      activeSort = sortSelect.value;
+      const url = new URL(window.location.href);
+      if (activeSort === "recommended") url.searchParams.delete("sort");
+      else url.searchParams.set("sort", activeSort);
+      window.history.pushState({}, "", url);
+      applyFilters();
+    });
+
+    window.addEventListener("popstate", () => {
+      const params = new URLSearchParams(window.location.search);
+      activeRegion = regionFromUrl();
+      activeScenario = params.get("scenario") ?? "all";
+      activeBudget = params.get("budget") ?? "all";
+      activeSort = params.get("sort") ?? "recommended";
+      applyFilters();
+    });
   </script>
 </BaseLayout>
 
@@ -233,6 +430,105 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
     font-size: 10px;
   }
 
+  .plan-controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    gap: 14px;
+    border-bottom: 1px solid var(--line);
+    padding-block: 18px 20px;
+  }
+
+  .plan-controls > div,
+  .free-toggle,
+  .sort-control {
+    min-width: 0;
+  }
+
+  .plan-controls span {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .control-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .control-group button {
+    min-height: 34px;
+    border: 1px solid var(--line);
+    border-radius: 5px;
+    padding: 0 11px;
+    background: rgba(10, 18, 32, 0.72);
+    color: #cbd7e7;
+    cursor: pointer;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 760;
+  }
+
+  .control-group button:hover {
+    color: var(--text);
+  }
+
+  .control-group button[aria-pressed="true"] {
+    border-color: rgba(103, 232, 249, 0.55);
+    background: rgba(103, 232, 249, 0.12);
+    color: var(--cyan);
+  }
+
+  .free-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 2px;
+    color: #d9e6f5;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .free-toggle input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--cyan);
+  }
+
+  .free-toggle span {
+    margin: 0;
+    color: inherit;
+  }
+
+  .sort-control {
+    display: grid;
+    gap: 8px;
+  }
+
+  .sort-control select {
+    min-height: 38px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0 11px;
+    outline: none;
+    background: rgba(10, 18, 32, 0.78);
+    color: var(--text);
+    font: inherit;
+    font-size: 12px;
+    font-weight: 760;
+  }
+
+  .filter-status {
+    align-self: end;
+    margin: 0;
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+    text-align: right;
+  }
+
   .plan-section {
     padding-top: 30px;
   }
@@ -279,6 +575,25 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
     gap: 16px;
   }
 
+  .plan-item {
+    display: flex;
+    min-width: 0;
+  }
+
+  .plan-item > :global(.plan-card) {
+    width: 100%;
+  }
+
+  .empty-state {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 22px;
+    padding: 32px;
+    background: rgba(10, 18, 32, 0.64);
+    color: var(--muted);
+    text-align: center;
+  }
+
   .method-note {
     max-width: 900px;
     margin: 20px 2px 0;
@@ -309,6 +624,14 @@ const chinaRows = rows.filter((row) => row.provider.region === "china");
 
     .plain-note {
       display: grid;
+    }
+
+    .plan-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .filter-status {
+      text-align: left;
     }
 
     .region-filter {

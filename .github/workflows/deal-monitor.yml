@@ -37,6 +37,7 @@ jobs:
       - name: Send optional Webhook notification
         env:
           DEAL_WEBHOOK_URL: ${{ secrets.DEAL_WEBHOOK_URL }}
+          SERVERCHAN_SENDKEY: ${{ secrets.SERVERCHAN_SENDKEY }}
         run: npm run notify:deals
 
       - name: Upload review report

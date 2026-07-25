@@ -1,5 +1,6 @@
 import type { APIRoute } from "astro";
 import { directoryCategories, models } from "../lib/data";
+import { productScenarios } from "../lib/product-recommendations";
 
 const siteUrl = "https://huixuanai.com";
 const staticPaths = [
@@ -24,6 +25,7 @@ export const GET: APIRoute = () => {
   const paths = [
     ...staticPaths,
     ...directoryCategories.map((category) => `/directory/${category.id}/`),
+    ...Object.keys(productScenarios).map((scenario) => `/recommendations/${scenario}/`),
     ...models.map((model) => `/models/${model.id}/`),
   ];
   const urls = paths

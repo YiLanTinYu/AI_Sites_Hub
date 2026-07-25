@@ -8,6 +8,7 @@
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro check && ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
+    "test": "node --test tests/deal-status.test.ts tests/pricing.test.ts tests/product-recommendations.test.ts",
     "check:links": "node tools/check-links.mjs",
     "discover:ai": "node tools/discover-ai.mjs",
     "discover:deals": "node tools/discover-deals.mjs",
