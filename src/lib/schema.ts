@@ -78,6 +78,7 @@ export const planSchema = z.object({
   monthlyPrice: z.number().nonnegative().nullable(),
   annualPrice: z.number().nonnegative().nullable(),
   annualMonthlyEquivalent: z.number().nonnegative().nullable(),
+  displayPriceMode: z.enum(["monthly", "annualMonthly"]).optional(),
   billingOptions: z.array(z.enum(["free", "monthly", "annual", "contact_sales"])).min(1),
   usageSummary: z.string().min(1),
   bestFor: z.string().min(1),
