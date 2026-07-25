@@ -269,9 +269,18 @@ const scenarioEntries = Object.entries(productScenarios) as Array<
         const hasVisibleCard = !!section.querySelector<HTMLElement>("[data-plan-card]:not([hidden])");
         if (activeRegion === "all") section.hidden = !hasVisibleCard;
       });
+      if (activeRegion === "all" && activeScenario !== "all") {
+        [...planSections]
+          .sort((a, b) => (a.dataset.planRegion === "china" ? -1 : 1) - (b.dataset.planRegion === "china" ? -1 : 1))
+          .forEach((section) => section.parentElement?.append(section));
+      }
       if (emptyState) emptyState.hidden = visibleCards.length > 0;
       if (filterStatus) {
-        filterStatus.textContent = `当前显示 ${visibleCards.length} 个套餐`;
+        const chinaCount = visibleCards.filter((card) => card.dataset.region === "china").length;
+        filterStatus.textContent =
+          activeRegion === "all" && activeScenario !== "all" && chinaCount > 0
+            ? `当前显示 ${visibleCards.length} 个套餐，含国内 ${chinaCount} 个`
+            : `当前显示 ${visibleCards.length} 个套餐`;
       }
     }
 

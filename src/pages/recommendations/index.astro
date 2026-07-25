@@ -66,6 +66,7 @@ const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: numbe
           target="_blank"
           rel="noopener noreferrer"
           data-provider={plan.providerId}
+          data-region={plan.provider.region}
           data-uses={uses.join(",")}
           data-price-cny={estimatedMonthlyCny(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}
           data-quality={quality}
@@ -122,6 +123,11 @@ const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: numbe
       quality: Number(card.dataset.quality),
       ease: Number(card.dataset.ease),
     });
+    const scoreOf = (card: HTMLElement) =>
+      metrics(card).quality * 10 +
+      metrics(card).ease * 3 -
+      metrics(card).price * 0.02 +
+      (card.dataset.region === "china" ? 8 : 0);
 
     const render = () => {
       const budget = budgetValue === "unlimited" ? Number.POSITIVE_INFINITY : Number(budgetValue);
@@ -142,20 +148,28 @@ const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: numbe
         byProvider.set(provider, [...(byProvider.get(provider) ?? []), card]);
       });
       const ceiling = Number.isFinite(budget) ? budget : 150;
-      const selected = [...byProvider.values()]
+      const providerChoices = [...byProvider.values()]
         .map((providerCards) => {
           const mainstream = providerCards.filter((card) => metrics(card).price <= ceiling);
           return [...(mainstream.length > 0 ? mainstream : providerCards)]
             .sort((a, b) => metrics(b).price - metrics(a).price)[0];
         })
-        .sort(
-          (a, b) =>
-            metrics(b).quality * 10 +
-            metrics(b).ease * 3 -
-            metrics(b).price * 0.02 -
-            (metrics(a).quality * 10 + metrics(a).ease * 3 - metrics(a).price * 0.02),
-        )
-        .slice(0, 8);
+        .sort((a, b) => scoreOf(b) - scoreOf(a));
+      const selected: HTMLElement[] = [];
+      const chosenProviders = new Set<string>();
+      const take = (choices: HTMLElement[]) => {
+        const card = choices.find((item) => !chosenProviders.has(item.dataset.provider ?? ""));
+        if (!card) return;
+        chosenProviders.add(card.dataset.provider ?? "");
+        selected.push(card);
+      };
+
+      take(providerChoices);
+      take(providerChoices.filter((card) => card.dataset.region === "china"));
+      providerChoices.forEach((card) => {
+        if (selected.length >= 8) return;
+        take([card]);
+      });
 
       cards.forEach((card) => (card.hidden = true));
       selected.forEach((card) => {

@@ -96,6 +96,7 @@ const priceLabel = (plan: PlanRow) => {
             rel="noopener noreferrer"
             data-id={plan.id}
             data-provider={plan.providerId}
+            data-region={plan.provider.region}
             data-uses={uses.join(",")}
             data-price-cny={estimatedCny(plan)}
             data-quality={quality}
@@ -180,6 +181,11 @@ const priceLabel = (plan: PlanRow) => {
         const price = Number(card.dataset.priceCny);
         return { quality, ease, price };
       };
+      const balancedScore = (card: HTMLElement) =>
+        metrics(card).quality * 10 +
+        metrics(card).ease * 3 -
+        metrics(card).price * 0.02 +
+        (card.dataset.region === "china" ? 8 : 0);
       const eligible = cards.filter((card) => {
         const uses = card.dataset.uses?.split(",") ?? [];
         return uses.includes(selections.use) && metrics(card).price <= budget;
@@ -217,7 +223,12 @@ const priceLabel = (plan: PlanRow) => {
       take(
         providerChoices,
         "综合首选",
-        (card) => metrics(card).quality * 10 + metrics(card).ease * 3 - metrics(card).price * 0.02,
+        balancedScore,
+      );
+      take(
+        providerChoices.filter((card) => card.dataset.region === "china"),
+        "国内可用",
+        balancedScore,
       );
       take(
         freeChoices,
@@ -263,7 +274,7 @@ const priceLabel = (plan: PlanRow) => {
         resultNote.textContent =
           recommendations.length < 3
             ? `当前收录中只有 ${recommendations.length} 家不同厂商符合条件，不用同一家不同套餐凑数。`
-            : "三个位置分别侧重综合体验、免费省钱和能力表现，每家厂商最多出现一次。";
+            : "优先兼顾综合体验、国内可用、免费省钱和能力表现，每家厂商最多出现一次。";
       }
       if (scenarioMore) {
         scenarioMore.href = `/recommendations/?scenario=${encodeURIComponent(selections.use)}&budget=${encodeURIComponent(selections.budget)}`;
