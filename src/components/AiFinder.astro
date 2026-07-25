@@ -24,6 +24,9 @@ const estimatedCny = (plan: PlanRow) => {
 const priceLabel = (plan: PlanRow) => {
   if (plan.monthlyPrice === 0) return "免费";
   const symbol = plan.currency === "USD" ? "$" : "¥";
+  if (plan.displayPriceMode === "annualMonthly" && plan.annualMonthlyEquivalent !== null) {
+    return `${symbol}${plan.annualMonthlyEquivalent}/月（年付）`;
+  }
   if (plan.monthlyPrice !== null) return `${symbol}${plan.monthlyPrice}/月`;
   if (plan.annualMonthlyEquivalent !== null) {
     return `${symbol}${plan.annualMonthlyEquivalent}/月（年付）`;

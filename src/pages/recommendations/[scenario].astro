@@ -30,11 +30,14 @@ const candidates = productRecommendationCandidates
   )
   .slice(0, 6);
 
-const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: number | null) => {
-  const value = price ?? annual;
+const planPriceLabel = (plan: (typeof productRecommendationCandidates)[number]["plan"]) => {
+  const value =
+    plan.displayPriceMode === "annualMonthly"
+      ? plan.annualMonthlyEquivalent
+      : plan.monthlyPrice ?? plan.annualMonthlyEquivalent;
   if (value === 0) return "免费";
   if (value === null) return "联系厂商";
-  return `${currency === "USD" ? "$" : "¥"}${value}/月${price === null ? "（年付）" : ""}`;
+  return `${plan.currency === "USD" ? "$" : "¥"}${value}/月${plan.displayPriceMode === "annualMonthly" || plan.monthlyPrice === null ? "（年付）" : ""}`;
 };
 ---
 
@@ -80,7 +83,7 @@ const priceLabel = (currency: "USD" | "CNY", price: number | null, annual: numbe
         <a class="pick-card" href={plan.sourceUrl} target="_blank" rel="noopener noreferrer">
           <span>{plan.provider.name}</span>
           <h3>{plan.name}</h3>
-          <b>{priceLabel(plan.currency, plan.monthlyPrice, plan.annualMonthlyEquivalent)}</b>
+          <b>{planPriceLabel(plan)}</b>
           <p>{reason}</p>
           <small>查看官方套餐 →</small>
         </a>
